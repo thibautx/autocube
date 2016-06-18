@@ -8,8 +8,6 @@ inventory_module = Blueprint('inventory', __name__, url_prefix='/inventory')
 def inventory():
 
     listings = Listing.query.all()
-    print type(listings)
-
     return render_template('inventory/index.html',
                            listings=listings)
 
