@@ -1,4 +1,4 @@
-from app.app import db
+from app import db
 from models import Listing
 from flask import Blueprint, request, render_template, flash, g, session, redirect, url_for
 
