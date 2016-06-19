@@ -1,14 +1,23 @@
 from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
+from flask_script import Manager
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate, MigrateCommand
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['DATABASE_URI'] = 'sqlite:///app.db'
 
 # Configurations
 app.config.from_object('config')
 
 db = SQLAlchemy(app)
+db.create_all()
+
+
+manager = Manager(app)
+manager.add_command('db', MigrateCommand)
+migrate = Migrate(app, db)
+
 
 # Admin
 from flask_admin.contrib.sqla import ModelView
@@ -26,7 +35,6 @@ def not_found(error):
 from app.inventory.controllers import inventory_module as mod_inventory
 app.register_blueprint(mod_inventory)
 
-db.create_all()
 
 @app.route('/')
 def landing_page():

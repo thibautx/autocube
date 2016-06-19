@@ -6,6 +6,11 @@ class Listing(db.Model):
     make = db.Column(db.String(80))
     model = db.Column(db.String(80))
     year = db.Column(db.Integer)
+    mileage = db.Column(db.Integer, nullable=True)
+
+    license_plate = db.Column(db.String, unique=True, nullable=True)
+    vin = db.Column(db.String, unique=True, nullable=True)
+
     list_price = db.Column(db.Float)
     image_url = db.Column(db.String(1000))
 
