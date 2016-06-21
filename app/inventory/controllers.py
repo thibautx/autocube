@@ -1,6 +1,7 @@
 from app import db
 from models import Listing
-from flask import Blueprint, request, render_template, flash, g, session, redirect, url_for
+from sqlalchemy import select
+from flask import Blueprint, request, render_template, jsonify
 
 """
 TODO:
@@ -12,19 +13,40 @@ inventory_module = Blueprint('inventory', __name__, url_prefix='/inventory')
 
 def get_all_listings():
     all_listings = Listing.query.all()
-    makes = sorted([row.make for row in db.session.query(Listing.make.distinct().label('make')).all()])
-
-    print 'makes', makes
-
     return all_listings
 
-# TODO: test
-def get_all_models():
-    models = db.session.query(Listing.model).distinct().all()
 
-# TODO: test
-def get_all_makes(model):
-    pass
+def get_all_makes():
+    """
+    Get all makes.
+
+    :param model:
+    :return:
+    """
+    return sorted([row.make for row in db.session.query(Listing.make.distinct().label('make')).all()])
+
+
+def get_all_models(make):
+    """
+    Get all the possible models by the make (sorted alphabetically)
+
+    :param make: (str)
+    :return: (list of str)
+    """
+    return sorted([row.model for row in db.session.query(Listing.model).filter(Listing.make == make).distinct().all()])
+
+
+@inventory_module.route('/api/makes', methods=['GET'])
+def api_makes():
+    return jsonify(makes=get_all_makes())
+
+
+@inventory_module.route('/api/models', methods=['POST'])
+def api_models():
+    make = request.form['make']
+    print get_all_models(make)
+    return jsonify(models=get_all_models(make))
+
 
 @inventory_module.route('/')
 def list_inventory():
