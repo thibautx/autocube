@@ -1,5 +1,5 @@
 from app import db
-from models import Listing
+from app.listing.models import Listing
 from sqlalchemy import select
 from flask import Blueprint, request, render_template, jsonify
 
