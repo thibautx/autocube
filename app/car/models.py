@@ -1,7 +1,7 @@
 from app import db
 
 
-class Listing(db.Model):
+class Car(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     make = db.Column(db.String(80))
     model = db.Column(db.String(80))
@@ -15,5 +15,5 @@ class Listing(db.Model):
     image_url = db.Column(db.String(1000))
 
     def __init__(self, **kwargs):
-        super(Listing, self).__init__(**kwargs)
+        super(Car, self).__init__(**kwargs)
 
