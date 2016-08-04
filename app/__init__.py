@@ -21,9 +21,9 @@ migrate = Migrate(app, db)
 
 # Admin
 from flask_admin.contrib.sqla import ModelView
-from car.models import Car
+from listing.models import Listing
 admin = Admin(app, 'Admin', template_mode='bootstrap3')
-admin.add_view(ModelView(Car, db.session))
+admin.add_view(ModelView(Listing, db.session))
 
 # Sample HTTP error handling
 @app.errorhandler(404)
@@ -32,12 +32,14 @@ def not_found(error):
 
 
 # Register blueprints
-from app.car.controllers import listing_module as mod_listing
+from app.index.controllers import index_module as mod_index
+from app.listing.controllers import listing_module as mod_listing
 from app.inventory.controllers import inventory_module as mod_inventory
+app.register_blueprint(mod_index)
 app.register_blueprint(mod_listing)
 app.register_blueprint(mod_inventory)
 
 
-@app.route('/')
-def landing_page():
-    return render_template('index.html')
+# @app.route('/')
+# def landing_page():
+#     return render_template('index.html')

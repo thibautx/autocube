@@ -1,5 +1,5 @@
 from app import db
-from app.car.models import Car
+from app.listing.models import Listing
 from sqlalchemy import select
 from flask import Blueprint, request, render_template, jsonify
 
@@ -12,7 +12,7 @@ TODO:
 inventory_module = Blueprint('inventory', __name__, url_prefix='/inventory')
 
 def get_all_listings():
-    all_listings = Car.query.all()
+    all_listings = Listing.query.all()
     return all_listings
 
 
@@ -23,7 +23,7 @@ def get_all_makes():
     :param model:
     :return:
     """
-    return sorted([row.make for row in db.session.query(Car.make.distinct().label('make')).all()])
+    return sorted([row.make for row in db.session.query(Listing.make.distinct().label('make')).all()])
 
 
 def get_all_models(make):
@@ -33,7 +33,7 @@ def get_all_models(make):
     :param make: (str)
     :return: (list of str)
     """
-    return sorted([row.model for row in db.session.query(Car.model).filter(Car.make == make).distinct().all()])
+    return sorted([row.model for row in db.session.query(Listing.model).filter(Listing.make == make).distinct().all()])
 
 
 @inventory_module.route('/api/makes', methods=['GET'])
