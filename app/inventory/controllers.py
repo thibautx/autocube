@@ -1,7 +1,6 @@
-from app import db
-from app.listing.models import Listing
-from sqlalchemy import select
 from flask import Blueprint, request, render_template, jsonify
+from app.inventory.util import get_all_makes, get_all_models
+from app.listing.models import Listing
 
 """
 TODO:
@@ -16,25 +15,9 @@ def get_all_listings():
     return all_listings
 
 
-def get_all_makes():
-    """
-    Get all makes.
-
-    :param model:
-    :return:
-    """
-    return sorted([row.make for row in db.session.query(Listing.make.distinct().label('make')).all()])
-
-
-def get_all_models(make):
-    """
-    Get all the possible models by the make (sorted alphabetically)
-
-    :param make: (str)
-    :return: (list of str)
-    """
-    return sorted([row.model for row in db.session.query(Listing.model).filter(Listing.make == make).distinct().all()])
-
+def get_listings_by_make(make):
+    listings = Listing.query.filter(Listing.make == make).all()
+    return listings
 
 @inventory_module.route('/api/makes', methods=['GET'])
 def api_makes():
@@ -44,15 +27,27 @@ def api_makes():
 @inventory_module.route('/api/models', methods=['POST'])
 def api_models():
     make = request.form['make']
-    print get_all_models(make)
     return jsonify(models=get_all_models(make))
 
 
 @inventory_module.route('/')
-def list_inventory():
-    all_listings = get_all_listings()
+def inventory(make=None, model=None, year=None):
+
+    if make is None and model is None and year is None:
+        listings = get_all_listings()
+    else:
+        listings = get_listings_by_make(make)
+
+    all_makes = get_all_makes()
     return render_template('inventory/index.html',
-                           listings=all_listings)
+                           listings=listings, all_makes=all_makes, make=make)
+
+@inventory_module.route('/filter', methods=['GET', 'POST'])
+def filter():
+    print request.method
+    if request.method == 'GET':
+        make = request.args.get('make')
+        return inventory(make=make)
 
 
 @inventory_module.route('/')

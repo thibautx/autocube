@@ -60,6 +60,18 @@
 
                 {% endfor %}
 
+                <form action="" method="POST">
+                  <script
+                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="sk_test_QAV7mxXNUcAgZvCygkuux35a"
+                    data-amount="999"
+                    data-name="Demo Site"
+                    data-description="Widget"
+                    data-image="/img/documentation/checkout/marketplace.png"
+                    data-locale="auto">
+                  </script>
+                </form>
+
             </div>
         </div>
         <!-- /#page-content-wrapper -->

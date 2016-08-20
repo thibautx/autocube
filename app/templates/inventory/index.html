@@ -23,13 +23,10 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
 
 <body>
-
     <div id="wrapper">
-
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
@@ -52,6 +49,18 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
 
+            <form name="make_filter" action="{{ url_for('.filter') }}" method="GET">
+                <select name="make">
+                    {% for make in all_makes %}
+                        <option value="{{ make }}">{{ make }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Filter</button>
+           </form>
+
+            <br> <br>
+
+
 
             <!-- Listings row -->
             {% for listing in listings %}
@@ -64,9 +73,6 @@
                             <a href="#">{{ listing.year }} {{ listing.make }}  {{ listing.model }}</a>
                         </h3>
                             <a href="/inventory/listing/{{ listing.id }}"> Details </a>
-{#                        <li>List price {{ listing.list_price }}</li>#}
-{#                        <li>Mileage {{ listing.mileage }} miles </li>#}
-
                     </div>
                 </div>
             {% endfor %}
