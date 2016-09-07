@@ -1,4 +1,3 @@
-import time
 import nhtsa
 import edmunds
 from flask import Blueprint, render_template, request
@@ -17,5 +16,4 @@ def filter():
         model = request.args.get('model')
         recalls = nhtsa.get_recalls(year, make, model)
         dealers = edmunds.get_dealers(60601, make)
-        print dealers[0].keys()
         return render_template('recalls/index.html', recalls=recalls, dealers=dealers)

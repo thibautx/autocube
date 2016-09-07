@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+{% block title %}Inventory{% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+    <form class="form-horizontal" action="{{ url_for('.display') }}">
+        <fieldset>
+
+        <!-- Form Name -->
+        <legend>Subscriptions</legend>
+
+        <!-- Multiple Checkboxes -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="feeds">Feeds</label>
+          <div class="col-md-4">
+          <div class="checkbox">
+            <label for="feeds-0">
+              <input type="checkbox" name="feeds" id="feeds-0" value="autoblog">
+              AutoBlog
+            </label>
+            </div>
+          <div class="checkbox">
+            <label for="feeds-1">
+              <input type="checkbox" name="feeds" id="feeds-1" value="motortrend">
+              MotorTrend
+            </label>
+            </div>
+          <div class="checkbox">
+            <label for="feeds-2">
+              <input type="checkbox" name="feeds" id="feeds-2" value="caranddriver">
+              Car and Driver
+            </label>
+            </div>
+          <div class="checkbox">
+            <label for="feeds-3">
+              <input type="checkbox" name="feeds" id="feeds-3" value="thecarconnection">
+              The Car Connection
+            </label>
+            </div>
+          <div class="checkbox">
+            <label for="feeds-4">
+              <input type="checkbox" name="feeds" id="feeds-4" value="autoweek">
+              AutoWeek
+            </label>
+            </div>
+          <div class="checkbox">
+            <label for="feeds-5">
+              <input type="checkbox" name="feeds" id="feeds-5" value="automobilemag">
+              Automobile Mag
+            </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="submit"></label>
+          <div class="col-md-4">
+            <button id="submit" name="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+
+        </fieldset>
+    </form>
+
+     <table class="table table-bordered">
+       <thead>
+          <tr>
+             <th>
+                Title
+             </th>
+                <th>
+                  Author
+                </th>
+             <th>
+                Date
+             </th>
+             <th>
+                Link
+             </th>
+             <th>
+                Summary
+             </th>
+          </tr>
+       </thead>
+       {% for item in news_items %}
+       <tbody>
+          <tr>
+             <td>
+                {{ item.title }}
+             </td>
+             <td>
+                {{ item.author}}
+             </td>
+             <td>
+                {{ item.date }}
+             </td>
+             <td>
+                {{ item.link }}
+             </td>
+             <td>
+                {{ item.summary }}
+             </td>
+          </tr>
+       </tbody>
+       {% endfor %}
+    </table>
+{% endblock %}
