@@ -51,8 +51,7 @@
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-
-            <form class="form-horizontal">
+            <form class="form-horizontal" action="{{ url_for('.filter') }}">
                 <fieldset>
 
                 <!-- Text input-->
@@ -171,6 +170,50 @@
                 </tbody>
                 {% endfor %}
                 </table>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Hours
+                        </th>
+                        <th>
+                            Distance
+                        </th>
+                        <th>
+                            Address
+                        </th>
+                        <th>
+                            Contact Info
+                        </th>
+                    </tr>
+                </thead>
+                {% for dealer in dealers %}
+                <tbody>
+                    <tr>
+                        <td>
+                            {{ dealer.niceName }}
+                        </td>
+                        <td>
+                            {{ dealer.hours }}
+                        </td>
+                        <td>
+                            {{ dealer.distance }}
+                        </td>
+                        <td>
+                            {{ dealer.address }}
+                        </td>
+                        <td>
+                            {{ dealer.contactInfo }}
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+                </table>
+
         </div>
         <!-- /#page-content-wrapper -->
     </div>

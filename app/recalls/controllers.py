@@ -1,3 +1,4 @@
+import time
 import nhtsa
 import edmunds
 from flask import Blueprint, render_template, request
@@ -11,17 +12,10 @@ def recalls():
 @recalls_module.route('/filter', methods=['GET', 'POST'])
 def filter():
     if request.method == 'GET':
-
         year = request.args.get('year')
         make = request.args.get('make')
         model = request.args.get('model')
         recalls = nhtsa.get_recalls(year, make, model)
-        return render_template('recalls/index.html', recalls=recalls)
-
-@recalls_module.route('/fix', methods=['GET'])
-def fix_recall():
-    if request.method == 'GET':
-        make = request.args.get('make')
-        zip = request.args.get('zip')
-        dealers = edmunds.get_dealers(zip, make)
-        return render_template('recalls/fix.html', dealers=dealers)
+        dealers = edmunds.get_dealers(60601, make)
+        print dealers[0].keys()
+        return render_template('recalls/index.html', recalls=recalls, dealers=dealers)

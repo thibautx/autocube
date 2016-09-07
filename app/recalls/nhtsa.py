@@ -1,7 +1,4 @@
-import json
 import requests
-
-# http://www.nhtsa.gov/webapi/api/Recalls/vehicle/modelyear/2000/make/saturn/model/LS?format=json
 
 
 def get_all_years():
@@ -12,9 +9,6 @@ def get_all_years():
     model_years.remove('9999')
     return map(int, model_years)
 
-def get_all_model_years_local():
-    f = json.loads('model_years.json')
-    pass
 
 def get_makes_by_year(model_year):
     # /api/Recalls/vehicle/modelyear/2000?format=json
@@ -32,20 +26,20 @@ def get_models_by_make_and_year(year, make):
     r = requests.get(api_url).json()
     results = r['Results']
     models = [entry['Model'] for entry in results]
-    return models
 
 
-def get_recalls(year, make, model):
+
+def get_recalls(model_year, make, model):
     """
     Queries NHTSA api for recall information.
 
-    :param year: (int)
+    :param model_year: (int)
     :param make: (String)
     :param model: (String)
     :return:
     """
     api_url = 'http://www.nhtsa.gov/webapi/api/Recalls/vehicle/modelyear/{}/make/{}/model/{}?format=json'\
-        .format(year, make, model)
+        .format(model_year, make, model)
     r = requests.get(api_url).json()
     assert r['Message'] == 'Results returned successfully', 'Bad response from nhtsa API.'
     return r['Results']
@@ -56,8 +50,9 @@ def lookup_vin(vin_number):
 if __name__ == "__main__":
     model_year = 2000
     make = 'Honda'
-    # model = 'civic'
+    model = 'Civic'
     # years = get_all_years()
     # makes = get_makes_by_year(model_year)
-    print get_models_by_make_and_year(model_year, make)
-    # recalls = get_recalls(model_year, make, model)
+    # print get_models_by_make_and_year(model_year, make)
+    recalls = get_recalls(model_year, make, model)
+    print recalls
