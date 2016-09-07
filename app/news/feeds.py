@@ -1,25 +1,23 @@
 import pprint
 import feedparser as fp
-
-# entry = {
-#     'Author': None,
-#     'Link': None,
-#     'Date': None,
-#     'Title': None,
-#     'Content': None,
-# }
+from bs4 import BeautifulSoup
 
 def parse_feed(url):
     entries = fp.parse(url)['entries']
     return [format_entry(entry) for entry in entries]
 
 def format_entry(entry):
+    soup = BeautifulSoup(entry['summary'], 'html.parser')
+    image = soup.find('img').attrs['src']
+    summary = BeautifulSoup(entry['summary'], 'html.parser').text
+
     formatted = {
         'title': entry['title'],
         'author': entry['author'],
         'link': entry['link'],
         'date': entry['published'],
-        'summary': entry['summary']
+        'summary': summary,
+        'image': image,
     }
 
     return formatted
@@ -55,5 +53,5 @@ def automobilemag_feed():
 
 if __name__ == "__main__":
     pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(thecarconnection_feed()[0])
+    pp.pprint(autoblog_feed()[0])
 

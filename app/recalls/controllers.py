@@ -1,10 +1,12 @@
 import nhtsa
 import edmunds
 from flask import Blueprint, render_template, request
+from flask_login import login_required
 
 recalls_module = Blueprint('_recalls', __name__, url_prefix='/recalls')
 
 @recalls_module.route('/')
+@login_required
 def recalls():
     return render_template('recalls/index.html')
 

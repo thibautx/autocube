@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask
 from flask_admin import Admin
 from flask_script import Manager
 from flask_sqlalchemy import SQLAlchemy
@@ -19,14 +19,16 @@ migrate = Migrate(app, db)
 # Admin
 from flask_admin.contrib.sqla import ModelView
 from listing.models import Listing
+from profile.user.models import User, Car
 admin = Admin(app, 'Admin', template_mode='bootstrap3')
-admin.add_view(ModelView(Listing, db.session))
+# admin.add_view(ModelView(Listing, db.session))
+admin.add_view(ModelView(User, db.session))
+admin.add_view(ModelView(Car, db.session))
 
 # Auth
-from app.profile.models import init_app
+from app.profile.auth.models import init_app
 init_app(app)
 
-# Sample HTTP error handling
 @app.errorhandler(404)
 def not_found(error):
     return '404'
@@ -46,9 +48,4 @@ app.register_blueprint(mod_profile)
 app.register_blueprint(mod_inventory)
 app.register_blueprint(mod_recalls)
 
-
 db.create_all()
-
-# @app.route('/')
-# def landing_page():
-#     return render_template('index.html')

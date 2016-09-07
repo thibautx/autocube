@@ -1,22 +1,26 @@
-import logging
 import sqlalchemy as sa
+from app import db
 from sqlalchemy import orm
 from datetime import datetime
-from flask import current_app
-from flask_babel import gettext as _
-from flask_security import UserMixin, RoleMixin, Security, SQLAlchemyUserDatastore
-from app import db
-
+from flask_security import UserMixin, RoleMixin
+from app.profile.auth.models import SocialConnection
 
 roles_users = db.Table('roles_users',
                        sa.Column('user_id', sa.Integer(), sa.ForeignKey('user.id')),
                        sa.Column('role_id', sa.Integer(), sa.ForeignKey('role.id')))
 
+class Car(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    make = db.Column(db.String(80))
+    model = db.Column(db.String(80))
+    year = db.Column(db.Integer)
+    license_plate = db.Column(db.String, unique=True, nullable=True)
+    vin = db.Column(db.String, unique=True, nullable=True)
 
-class Role(db.Model, RoleMixin):
-    id = sa.Column(sa.Integer(), primary_key=True)
-    name = sa.Column(sa.String(80), unique=True)
-    description = sa.Column(sa.String(255))
+    owner = orm.relationship('User', back_populates='cars')
+
+    def __init__(self, **kwargs):
+        super(Car, self).__init__(**kwargs)
 
 
 class User(db.Model, UserMixin):
@@ -31,6 +35,7 @@ class User(db.Model, UserMixin):
     first_name = sa.Column(sa.String(120))
     last_name = sa.Column(sa.String(120))
     roles = orm.relationship('Role', secondary=roles_users, backref=orm.backref('users', lazy='dynamic'))
+    cars = orm.relationship('Car', back_populates='owner')
 
     @property
     def cn(self):
@@ -55,84 +60,7 @@ class User(db.Model, UserMixin):
         return SocialConnection.query.filter(SocialConnection.user_id == self.id).all()
 
 
-class SocialConnection(db.Model):
-    id = sa.Column(sa.Integer, primary_key=True)
-    user_id = sa.Column(sa.Integer, sa.ForeignKey('user.id'))
-    user = orm.relationship("User", foreign_keys=user_id, backref=orm.backref('connections', order_by=id))
-    provider = sa.Column(sa.String(255))
-    profile_id = sa.Column(sa.String(255))
-    username = sa.Column(sa.String(255))
-    email = sa.Column(sa.String(255))
-    access_token = sa.Column(sa.String(255))
-    secret = sa.Column(sa.String(255))
-    first_name = sa.Column(sa.String(255))
-    last_name = sa.Column(sa.String(255))
-    cn = sa.Column(sa.String(255))
-    profile_url = sa.Column(sa.String(512))
-    image_url = sa.Column(sa.String(512))
-
-    def get_user(self):
-        return self.user
-
-    @classmethod
-    def by_profile(cls, profile):
-        provider = profile.data["provider"]
-        return cls.query.filter(cls.provider == provider, cls.profile_id == profile.id).first()
-
-    @classmethod
-    def from_profile(cls, user, profile):
-        if not user or user.is_anonymous:
-            email = profile.data.get("email")
-            if not email:
-                msg = "Cannot create new user, authentication provider did not not provide email"
-                logging.warning(msg)
-                raise Exception(_(msg))
-            conflict = User.query.filter(User.email == email).first()
-            if conflict:
-                msg = "Cannot create new user, email {} is already used. Login and then connect external profile."
-                msg = _(msg).format(email)
-                logging.warning(msg)
-                raise Exception(msg)
-
-            now = datetime.now()
-            user = User(
-                email=email,
-                first_name=profile.data.get("first_name"),
-                last_name=profile.data.get("last_name"),
-                confirmed_at=now,
-                active=True,
-            )
-            db.session.add(user)
-            db.session.flush()
-
-        assert user.id, "User does not have an id"
-        connection = cls(user_id=user.id, **profile.data)
-        db.session.add(connection)
-        db.session.commit()
-        return connection
-
-
-def load_user(user_id):
-    return User.query.get(user_id)
-
-
-def send_mail(msg):
-    logging.debug("msg: %s" % msg)
-    mail = current_app.extensions.get('mail')
-    mail.send(msg)
-
-
-def init_app(app):
-    from flask_login import LoginManager
-    login_manager = LoginManager()
-    login_manager.init_app(app)
-    login_manager.user_loader(load_user)
-    login_manager.login_view = "/login"
-
-    # Setup Flask-Security
-    security = Security()
-    security = security.init_app(app, SQLAlchemyUserDatastore(db, User, Role))
-    security.send_mail_task(send_mail)
-
-    from flask_social_blueprint.core import SocialBlueprint
-    SocialBlueprint.init_bp(app, SocialConnection, url_prefix="/_social")
+class Role(db.Model, RoleMixin):
+    id = sa.Column(sa.Integer(), primary_key=True)
+    name = sa.Column(sa.String(80), unique=True)
+    description = sa.Column(sa.String(255))
