@@ -1,4 +1,5 @@
 import nhtsa
+import edmunds
 from flask import Blueprint, render_template, request
 
 recalls_module = Blueprint('_recalls', __name__, url_prefix='/recalls')
@@ -16,3 +17,11 @@ def filter():
         model = request.args.get('model')
         recalls = nhtsa.get_recalls(year, make, model)
         return render_template('recalls/index.html', recalls=recalls)
+
+@recalls_module.route('/fix', methods=['GET'])
+def fix_recall():
+    if request.method == 'GET':
+        make = request.args.get('make')
+        zip = request.args.get('zip')
+        dealers = edmunds.get_dealers(zip, make)
+        return render_template('recalls/fix.html', dealers=dealers)
