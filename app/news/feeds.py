@@ -8,7 +8,10 @@ def parse_feed(url):
 
 def format_entry(entry):
     soup = BeautifulSoup(entry['summary'], 'html.parser')
-    image = soup.find('img').attrs['src']
+    try:
+        image = soup.find('img').attrs['src']
+    except:
+        image = None
     summary = BeautifulSoup(entry['summary'], 'html.parser').text
 
     formatted = {
@@ -53,5 +56,5 @@ def automobilemag_feed():
 
 if __name__ == "__main__":
     pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(autoblog_feed()[0])
+    pp.pprint(motortrend_feed()[0])
 

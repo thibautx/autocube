@@ -14,6 +14,7 @@ cars_users = db.Table('cars_users',
 
 
 class Car(db.Model):
+    __tablename__ = 'car'
     id = db.Column(db.Integer, primary_key=True)
     make = db.Column(db.String(80))
     model = db.Column(db.String(80))
@@ -21,13 +22,15 @@ class Car(db.Model):
     license_plate = db.Column(db.String, unique=True, nullable=True)
     vin = db.Column(db.String, unique=True, nullable=True)
 
-    user = db.Column('User', db.String, sa.ForeignKey('des.id'))
+    user_id = db.Column(sa.Integer, sa.ForeignKey('user.id'))
+    user = orm.relationship('User', foreign_keys=user_id, backref=orm.backref('user', order_by=id))
 
     def __init__(self, **kwargs):
         super(Car, self).__init__(**kwargs)
 
 
 class User(db.Model, UserMixin):
+    __tablename__ = 'user'
     id = sa.Column(sa.Integer, primary_key=True)
     login = sa.Column(sa.String(250), unique=True)
     email = sa.Column(sa.String(250), unique=True)
@@ -39,7 +42,7 @@ class User(db.Model, UserMixin):
     first_name = sa.Column(sa.String(120))
     last_name = sa.Column(sa.String(120))
     roles = orm.relationship('Role', secondary=roles_users, backref=orm.backref('users', lazy='dynamic'))
-    # cars = orm.relationship('Car', secondary=cars_users, backref=orm.backref('users', lazy='dynamic'))
+    cars = orm.relationship('Car', secondary=cars_users, backref=orm.backref('users', lazy='dynamic'))
 
     @property
     def cn(self):
