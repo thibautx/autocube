@@ -1,5 +1,5 @@
 .navbar{
-  margin-bottom:0;
+  margin-bottom:0px;
   border:none;
 }
 
@@ -8,9 +8,10 @@
 }
 
 .hero{
-  background:url(../images/landing-bg.jpg) no-repeat center;
+  background:url(../images/landing-bg.jpg) center;
   background-size:cover;
   border:none;
+  height:100%;
 }
 
 @media (min-width:992px) {
@@ -117,6 +118,9 @@ section.testimonials{
 .site-footer{
   padding:20px 0;
   text-align:center;
+  position:relative;
+  clear:both;
+  margin-top:-150px;
 }
 
 @media (min-width:768px) {
@@ -153,5 +157,18 @@ section.testimonials{
   .site-footer .social-icons{
     text-align:right;
   }
+}
+
+div#content{
+  padding-bottom:150px;
+}
+
+.footer, push{
+  height:150px;
+}
+
+html, body{
+  height:100%;
+  margin:0;
 }
 

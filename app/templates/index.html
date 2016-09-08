@@ -1,34 +1,20 @@
 {% extends "layout.html" %}
-{% block title %}Inventory{% endblock %}
+{% block title %} AUTOCUBE {% endblock %}
 {% block head %}
 {{ super() }}
 {% endblock %}
 {% block landing %}
-<div class="jumbotron hero">
-    <div class="container">
+    <div class="jumbotron hero">
         <div class="row">
-            <div class="col-md-4 get-it">
-                <h1>Never worry about the safety of your car again.</h1>
-                <p>Autocube brings you the latest news and safety updates for your vehicles. We put you in touch with dealers to fix your car's safety recalls for free.</p>
+            <div class="col-md-8 col-md-offset-2 get-it">
+                <h1 class="text-center">Never worry about the safety of your car again.</h1>
+                <p class="text-center">Autocube brings you the latest news and safety updates for your vehicles. We put you in touch with dealers to fix your car's safety recalls for free.</p>
             </div>
-            <div class="col-md-6 get-it">
-                <div class="row login-form">
-                    <div class="col-md-offset-4">
-                        <h2 class="text-center form-heading">Sign up now!</h2>
-                        <form class="custom-form">
-                            <div class="form-group">
-                                <input class="form-control" type="email" placeholder="Email">
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="password" placeholder="Password">
-                            </div>
-                            <div class="form-group"></div>
-                            <button class="btn btn-default btn-block submit-button" type="button">Submit Form</button>
-                        </form>
-                    </div>
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 col-md-offset-5">
+                <button class="btn btn-default btn-lg" type="button">Get Started</button>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
