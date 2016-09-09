@@ -1,5 +1,6 @@
 import feeds
 from flask import Blueprint, render_template, request
+from flask_login import login_required
 
 news_module = Blueprint('_news', __name__, url_prefix='/news')
 
@@ -13,10 +14,12 @@ f = {
 }
 
 @news_module.route('/')
+@login_required
 def news():
     return render_template('news/index.html')
 
 @news_module.route('/display', methods=['GET'])
+@login_required
 def display():
     if request.method == 'GET':
 

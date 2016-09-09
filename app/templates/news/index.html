@@ -1,9 +1,10 @@
-{% extends "base.html" %}
+{% extends "page.html" %}
 {% block title %} News {% endblock %}
 {% block head %}
 {{ super() }}
 {% endblock %}
 {% block content %}
+    <div class="container">
 <div id="tab-news">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#tab-1" role="tab" data-toggle="tab">My News</a></li>
@@ -93,4 +94,5 @@
         </div>
     </div>
 </div>
+    </div>
 {% endblock %}
