@@ -172,3 +172,27 @@ html, body{
   margin:0;
 }
 
+i#landing-icon.glyphicon.glyphicon-flash{
+  font-size:50px;
+}
+
+div#landing-content.col-md-4{
+  text-align:center;
+}
+
+div#landing-content2.col-md-4{
+  text-align:center;
+}
+
+div#landing-content3.col-md-4{
+  text-align:center;
+}
+
+i#landing-icon.glyphicon.glyphicon-usd{
+  font-size:50px;
+}
+
+i#landing-icon.glyphicon.glyphicon-check{
+  font-size:50px;
+}
+

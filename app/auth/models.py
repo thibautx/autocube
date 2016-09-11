@@ -1,12 +1,14 @@
 import logging
 from datetime import datetime
+
 import sqlalchemy as sa
 from flask import current_app
 from flask.ext.babel import gettext as _
 from flask.ext.security import Security, SQLAlchemyUserDatastore
 from sqlalchemy import orm
+
 from app import db
-from app.profile.user.models import User, Role
+from app.profile.models import User, Role
 
 
 class SocialConnection(db.Model):
@@ -89,4 +91,4 @@ def init_app(app):
     security.send_mail_task(send_mail)
 
     from flask_social_blueprint.core import SocialBlueprint
-    SocialBlueprint.init_bp(app, SocialConnection, url_prefix="/_social")
+    SocialBlueprint.init_bp(app, SocialConnection, url_prefix="/auth")
