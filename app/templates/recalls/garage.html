@@ -1,0 +1,138 @@
+{% extends "page.html" %}
+{% block title %} Recalls {% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Your Cars</h3></div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Car Details</th>
+                            <th>Recalls </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for car in cars %}
+                        <tr>
+                            <td> {{ car.year }} {{ car.make }} {{ car.model }}</td>
+                            <td> 2 </td>
+                            <td> <a href="#" class="open-recall-details" data-make="{{ car.make }}" data-model="{{ car.model }}" data-year="{{ car.year }}"
+                                    data-toggle="modal" data-target="#recall-details">Details</a> </td>
+                            <td> Edit </td>
+                            <td> Delete </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <form name="add-car" action="{{ url_for('.add_car') }}" method="POST">
+        <div class="form-group">
+            <label for="make"></label>
+            <select id="make" name="make" class="selectpicker" data-live-search="true">
+                <option disabled="disabled" selected="selected">Make</option>
+            </select>
+            <label for="model"></label>
+            <select id="model" name="model" class="selectpicker" data-live-search="true">
+                <option disabled="disabled" selected="selected">Model</option>
+            </select>
+            <label for="year"></label>
+            <select id="year" name="year" class="selectpicker" data-live-search="true">
+                <option disabled="disabled" selected="selected">Year</option>
+            </select>
+            <button type="submit" class="btn btn-default btn-md">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Car
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="modal fade" role="dialog" tabindex="-1" id="recall-details">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Details</h4></div>
+            <div class="modal-body" id="recall-details-summary">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" type="button">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script>
+    $(document).on("click", ".open-recall-details", function () {
+    var make = $(this).data('make');
+    var model = $(this).data('model');
+    var year = $(this).data('year');
+    $("#recall-details-summary").append("<p>This is a paragraph</p>");
+    });
+</script>
+
+<script>
+    var make_selector = '#make';
+    var model_selector = '#model';
+    var year_selector = '#year';
+
+    $(document).ready(function() {
+
+
+        // Populate make select
+        $.each({{makes | safe}}, function(index, make) {
+            $(make_selector).append($('<option>').text(make).attr('value', make));
+        });
+
+        // When selected make changes, populate model select
+        $(make_selector).change(function() {
+            var selected_make = this.value;
+            $(model_selector).empty();
+            $.getJSON("{{ url_for('.models')}}", {
+                    make: selected_make
+                },
+                function(data) {
+                    $(model_selector).append($('<option>').text('Model').attr('disabled', 'disabled').attr('selected', 'selected'));
+                    $.each(data, function(number, model) {
+                        $(model_selector).append($('<option>').text(model).attr('value', model));
+                    });
+                    $(model_selector).selectpicker('refresh');
+                    $(model_selector).selectpicker('render');
+
+                    $(model_selector).change(function() {
+                        var selected_model = this.value;
+                        $(year_selector).empty();
+                        $.getJSON("{{ url_for('.model_years')}}", {
+                                make: selected_make,
+                                model: selected_model
+                            },
+                            function(data) {
+                                $(year_selector).append($('<option>').text('Year').attr('disabled', 'disabled').attr('selected', 'selected'));
+                                $.each(data, function(number, year) {
+                                    $(year_selector).append($('<option>').text(year).attr('value', year));
+                                });
+                                $(year_selector).selectpicker('refresh');
+                                $(year_selector).selectpicker('render');
+                            }
+                        );
+                    });
+                }
+            );
+        });
+
+
+    });
+</script>
+{% endblock %}

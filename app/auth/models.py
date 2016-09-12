@@ -3,8 +3,8 @@ from datetime import datetime
 
 import sqlalchemy as sa
 from flask import current_app
-from flask.ext.babel import gettext as _
-from flask.ext.security import Security, SQLAlchemyUserDatastore
+from flask_babel import gettext as _
+from flask_security import Security, SQLAlchemyUserDatastore
 from sqlalchemy import orm
 
 from app import db
