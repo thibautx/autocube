@@ -19,6 +19,7 @@ def get_makes_by_year(model_year):
     makes = [entry['Make'] for entry in results]
     return makes
 
+
 def get_models_by_make_and_year(year, make):
     #  /api/Recalls/vehicle/modelyear/2000/make/saturn?format=json
     api_url = 'http://www.nhtsa.gov/webapi/api/Recalls/vehicle/modelyear/{}/make/{}?format=json'\
@@ -26,7 +27,6 @@ def get_models_by_make_and_year(year, make):
     r = requests.get(api_url).json()
     results = r['Results']
     models = [entry['Model'] for entry in results]
-
 
 
 def get_recalls(model_year, make, model):
@@ -44,15 +44,6 @@ def get_recalls(model_year, make, model):
     assert r['Message'] == 'Results returned successfully', 'Bad response from nhtsa API.'
     return r['Results']
 
+
 def lookup_vin(vin_number):
     pass
-
-if __name__ == "__main__":
-    model_year = 2000
-    make = 'Honda'
-    model = 'Civic'
-    # years = get_all_years()
-    # makes = get_makes_by_year(model_year)
-    # print get_models_by_make_and_year(model_year, make)
-    recalls = get_recalls(model_year, make, model)
-    print recalls
