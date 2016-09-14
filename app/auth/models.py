@@ -1,12 +1,10 @@
 import logging
 from datetime import datetime
-
 import sqlalchemy as sa
 from flask import current_app
 from flask_babel import gettext as _
 from flask_security import Security, SQLAlchemyUserDatastore
 from sqlalchemy import orm
-
 from app import db
 from app.profile.models import User, Role
 

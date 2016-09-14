@@ -24,10 +24,15 @@ def get_model_years(make, model):
     model_years = [model_year['year'] for model_year in r['years']]
     return model_years
 
+def get_image(make, model, year):
+    api_url = 'https://api.edmunds.com/api/media/v2/{}/{}/{}/photos?fmt=json&api_key={}'\
+        .format(make, model, year, API_KEY)
+    r = requests.get(api_url).json()
+    return r
+
 def get_dealers(zip, make, radius=50):
     api_url = 'https://api.edmunds.com/api/dealer/v2/dealers?zipcode={}&make={}&radius={}&fmt=json&api_key={}'\
         .format(zip, make, radius, API_KEY)
-
     r = requests.get(api_url).json()
     dealers = r['dealers']
     return dealers
@@ -47,5 +52,8 @@ if __name__ == "__main__":
     # print get_dealers(60601, 'Honda')
     # all_makes = get_all_makes()
     # all_models = get_models('Honda')
-    # model_years = get_model_years('Honda', 'Civic')
+    model_years = get_model_years('Honda', 'Civic')
+    print model_years
     # pp.pprint(all_models['models'][0]['name'])
+    img = get_image('honda', 'civic', 2012)
+    print img

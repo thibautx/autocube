@@ -33,12 +33,12 @@ def not_found(error):
 
 
 # Register blueprints
-from app.index.controllers import index_module as mod_index
+from app.landing.controllers import landing_module as mod_landing
 from app.news.controllers import news_module as mod_news
 from app.profile.controllers import profile_module as mod_profile
 # from app.inventory.controllers import inventory_module as mod_inventory
 from app.recalls.controllers import recalls_module as mod_recalls
-app.register_blueprint(mod_index)
+app.register_blueprint(mod_landing)
 app.register_blueprint(mod_news)
 app.register_blueprint(mod_profile)
 # app.register_blueprint(mod_inventory)

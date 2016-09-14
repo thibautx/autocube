@@ -3,7 +3,7 @@ import nhtsa
 import edmunds
 from app import db
 from app.profile.models import Car
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, jsonify, redirect, url_for
 from flask_login import login_required, current_user
 
 recalls_module = Blueprint('_recalls', __name__, url_prefix='/recalls')
@@ -25,7 +25,7 @@ def add_car():
         car = Car(make=make, model=model, year=year, user_id=current_user.id)
         db.session.add(car)
         db.session.commit()
-        return render_template('recalls/garage.html')
+        return redirect(url_for('.recalls'))
 
 
 @recalls_module.route('/models', methods=['GET'])

@@ -45,7 +45,6 @@ function openRegisterModal(){
 }
 
 function loginAjax(){
-    ///*   Remove this comments when moving to server
     $.post( "/login", function( data ) {
             console.log("FOO");
             if(data == 1){
@@ -54,9 +53,6 @@ function loginAjax(){
                  shakeModal(); 
             }
         });
-    //*/
-
-/*   Simulate error message from the server   */
      shakeModal();
 }
 
