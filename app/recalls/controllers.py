@@ -27,6 +27,10 @@ def add_car():
         db.session.commit()
         return redirect(url_for('.recalls'))
 
+@recalls_module.route('/remove-car', methods=['POST'])
+@login_required
+def remove_car():
+    pass
 
 @recalls_module.route('/models', methods=['GET'])
 def models():
@@ -43,13 +47,3 @@ def model_years():
         model_years = edmunds.get_model_years(make, model)
         return json.dumps(model_years)
 
-
-# @recalls_module.route('/filter', methods=['GET', 'POST'])
-# def filter():
-#     if request.method == 'GET':
-#         year = request.args.get('year')
-#         make = request.args.get('make')
-#         model = request.args.get('model')
-#         recalls = nhtsa.get_recalls(year, make, model)
-#         dealers = edmunds.get_dealers(60601, make)
-#         return render_template('recalls/index.html', recalls=recalls, dealers=dealers)
