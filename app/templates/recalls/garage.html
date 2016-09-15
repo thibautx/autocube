@@ -4,57 +4,74 @@
 {{ super() }}
 {% endblock %}
 {% block content %}
-
+<div id="add-car-div" align="center">
+<form name="add-car" action="{{ url_for('.add_car') }}" method="POST">
+    <div class="form-group">
+        <label for="make"></label>
+        <select id="make" name="make" class="selectpicker" data-live-search="true">
+            <option disabled="disabled" selected="selected">Make</option>
+        </select>
+        <label for="model"></label>
+        <select id="model" name="model" class="selectpicker" data-live-search="true">
+            <option disabled="disabled" selected="selected">Model</option>
+        </select>
+        <label for="year"></label>
+        <select id="year" name="year" class="selectpicker" data-live-search="true">
+            <option disabled="disabled" selected="selected">Year</option>
+        </select>
+        <button type="submit" class="btn btn-default btn-md">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Car
+        </button>
+    </div>
+</form>
+</div>
 <div class="container">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">Your Cars</h3></div>
-        <div class="panel-body">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Car Details</th>
-                            <th>Recalls </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for car in cars %}
-                        <tr>
-                            <td> {{ car.year }} {{ car.make }} {{ car.model }}</td>
-                            <td> 2 </td>
-                            <td> <a href="#" class="open-recall-details" data-make="{{ car.make }}" data-model="{{ car.model }}" data-year="{{ car.year }}"
-                                    data-toggle="modal" data-target="#recall-details">Details</a> </td>
-                            <td> Edit </td>
-                            <td> Delete </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+        {% for car in cars %}
+            <div class="panel-body">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Car Info</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-4"><img src="../../static/images/lambo.jpeg" height="100px" width="200px"></div>
+                        <div class="col-md-4">
+                            <h4>{{ car.year }} {{ car.make }} {{ car.model }}</h4>
+                            Recommended services: <br>
+                            Total Mileage: <br>
+                            Daily Mileage Average: <br>
+                        </div>
+                        <div class="col-md-4">RECALLS!!!</div>
+                    </div>
+                </div>
             </div>
+        {% endfor %}
+{#            <div class="table-responsive">#}
+{#                <table class="table">#}
+{#                    <thead>#}
+{#                        <tr>#}
+{#                            <th>Car Details</th>#}
+{#                            <th>Recalls </th>#}
+{#                        </tr>#}
+{#                    </thead>#}
+{#                    <tbody>#}
+{#                    {% for car in cars %}#}
+{#                        <tr>#}
+{#                            <td> {{ car.year }} {{ car.make }} {{ car.model }}</td>#}
+{#                            <td> 2 </td>#}
+{#                            <td> <a href="#" class="open-recall-details" data-make="{{ car.make }}" data-model="{{ car.model }}" data-year="{{ car.year }}"#}
+{#                                    data-toggle="modal" data-target="#recall-details">Details</a> </td>#}
+{#                            <td> Edit </td>#}
+{#                            <td> Delete </td>#}
+{#                        </tr>#}
+{#                    {% endfor %}#}
+{#                    </tbody>#}
+{#                </table>#}
+{#            </div>#}
         </div>
     </div>
-
-    <form name="add-car" action="{{ url_for('.add_car') }}" method="POST">
-        <div class="form-group">
-            <label for="make"></label>
-            <select id="make" name="make" class="selectpicker" data-live-search="true">
-                <option disabled="disabled" selected="selected">Make</option>
-            </select>
-            <label for="model"></label>
-            <select id="model" name="model" class="selectpicker" data-live-search="true">
-                <option disabled="disabled" selected="selected">Model</option>
-            </select>
-            <label for="year"></label>
-            <select id="year" name="year" class="selectpicker" data-live-search="true">
-                <option disabled="disabled" selected="selected">Year</option>
-            </select>
-            <button type="submit" class="btn btn-default btn-md">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Car
-            </button>
-        </div>
-    </form>
-</div>
 
 <div class="modal fade" role="dialog" tabindex="-1" id="recall-details">
     <div class="modal-dialog" role="document">

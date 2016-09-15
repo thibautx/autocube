@@ -6,3 +6,6 @@ landing_module = Blueprint('landing', __name__)
 def home():
     return render_template('index.html')
 
+@landing_module.route('/play')
+def play():
+    return render_template('play.html')

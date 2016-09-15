@@ -6,11 +6,11 @@ from app.profile.models import Car
 from flask import Blueprint, render_template, request, jsonify, redirect, url_for
 from flask_login import login_required, current_user
 
-recalls_module = Blueprint('_recalls', __name__, url_prefix='/recalls')
+recalls_module = Blueprint('_recalls', __name__, url_prefix='/garage')
 
 @recalls_module.route('/')
 @login_required
-def recalls():
+def garage():
     makes = edmunds.get_makes()
     cars = Car.query.filter(Car.user_id == current_user.id).all()
     return render_template('recalls/garage.html', cars=cars, makes=json.dumps(makes))
@@ -25,7 +25,7 @@ def add_car():
         car = Car(make=make, model=model, year=year, user_id=current_user.id)
         db.session.add(car)
         db.session.commit()
-        return redirect(url_for('.recalls'))
+        return redirect(url_for('.garage'))
 
 @recalls_module.route('/remove-car', methods=['POST'])
 @login_required
@@ -54,6 +54,6 @@ def model_years():
 #         year = request.args.get('year')
 #         make = request.args.get('make')
 #         model = request.args.get('model')
-#         recalls = nhtsa.get_recalls(year, make, model)
+#         garage = nhtsa.get_recalls(year, make, model)
 #         dealers = edmunds.get_dealers(60601, make)
-#         return render_template('recalls/index.html', recalls=recalls, dealers=dealers)
+#         return render_template('garage/index.html', garage=garage, dealers=dealers)
