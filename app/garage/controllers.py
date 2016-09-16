@@ -1,21 +1,26 @@
 import json
 import nhtsa
 import edmunds
-from app import db
-from app.profile.models import Car
+from app import db, Car
+from app.garage.models import Car
 from flask import Blueprint, render_template, request, jsonify, redirect, url_for
 from flask_login import login_required, current_user
 
-recalls_module = Blueprint('_recalls', __name__, url_prefix='/garage')
+garage_module = Blueprint('_recalls', __name__, url_prefix='/garage')
 
-@recalls_module.route('/')
+@garage_module.route('/')
 @login_required
 def garage():
     makes = edmunds.get_makes()
     cars = Car.query.filter(Car.user_id == current_user.id).all()
     return render_template('recalls/garage.html', cars=cars, makes=json.dumps(makes))
 
-@recalls_module.route('/add-car', methods=['POST'])
+@garage_module.route('/car/<id>')
+def car_details(id):
+    car = Car.query.get(id)
+    return render_template('recalls/car.html', car=car)
+
+@garage_module.route('/car', methods=['POST'])
 @login_required
 def add_car():
     if request.method == 'POST':
@@ -27,19 +32,31 @@ def add_car():
         db.session.commit()
         return redirect(url_for('.garage'))
 
-@recalls_module.route('/remove-car', methods=['POST'])
-@login_required
-def remove_car():
-    pass
 
-@recalls_module.route('/models', methods=['GET'])
+@garage_module.route('/car/<int:id>', methods=['DELETE'])
+def remove_car(id):
+    if request.method == 'DELETE':
+        db.session.delete(Car.query.get(id))
+        db.session.commit()
+        return jsonify({'result': True})
+
+
+@garage_module.route('/car/<int:id>', methods=['PUT'])
+def update_car(id):
+    if request.method == 'PUT':
+        car = Car.query.get(id)
+        pass
+
+
+@garage_module.route('/models', methods=['GET'])
 def models():
     if request.method == 'GET':
         make = request.args.get('make')
         models = edmunds.get_models(make)
         return json.dumps(models)
 
-@recalls_module.route('/model-years', methods=['GET'])
+
+@garage_module.route('/model-years', methods=['GET'])
 def model_years():
     if request.method == 'GET':
         make = request.args.get('make')

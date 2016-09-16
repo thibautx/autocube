@@ -18,7 +18,9 @@ migrate = Migrate(app, db)
 
 # Admin
 from flask_admin.contrib.sqla import ModelView
-from app.profile.models import User, Car
+from app.profile.models import User
+from app.garage.models import Car
+
 admin = Admin(app, 'Admin', template_mode='bootstrap3')
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Car, db.session))
@@ -37,7 +39,7 @@ from app.landing.controllers import landing_module as mod_landing
 from app.news.controllers import news_module as mod_news
 from app.profile.controllers import profile_module as mod_profile
 # from app.inventory.controllers import inventory_module as mod_inventory
-from app.garage.controllers import recalls_module as mod_recalls
+from app.garage.controllers import garage_module as mod_recalls
 app.register_blueprint(mod_landing)
 app.register_blueprint(mod_news)
 app.register_blueprint(mod_profile)

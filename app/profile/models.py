@@ -15,22 +15,6 @@ cars_users = db.Table('cars_users',
                        sa.Column('car_id', sa.Integer(), sa.ForeignKey('car.id')))
 
 
-class Car(db.Model):
-    __tablename__ = 'car'
-    id = db.Column(db.Integer, primary_key=True)
-    make = db.Column(db.String(80))
-    model = db.Column(db.String(80))
-    year = db.Column(db.Integer)
-    license_plate = db.Column(db.String, unique=True, nullable=True)
-    vin = db.Column(db.String, unique=True, nullable=True)
-
-    user_id = db.Column(sa.Integer, sa.ForeignKey('user.id'))
-    user = orm.relationship('User', foreign_keys=user_id, backref=orm.backref('user', order_by=id))
-
-    def __init__(self, **kwargs):
-        super(Car, self).__init__(**kwargs)
-
-
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
     id = sa.Column(sa.Integer, primary_key=True)
