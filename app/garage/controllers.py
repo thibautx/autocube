@@ -13,12 +13,12 @@ garage_module = Blueprint('_recalls', __name__, url_prefix='/garage')
 def garage():
     makes = edmunds.get_makes()
     cars = Car.query.filter(Car.user_id == current_user.id).all()
-    return render_template('recalls/garage.html', cars=cars, makes=json.dumps(makes))
+    return render_template('garage/garage.html', cars=cars, makes=json.dumps(makes))
 
 @garage_module.route('/car/<id>')
 def car_details(id):
     car = Car.query.get(id)
-    return render_template('recalls/car.html', car=car)
+    return render_template('garage/car.html', car=car)
 
 @garage_module.route('/car', methods=['POST'])
 @login_required

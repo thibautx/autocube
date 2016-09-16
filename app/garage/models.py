@@ -11,8 +11,8 @@ class Car(db.Model):
     year = db.Column(db.Integer)
     license_plate = db.Column(db.String, unique=True, nullable=True)
     vin = db.Column(db.String, unique=True, nullable=True)
-    # current_mileage = db.Column(db.Integer, nullable=True)
-    # transmission_type = db.Column(Enum('automatic', 'manual', name='transmission_types'))
+    current_mileage = db.Column(db.Integer, nullable=True)
+    transmission_type = db.Column(Enum('automatic', 'manual', name='transmission_types'))
 
     user_id = db.Column(sa.Integer, sa.ForeignKey('user.id'))
     user = orm.relationship('User', foreign_keys=user_id, backref=orm.backref('user', order_by=id))
