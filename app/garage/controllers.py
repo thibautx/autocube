@@ -33,19 +33,23 @@ def add_car():
         return redirect(url_for('.garage'))
 
 
-@garage_module.route('/car/<int:id>', methods=['DELETE'])
+@garage_module.route('/car/delete/<int:id>', methods=['POST'])
 def remove_car(id):
-    if request.method == 'DELETE':
+    if request.method == 'POST':
         db.session.delete(Car.query.get(id))
         db.session.commit()
-        return jsonify({'result': True})
+        return redirect(url_for('.garage'))
 
 
-@garage_module.route('/car/<int:id>', methods=['PUT'])
+@garage_module.route('/car/update/<int:id>', methods=['POST'])
 def update_car(id):
-    if request.method == 'PUT':
+    if request.method == 'POST':
         car = Car.query.get(id)
-        pass
+        args = request.form.to_dict()
+        for arg, value in args.items():
+            setattr(car, arg, value)
+        db.session.commit()
+        return redirect(url_for('.car_details', id=id))
 
 
 @garage_module.route('/models', methods=['GET'])

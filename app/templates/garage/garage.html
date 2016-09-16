@@ -1,7 +1,9 @@
 {% extends "page.html" %}
-{% block title %} Recalls {% endblock %}
+{% set active_page = "garage" %}
+{% block title %} Garage {% endblock %}
 {% block head %}
 {{ super() }}
+    {% set active_page = active_page|default('garage') -%}
 {% endblock %}
 {% block content %}
 <div id="add-car-div" align="center">
@@ -28,7 +30,7 @@
 <div class="container">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">Your Cars</h3></div>
+        <h3 class="panel-title">Your Garage</h3></div>
         {% for car in cars %}
             <div class="panel-body">
                 <div class="panel panel-default">
@@ -43,7 +45,8 @@
                               </a>
                         </div>
                         <div class="col-md-4">
-                            <h4>{{ car.year }} {{ car.make }} {{ car.model }}</h4>
+                            <h4>{{ car.year }}</h4>
+                            <h2>{{ car.make }} {{ car.model }}</h2>
                             Recommended services: <br>
                             Total Mileage: <br>
                             Daily Mileage Average: <br>
@@ -53,28 +56,6 @@
                 </div>
             </div>
         {% endfor %}
-{#            <div class="table-responsive">#}
-{#                <table class="table">#}
-{#                    <thead>#}
-{#                        <tr>#}
-{#                            <th>Car Details</th>#}
-{#                            <th>Recalls </th>#}
-{#                        </tr>#}
-{#                    </thead>#}
-{#                    <tbody>#}
-{#                    {% for car in cars %}#}
-{#                        <tr>#}
-{#                            <td> {{ car.year }} {{ car.make }} {{ car.model }}</td>#}
-{#                            <td> 2 </td>#}
-{#                            <td> <a href="#" class="open-recall-details" data-make="{{ car.make }}" data-model="{{ car.model }}" data-year="{{ car.year }}"#}
-{#                                    data-toggle="modal" data-target="#recall-details">Details</a> </td>#}
-{#                            <td> Edit </td>#}
-{#                            <td> Delete </td>#}
-{#                        </tr>#}
-{#                    {% endfor %}#}
-{#                    </tbody>#}
-{#                </table>#}
-{#            </div>#}
         </div>
     </div>
 
@@ -96,15 +77,6 @@
 
 {% endblock %}
 {% block scripts %}
-<script>
-    $(document).on("click", ".open-recall-details", function () {
-    var make = $(this).data('make');
-    var model = $(this).data('model');
-    var year = $(this).data('year');
-    $("#recall-details-summary").append("<p>This is a paragraph</p>");
-    });
-</script>
-
 <script>
     var make_selector = '#make';
     var model_selector = '#model';

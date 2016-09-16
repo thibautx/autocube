@@ -9,7 +9,6 @@ class Car(db.Model):
     make = db.Column(db.String(80))
     model = db.Column(db.String(80))
     year = db.Column(db.Integer)
-    license_plate = db.Column(db.String, unique=True, nullable=True)
     vin = db.Column(db.String, unique=True, nullable=True)
     current_mileage = db.Column(db.Integer, nullable=True)
     transmission_type = db.Column(Enum('automatic', 'manual', name='transmission_types'))
