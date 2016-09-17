@@ -6,19 +6,22 @@ from app.garage.models import Car
 from flask import Blueprint, render_template, request, jsonify, redirect, url_for
 from flask_login import login_required, current_user
 
-garage_module = Blueprint('_recalls', __name__, url_prefix='/garage')
+garage_module = Blueprint('_garage', __name__, url_prefix='/garage')
 
 @garage_module.route('/')
 @login_required
-def garage():
+def garage_home():
     makes = edmunds.get_makes()
     cars = Car.query.filter(Car.user_id == current_user.id).all()
-    return render_template('garage/garage.html', cars=cars, makes=json.dumps(makes))
+    return render_template('garage/garage.html',
+                           cars=cars,
+                           makes=json.dumps(makes))
 
 @garage_module.route('/car/<id>')
 def car_details(id):
     car = Car.query.get(id)
-    return render_template('garage/car.html', car=car)
+    return render_template('garage/car.html',
+                           car=car)
 
 @garage_module.route('/car', methods=['POST'])
 @login_required
@@ -27,7 +30,10 @@ def add_car():
         make = request.form['make']
         model = request.form['model']
         year = request.form['year']
-        car = Car(make=make, model=model, year=year, user_id=current_user.id)
+        car = Car(make=make,
+                  model=model,
+                  year=year,
+                  user_id=current_user.id)
         db.session.add(car)
         db.session.commit()
         return redirect(url_for('.garage'))
