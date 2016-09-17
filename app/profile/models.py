@@ -22,7 +22,7 @@ class User(db.Model, UserMixin):
     id = sa.Column(sa.Integer, primary_key=True)
     login = sa.Column(sa.String(250), unique=True)
     email = sa.Column(sa.String(250), unique=True)
-    phone = sa.Column(sa.String(250), unique=True)
+    # phone = sa.Column(sa.String(250), unique=True)
     password = sa.Column(sa.String(255))
     active = sa.Column(sa.Boolean)
     confirmed_at = sa.Column(sa.DateTime)
