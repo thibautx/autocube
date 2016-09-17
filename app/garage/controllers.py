@@ -17,11 +17,18 @@ def garage_home():
                            cars=cars,
                            makes=json.dumps(makes))
 
+
 @garage_module.route('/car/<id>')
 def car_details(id):
     car = Car.query.get(id)
+    recalls = nhtsa.get_recalls(model_year=car.year,
+                                make=car.make,
+                                model=car.model)
+    print recalls
     return render_template('garage/car.html',
-                           car=car)
+                           car=car,
+                           recalls=recalls)
+
 
 @garage_module.route('/car', methods=['POST'])
 @login_required
@@ -71,8 +78,8 @@ def model_years():
     if request.method == 'GET':
         make = request.args.get('make')
         model = request.args.get('model')
-        model_years = edmunds.get_model_years(make, model)
-        return json.dumps(model_years)
+        _model_years = edmunds.get_model_years(make, model)
+        return json.dumps(_model_years)
 
 
 # TODO: http://0.0.0.0:5000/garage/car error handler

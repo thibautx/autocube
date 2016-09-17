@@ -1,5 +1,5 @@
 import requests
-
+from datetime import datetime
 
 def get_all_years():
     api_url = 'http://www.nhtsa.gov/webapi/api/Recalls/vehicle?format=json'
@@ -42,7 +42,20 @@ def get_recalls(model_year, make, model):
         .format(model_year, make, model)
     r = requests.get(api_url).json()
     assert r['Message'] == 'Results returned successfully', 'Bad response from nhtsa API.'
-    return r['Results']
+    r = r['Results']
+    recalls = []
+    for recall_raw in r:
+        recall = {}
+        print recall_raw.keys()
+        recall['consequence'] = recall_raw['Conequence']
+        recall['components'] = recall_raw['Component']
+        recall['NHTSACampaignNubmer'] = recall_raw['NHTSACampaignNumber']
+        millis = float(recall_raw['ReportReceivedDate'].split('-')[0].split('(')[1])
+        date = datetime.fromtimestamp(millis/1000.0)
+        recall['date'] = date
+        recalls.append(recall)
+
+    return recalls
 
 
 def lookup_vin(vin_number):
