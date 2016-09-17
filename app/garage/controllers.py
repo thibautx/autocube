@@ -36,7 +36,7 @@ def add_car():
                   user_id=current_user.id)
         db.session.add(car)
         db.session.commit()
-        return redirect(url_for('.garage'))
+        return redirect(url_for('.garage_home'))
 
 
 @garage_module.route('/car/delete/<int:id>', methods=['POST'])
@@ -44,7 +44,7 @@ def remove_car(id):
     if request.method == 'POST':
         db.session.delete(Car.query.get(id))
         db.session.commit()
-        return redirect(url_for('.garage'))
+        return redirect(url_for('.garage_home'))
 
 
 @garage_module.route('/car/update/<int:id>', methods=['POST'])
