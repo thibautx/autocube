@@ -29,11 +29,6 @@ admin.add_view(ModelView(Car, db.session))
 from app.auth.models import init_app
 init_app(app)
 
-@app.errorhandler(404)
-def not_found(error):
-    return '404'
-
-
 # Register blueprints
 from app.landing.controllers import landing_module as mod_landing
 from app.news.controllers import news_module as mod_news

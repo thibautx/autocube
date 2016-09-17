@@ -75,6 +75,10 @@ def model_years():
         return json.dumps(model_years)
 
 
+# TODO: http://0.0.0.0:5000/garage/car error handler
+@garage_module.errorhandler(404)
+def page_not_found(e):
+    return redirect(url_for('.garage_home'))
 # @recalls_module.route('/filter', methods=['GET', 'POST'])
 # def filter():
 #     if request.method == 'GET':
