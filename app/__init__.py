@@ -11,6 +11,7 @@ app.config.from_object('config')
 
 db = SQLAlchemy(app)
 
+
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 migrate = Migrate(app, db)
