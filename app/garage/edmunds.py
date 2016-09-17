@@ -41,6 +41,7 @@ def get_model_years(make, model):
     api_url = 'http://api.edmunds.com/api/vehicle/v2/{}/{}/years?fmt=json&api_key={}'\
         .format(make, model, API_KEY)
     r = requests.get(api_url).json()
+    print r.keys()
     model_years = [model_year['year'] for model_year in r['years']]
     return model_years
 
