@@ -1,7 +1,7 @@
 import json
 import nhtsa
 import edmunds
-from app import db, Car
+from app import db
 from app.garage.models import Car
 from flask import Blueprint, render_template, request, jsonify, redirect, url_for
 from flask_login import login_required, current_user

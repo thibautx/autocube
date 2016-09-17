@@ -5,7 +5,6 @@ from flask_script import Manager
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['DATABASE_URI'] = 'sqlite:///app.db'
 
 # Configurations
 app.config.from_object('config')
