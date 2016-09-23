@@ -21,7 +21,6 @@ def garage_home():
 @garage_module.route('/car/<id>')
 def car_details(id):
     car = Car.query.get(id)
-    print car.service_bulletins[0].__dict__.keys()
     return render_template('garage/car.html',
                            car=car,
                            recalls=car.recalls,
