@@ -1,8 +1,10 @@
+import re
 import edmunds
 from app import db
 from app.garage.models import Car, Recall
 from datetime import datetime
 from sqlalchemy import func
+
 
 def on_new_car_update_recalls(make, model, year):
     """
@@ -50,10 +52,13 @@ def update_recalls():
             # add recall to database
             else:
                 manufactured_from, manufactured_to = _manufactured_to_and_from(recall)
+                # consequence = recall['defectConsequence'].title()
+                consequence = re.sub('([a-zA-Z])', lambda x: x.groups()[0].upper(), recall['defectConsequence'].lower(), 1)
+                components = ', '.join(recall['componentDescription'].split(':'))
                 db_recall = Recall(id=recall_id,
                                    nhtsa_number=recall['recallNumber'],
-                                   consequence=recall['defectConsequence'],
-                                   components=recall['componentDescription'],
+                                   consequence=consequence,
+                                   components=components,
                                    manufactured_from=manufactured_from,
                                    manufactured_to=manufactured_to)
 

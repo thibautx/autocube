@@ -113,11 +113,12 @@
             <div class="tab-pane" role="tabpanel" id="tab-2">
                 {% for recall in recalls %}
                 <div class="panel panel-danger">
-                    <div class="panel-heading">NHTSA Campaign: {{ recall.NHTSACampaignNumber }}</div>
+                    <div class="panel-heading">NHTSA Campaign: {{ recall.nhtsa_number }}</div>
                     <div class="panel-body">
+                        <h4>Recall consequence:</h4>
                         {{ recall.consequence }} <br> <br>
-                        Affected Components: {{ recall.components}} <br><br>
-                        Date: {{ recall.date }}
+                        <h4>Affected Components:</h4>
+                        {{ recall.components}} <br><br>
                     </div>
                     <div class="panel-footer">
                       <button type="button" class="btn btn-primary">

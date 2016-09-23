@@ -35,7 +35,6 @@ class Recall(db.Model):
     nhtsa_number = db.Column(db.String)
     consequence = db.Column(db.String)
     components = db.Column(db.String)
-    date = db.Column(db.Date)
 
     manufactured_from = db.Column(db.Date)
     manufactured_to = db.Column(db.Date)
