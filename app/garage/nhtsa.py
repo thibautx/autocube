@@ -41,7 +41,7 @@ def get_recalls(model_year, make, model):
     api_url = 'http://www.nhtsa.gov/webapi/api/Recalls/vehicle/modelyear/{}/make/{}/model/{}?format=json'\
         .format(model_year, make, model)
     r = requests.get(api_url).json()
-    assert r['Message'] == 'Results returned successfully', 'Bad response from nhtsa API.'
+    # assert r['Message'] == 'Results returned successfully', 'Bad response from nhtsa API.'
     r = r['Results']
     recalls = []
     for recall_raw in r:
@@ -49,7 +49,7 @@ def get_recalls(model_year, make, model):
         print recall_raw.keys()
         recall['consequence'] = recall_raw['Conequence']
         recall['components'] = recall_raw['Component']
-        recall['NHTSACampaignNubmer'] = recall_raw['NHTSACampaignNumber']
+        recall['NHTSACampaignNumber'] = recall_raw['NHTSACampaignNumber']
         millis = float(recall_raw['ReportReceivedDate'].split('-')[0].split('(')[1])
         date = datetime.fromtimestamp(millis/1000.0)
         recall['date'] = date

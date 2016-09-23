@@ -1,10 +1,12 @@
 import json
 import feeds
+import app
 from app import db
 from app.profile.models import User
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 from collections import OrderedDict
+from flask_paginate import Pagination
 
 news_module = Blueprint('_news', __name__, url_prefix='/news')
 
@@ -16,9 +18,12 @@ f['thecarconnection'] = feeds.thecarconnection_feed
 f['autoweek'] = feeds.autoweek_feed
 f['automobilemag'] = feeds.automobilemag_feed
 
-@news_module.route('/')
+PER_PAGE = 10
+
+@news_module.route('/', defaults={'page': 1})
+@news_module.route('/<int:page>')
 @login_required
-def news():
+def news(page):
     user_feeds = json.loads(User.query.get(current_user.id).news_subscriptions)
 
     # TODO: multi-sort by date
@@ -28,7 +33,16 @@ def news():
         if val == 1:
             news_items += f[feed]()
 
-    return render_template('news/index.html', feeds=f, user_feeds=user_feeds, news_items=news_items)
+    i = (page-1)*PER_PAGE
+    news_items_display = news_items[i:i+5]
+    pagination = Pagination(page=page, total=len(news_items), per_page=10)
+
+    return render_template('news/index.html',
+                           pagination=pagination,
+                           feeds=f,
+                           user_feeds=user_feeds,
+                           news_items=news_items_display)
+
 
 @news_module.route('/update-subscriptions', methods=['POST'])
 @login_required
@@ -46,12 +60,13 @@ def update_subscriptions():
         db.session.commit()
     return redirect(url_for('.news'))
 
-@news_module.route('/display', methods=['GET'])
-@login_required
-def display():
-    if request.method == 'GET':
-        news_items = []
-        subscriptions = request.args.getlist('feeds')
-        for subscription in subscriptions:
-            news_items += f[subscription]()
-        return render_template('news/index.html', news_items=news_items)
+# @news_module.route('/display', methods=['GET'])
+# @login_required
+# def display():
+#     if request.method == 'GET':
+#         news_items = []
+#         subscriptions = request.args.getlist('feeds')
+#         for subscription in subscriptions:
+#             news_items += f[subscription]()
+#         return render_template('news/index.html', news_items=news_items)
+#

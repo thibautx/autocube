@@ -8,6 +8,5 @@ profile_module = Blueprint('_profile', __name__, url_prefix='/profile')
 @profile_module.route("/")
 @login_required
 def profile():
-    user = User.query.get(current_user.id)
-    return render_template('profile/index.html', user=user)
+    return render_template('profile/index.html')
 
