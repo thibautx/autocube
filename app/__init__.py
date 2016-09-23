@@ -19,11 +19,14 @@ migrate = Migrate(app, db)
 # Admin
 from flask_admin.contrib.sqla import ModelView
 from app.profile.models import User
-from app.garage.models import Car
+from app.garage.models import Car, Recall
+from app.auth.models import SocialConnection
 
 admin = Admin(app, 'Admin', template_mode='bootstrap3')
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Car, db.session))
+admin.add_view(ModelView(SocialConnection, db.session))
+admin.add_view(ModelView(Recall, db.session))
 
 # Auth
 from app.auth.models import init_app

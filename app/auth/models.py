@@ -49,13 +49,14 @@ class SocialConnection(db.Model):
                 raise Exception(msg)
 
             now = datetime.now()
-            user = User(
-                email=email,
-                first_name=profile.data.get("first_name"),
-                last_name=profile.data.get("last_name"),
-                confirmed_at=now,
-                active=True,
-            )
+            user = User()
+            print type(profile)
+            print profile.__dict__
+            user.email = email
+            user.first_name = profile.data.get('first_name')
+            user.last_name = profile.data.get('last_name')
+            user.confirmed_at = now
+            user.active = True
             db.session.add(user)
             db.session.flush()
 

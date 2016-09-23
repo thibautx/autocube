@@ -41,9 +41,33 @@ def get_model_years(make, model):
     api_url = 'http://api.edmunds.com/api/vehicle/v2/{}/{}/years?fmt=json&api_key={}'\
         .format(make, model, API_KEY)
     r = requests.get(api_url).json()
-    print r.keys()
     model_years = [model_year['year'] for model_year in r['years']]
     return model_years
+
+
+def get_model_year_id(make, model, year):
+    api_url = 'https://api.edmunds.com/api/vehicle/v2/{}/{}/{}?fmt=json&api_key={}'\
+        .format(make, model, year, API_KEY)
+    r = requests.get(api_url).json()
+    return r['id']
+
+
+def get_recalls(make, model, year):
+    model_year_id = get_model_year_id(make, model, year)
+    api_url = 'https://api.edmunds.com/v1/api/maintenance/recallrepository/findbymodelyearid?modelyearid={}&fmt=json&api_key={}'\
+        .format(model_year_id, API_KEY)
+    r = requests.get(api_url).json()
+    return r['recallHolder']
+
+
+def get_service_bulletins(make, model, year):
+    ids = get_model_year_ids(make, model, year)
+    for id in ids:
+        api_url = 'https://api.edmunds.com/v1/api/maintenance/servicebulletinrepository/findbymodelyearid?' \
+                  'modelyearid={}&fmt=json&api_key={}'\
+            .format(id, API_KEY)
+        r = requests.get(api_url).json()
+        print r
 
 
 def get_image(make, model, year):
@@ -81,3 +105,13 @@ def get_listings(zip):
         .format(zip, API_KEY)
     r = requests.get(api_url).json()
     return r
+
+
+import pprint
+if __name__ == "__main__":
+    pp = pprint.PrettyPrinter(indent=4)
+    year = 2012
+    make = 'Honda'
+    model = 'Civic'
+    r = get_recalls(make, model, year)
+    pp.pprint(r)

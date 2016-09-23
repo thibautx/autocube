@@ -46,7 +46,6 @@ def get_recalls(model_year, make, model):
     recalls = []
     for recall_raw in r:
         recall = {}
-        print recall_raw.keys()
         recall['consequence'] = recall_raw['Conequence']
         recall['components'] = recall_raw['Component']
         recall['NHTSACampaignNumber'] = recall_raw['NHTSACampaignNumber']
@@ -57,6 +56,9 @@ def get_recalls(model_year, make, model):
 
     return recalls
 
+if __name__ == "__main__":
+    make = 'honda'
+    model = 'civic'
+    year = 2012
+    print len(get_recalls(year, make, model))
 
-def lookup_vin(vin_number):
-    pass

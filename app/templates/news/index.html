@@ -12,7 +12,6 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade in active" role="tabpanel" id="tab-1">
-            {{ pagination.links }}
             {% for item in news_items %}
                 <div class="row">
                     <div class="col-lg-10 col-lg-offset-2 col-lg-pull-1 col-md-10 col-md-offset-2 col-md-pull-1">
@@ -65,22 +64,4 @@
         </div>
     </div>
 </div>
-
-<style>
-.pagination-page-info {
-    padding: .6em;
-    padding-left: 0;
-    width: 40em;
-    margin: .5em;
-    margin-left: 0;
-    font-size: 12px;
-}
-.pagination-page-info b {
-    color: black;
-    background: #6aa6ed;
-    padding-left: 2px;
-    padding: .1em .25em;
-    font-size: 150%;
-}
-</style>
 {% endblock %}

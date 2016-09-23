@@ -1,23 +1,40 @@
 import os
 
+# Statement for enabling the development environment
 DEBUG = True
+
+# Define the application directory
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
+# Define the database - we are working with
+# SQLite for this example
 # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
 SQLALCHEMY_DATABASE_URI = "postgresql://localhost/database"
 # SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 DATABASE_CONNECT_OPTIONS = {}
 
+# Application threads. A common general assumption is
+# using 2 per available processor cores - to handle
+# incoming requests using one and performing background
+# operations using the other.
 THREADS_PER_PAGE = 2
 
 # Enable protection agains *Cross-site Request Forgery (CSRF)*
 CSRF_ENABLED = True
+
+# Use a secure, unique and absolutely secret key for
+# signing the data.
 CSRF_SESSION_KEY = "8a7474974efcf76896aa84eea9cbe016bbc08828"
+CSRF_ENABLED = True
 
 # Secret key for signing cookies
 SECRET_KEY = '47e585de7f22984d5ee291c2f31412384bfc32d0'
 FLASH_MESSAGES = True
+
+
+# Flask-Login
+# https://flask-login.readthedocs.org/en/latest/#protecting-views
 
 LOGIN_DISABLED = False
 
