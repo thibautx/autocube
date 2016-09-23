@@ -6,6 +6,10 @@ recalls_cars = db.Table('recalls_cars',
                         sa.Column('car_id', sa.Integer(), sa.ForeignKey('car.id')),
                         sa.Column('recall_id', sa.Integer(), sa.ForeignKey('recall.id')))
 
+recalls_service = db.Table('recalls_service',
+                           sa.Column('car_id', sa.Integer(), sa.ForeignKey('car.id')),
+                           sa.Column('service_bulletin_id', sa.Integer(), sa.ForeignKey('service_bulletin.id')))
+
 class Car(db.Model):
     __tablename__ = 'car'
     id = db.Column(db.Integer, primary_key=True)
@@ -19,7 +23,10 @@ class Car(db.Model):
     user_id = db.Column(sa.Integer, sa.ForeignKey('user.id'))
     user = orm.relationship('User', foreign_keys=user_id, backref=orm.backref('user', order_by=id))
 
-    recalls = orm.relationship('Recall', secondary=recalls_cars, backref=orm.backref('recalls', lazy='dynamic'))
+    recalls = orm.relationship('Recall', secondary=recalls_cars,
+                               backref=orm.backref('recalls', lazy='dynamic'))
+    service_bulletins = orm.relationship('ServiceBulletin', secondary=recalls_service,
+                                         backref=orm.backref('recalls', lazy='dynamic'))
 
     def __init__(self, **kwargs):
         super(Car, self).__init__(**kwargs)
@@ -27,6 +34,23 @@ class Car(db.Model):
 class ServiceBulletin(db.Model):
     __tablename__ = 'service_bulletin'
     id = db.Column(db.Integer, primary_key=True)
+
+    date = db.Column(db.Date)                       # bulletinDate
+    component_number = db.Column(db.Integer)        # componentNumber
+    component_description = db.Column(db.String)    # componentDescription
+    bulletin_number = db.Column(db.String)          # bulletinNumber
+    nhtsa_number = db.Column(db.String)             # nhtsaItemNumber
+    summary = db.Column(db.String)                  # summaryText
+
+    def __init__(self, id, date, component_number, component_description, bulletin_number, nhtsa_number, summary):
+        self.id = id
+        self.date = date
+        self.component_number = component_number
+        self.component_description = component_description
+        self.bulletin_number = bulletin_number
+        self.nhtsa_number = nhtsa_number
+        self.summary = summary
+
 
 class Recall(db.Model):
     __tablename__ = 'recall'

@@ -21,13 +21,11 @@ def garage_home():
 @garage_module.route('/car/<id>')
 def car_details(id):
     car = Car.query.get(id)
-    # recalls = nhtsa.get_recalls(model_year=car.year,
-    #                             make=car.make,
-    #                             model=car.model)
-    print car.recalls[0].__dict__.keys()
+    print car.service_bulletins[0].__dict__.keys()
     return render_template('garage/car.html',
                            car=car,
-                           recalls=car.recalls)
+                           recalls=car.recalls,
+                           service_bulletins=car.service_bulletins)
 
 
 @garage_module.route('/car', methods=['POST'])

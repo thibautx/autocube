@@ -1,7 +1,7 @@
 import re
 import edmunds
 from app import db
-from app.garage.models import Car, Recall
+from app.garage.models import Car, Recall, ServiceBulletin
 from datetime import datetime
 from sqlalchemy import func
 
@@ -52,8 +52,9 @@ def update_recalls():
             # add recall to database
             else:
                 manufactured_from, manufactured_to = _manufactured_to_and_from(recall)
-                # consequence = recall['defectConsequence'].title()
-                consequence = re.sub('([a-zA-Z])', lambda x: x.groups()[0].upper(), recall['defectConsequence'].lower(), 1)
+                consequence = re.sub('([a-zA-Z])',
+                                     lambda x: x.groups()[0].upper(),
+                                     recall['defectConsequence'].lower(), 1)
                 components = ', '.join(recall['componentDescription'].split(':'))
                 db_recall = Recall(id=recall_id,
                                    nhtsa_number=recall['recallNumber'],
@@ -79,11 +80,64 @@ def _manufactured_to_and_from(recall):
 
     return manufactured_from, manufactured_to
 
+
+def on_new_car_update_service_bulletins(make, model, year):
+    #TODO: implement
+    pass
+
+def update_car_service_bulletins(make, model, year):
+    #TODO: implement
+    pass
+
+def update_service_bulletins():
+    """
+    Update service bulletins for all cars in database.
+
+    :return:
+    """
+    distinct_cars = Car.query.distinct(Car.model, Car.make, Car.year).all()
+    for car in distinct_cars:
+        print car.make, car.model, car.year
+
+        service_bulletins = edmunds.get_service_bulletins(car.make, car.model, car.year)
+        for service_bulletin in service_bulletins:
+            service_bulletin_id = service_bulletin['id']
+
+            # service bulletin  already in database
+            if ServiceBulletin.query.filter(ServiceBulletin.id == service_bulletin_id).count():
+                print 'already in db'
+                pass
+
+            # add service bulletin to database
+            else:
+                bulletin_date = datetime.strptime(service_bulletin['bulletinDate'], "%Y-%m-%d").date()
+                try:
+                    summary = re.sub('([a-zA-Z])',
+                                 lambda x: x.groups()[0].upper(),
+                                 service_bulletin['summaryText'].lower(), 1)
+                except KeyError:
+                    continue  # skip if no summary
+
+
+                db_service_bulletin = ServiceBulletin(id=service_bulletin_id,
+                                                      date=bulletin_date,
+                                                      component_number=service_bulletin['componentNumber'],
+                                                      component_description=service_bulletin['componentDescription'],
+                                                      bulletin_number=service_bulletin['bulletinNumber'],
+                                                      nhtsa_number=service_bulletin['nhtsaItemNumber'],
+                                                      summary=summary,
+                                                      )
+
+                car.service_bulletins.append(db_service_bulletin)  # add recall to the car
+                db.session.add(db_service_bulletin)      # add recall to the db
+                db.session.commit()
+
 if __name__ == "__main__":
     make = 'audi'
     model = 'a4'
     year = 2012
     # print on_new_car_update_recalls(make, model, year)
-    update_recalls()
+    # update_recalls()
+    update_service_bulletins()
     # manufactured_to = '2012-10-29'
     # print datetime.strptime(manufactured_to, "%Y-%m-%d").date()

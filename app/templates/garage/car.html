@@ -48,7 +48,7 @@
             <li>
                 <a href="#tab-2" role="tab" data-toggle="tab">Recalls <span class="label label-danger">{{ recalls|length }}</span></a>
             </li>
-            <li><a href="#tab-3" role="tab" data-toggle="tab">Service Bulletins</a></li>
+            <li><a href="#tab-3" role="tab" data-toggle="tab">Service Bulletins <span class="label label-info">{{ service_bulletins|length }}</span></a></li>
         </ul>
         <div class="tab-content">
             <br>
@@ -122,14 +122,31 @@
                     </div>
                     <div class="panel-footer">
                       <button type="button" class="btn btn-primary">
-                          FIX NOW
+                          FIX SAFETY RECALL NOW
                       </button>
                     </div>
                 </div>
-                {% endfor  %}
+                {% endfor %}
             </div>
+
+            <!-- Service Bulletins -->
             <div class="tab-pane" role="tabpanel" id="tab-3">
-                <p>Third tab content.</p>
+                {% for bulletin in service_bulletins %}
+                <div class="panel panel-danger">
+                    <div class="panel-heading">NHTSA Campaign: {{ bulletin.nhtsa_number }}</div>
+                    <div class="panel-body">
+                        <h4>Summary:</h4>
+                        {{ bulletin.summary }} <br> <br>
+                        <h4>Affected Components:</h4>
+                        {{ bulletin.component_description}} <br><br>
+                    </div>
+                    <div class="panel-footer">
+                      <button type="button" class="btn btn-primary">
+                          SERVICE NOW
+                      </button>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
