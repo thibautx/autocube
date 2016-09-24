@@ -6,11 +6,16 @@ from datetime import datetime
 from sqlalchemy import func
 
 
+# recalls
 def on_new_car_update_recalls(make, model, year):
     """
+
+
+    :param make:
+    :param model:
+    :param year:
     :return:
     """
-
     # make/model/year for this car already exists in db
     if Car.query.filter(func.lower(Car.make) == func.lower(make) and
                         func.lower(Car.model) == func.lower(model) and
@@ -24,6 +29,10 @@ def on_new_car_update_recalls(make, model, year):
 def update_car_recalls(make, model, year):
     """
     Update recalls for a specific car
+
+    :param make:
+    :param model:
+    :param year:
     :return:
     """
     pass
@@ -80,14 +89,16 @@ def _manufactured_to_and_from(recall):
 
     return manufactured_from, manufactured_to
 
-
+# service bulletins
 def on_new_car_update_service_bulletins(make, model, year):
-    #TODO: implement
+    # TODO: implement
     pass
+
 
 def update_car_service_bulletins(make, model, year):
     #TODO: implement
     pass
+
 
 def update_service_bulletins():
     """
@@ -113,11 +124,10 @@ def update_service_bulletins():
                 bulletin_date = datetime.strptime(service_bulletin['bulletinDate'], "%Y-%m-%d").date()
                 try:
                     summary = re.sub('([a-zA-Z])',
-                                 lambda x: x.groups()[0].upper(),
-                                 service_bulletin['summaryText'].lower(), 1)
+                                     lambda x: x.groups()[0].upper(),
+                                     service_bulletin['summaryText'].lower(), 1)
                 except KeyError:
                     continue  # skip if no summary
-
 
                 db_service_bulletin = ServiceBulletin(id=service_bulletin_id,
                                                       date=bulletin_date,
@@ -133,11 +143,5 @@ def update_service_bulletins():
                 db.session.commit()
 
 if __name__ == "__main__":
-    make = 'audi'
-    model = 'a4'
-    year = 2012
-    # print on_new_car_update_recalls(make, model, year)
-    # update_recalls()
+    update_recalls()
     update_service_bulletins()
-    # manufactured_to = '2012-10-29'
-    # print datetime.strptime(manufactured_to, "%Y-%m-%d").date()
