@@ -1,20 +1,20 @@
-import json
 from datetime import datetime
 import sqlalchemy as sa
 from flask_security import UserMixin, RoleMixin
 from sqlalchemy import orm
-from sqlalchemy.ext import mutable
 from sqlalchemy.dialects.postgresql import JSON
 from app import db
+import app.appointments.timekit as timekit
+from app.appointments.models import TimeKitUser
+
 
 roles_users = db.Table('roles_users',
                        sa.Column('user_id', sa.Integer(), sa.ForeignKey('user.id')),
                        sa.Column('role_id', sa.Integer(), sa.ForeignKey('role.id')))
 
 cars_users = db.Table('cars_users',
-                       sa.Column('user_id', sa.Integer(), sa.ForeignKey('user.id')),
-                       sa.Column('car_id', sa.Integer(), sa.ForeignKey('car.id')))
-
+                      sa.Column('user_id', sa.Integer(), sa.ForeignKey('user.id')),
+                      sa.Column('car_id', sa.Integer(), sa.ForeignKey('car.id')))
 
 
 class User(db.Model, UserMixin):
@@ -30,10 +30,15 @@ class User(db.Model, UserMixin):
     is_staff = sa.Column(sa.Boolean)
     first_name = sa.Column(sa.String(120))
     last_name = sa.Column(sa.String(120))
+
     roles = orm.relationship('Role', secondary=roles_users, backref=orm.backref('users', lazy='dynamic'))
     cars = orm.relationship('Car', secondary=cars_users, backref=orm.backref('users', lazy='dynamic'))
 
+    is_service = sa.Column(sa.Boolean, default=True)
+    timekit_user = orm.relationship('TimeKitUser', backref=orm.backref('users', uselist=False))
+
     news_subscriptions = db.Column(JSON)
+
 
     @property
     def cn(self):
@@ -63,5 +68,3 @@ class Role(db.Model, RoleMixin):
     id = sa.Column(sa.Integer(), primary_key=True)
     name = sa.Column(sa.String(80), unique=True)
     description = sa.Column(sa.String(255))
-
-

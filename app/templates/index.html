@@ -11,9 +11,9 @@
             <p class="text-center">Autocube brings you the latest news and safety updates for your vehicles. We put you in touch with dealers to fix your car's safety recalls for free.</p>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-1 col-md-offset-5">
-            <button class="btn btn-default btn-lg" type="button" data-toggle="modal" href="javascript:void(0)" onclick="openRegisterModal();">Get Started</button>
+    <div class="row row-centered">
+        <div class="col-md-1 col-centered">
+        <button class="btn btn-default btn-lg" type="button" data-toggle="modal" href="javascript:void(0)" onclick="openRegisterModal();">Get Started</button>
         </div>
     </div>
 </div>
@@ -57,13 +57,16 @@
                         <div class="box">
                              <div class="content">
                                 <div class="social">
-                                    <a class="circle github" href="/auth/github">
+                                    <a class="circle github"
+                                       href="/auth/github">
                                         <i class="fa fa-github fa-fw"></i>
                                     </a>
-                                    <a id="google_login" class="circle google" href="/auth/google_oauth2">
+                                    <a id="google_login" class="circle google"
+                                       href="/auth/google_oauth2">
                                         <i class="fa fa-google-plus fa-fw"></i>
                                     </a>
-                                    <a id="facebook_login" class="circle facebook" href="{{ url_for('social.login', provider='Facebook') }}">
+                                    <a id="facebook_login" class="circle facebook"
+                                       href="{{ url_for('social.login', provider='Facebook') }}">
                                         <i class="fa fa-facebook fa-fw"></i>
                                     </a>
                                 </div>

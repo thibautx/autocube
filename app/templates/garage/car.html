@@ -62,7 +62,12 @@
                     <div class="form-group">
                       <label class="col-md-4 control-label" for="current_mileage">Current Mileage</label>
                       <div class="col-md-4">
-                      <input id="current_mileage" name="current_mileage" type="text" value="{{ car.current_mileage }}" class="form-control input-md">
+                      <input id="current_mileage" name="current_mileage" type="text"
+                             {% if car.current_mileage is not none %}
+                             value="{{ car.current_mileage }}"
+                             {% endif %}
+                             placeholder="Current mileage on this car"
+                             class="form-control input-md">
                       </div>
                     </div>
 
@@ -70,8 +75,12 @@
                     <div class="form-group">
                       <label class="col-md-4 control-label" for="vin">VIN</label>
                       <div class="col-md-4">
-                      <input id="vin" name="vin" type="text" value="{{ car.vin }}" class="form-control input-md">
-
+                      <input id="vin" name="vin" type="text"
+                             {% if car.vin is not none %}
+                             value="{{ car.vin }}"
+                             {% endif %}
+                             placeholder="Vin on this car"
+                             class="form-control input-md">
                       </div>
                     </div>
 
@@ -121,7 +130,7 @@
                         {{ recall.components}} <br><br>
                     </div>
                     <div class="panel-footer">
-                      <button type="button" class="btn btn-primary">
+                      <button type="button" class="btn btn-default">
                           FIX SAFETY RECALL NOW
                       </button>
                     </div>
@@ -141,7 +150,7 @@
                         {{ bulletin.component_description}} <br><br>
                     </div>
                     <div class="panel-footer">
-                      <button type="button" class="btn btn-primary">
+                      <button type="button" class="btn btn-default">
                           SERVICE NOW
                       </button>
                     </div>
