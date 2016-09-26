@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 from app.profile.models import User
+from flask_user.forms import ChangePasswordForm
 
 profile_module = Blueprint('_profile', __name__, url_prefix='/profile')
 
@@ -17,5 +18,5 @@ def update_profile():
         args = request.form.to_dict()
         for arg, value in args.items():
             setattr(current_user, arg, value)
-        print current_user.__dict__
         return redirect(url_for('.profile'))
+

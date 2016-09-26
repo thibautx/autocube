@@ -3,6 +3,7 @@ import pprint
 import feedparser as fp
 from bs4 import BeautifulSoup
 
+pp = pprint.PrettyPrinter(indent=2)
 
 def parse_feed(url, blog, make_feed=False):
     entries = fp.parse(url)['entries']
@@ -30,7 +31,7 @@ def format_entry(entry):
 
     # return formatted
 
-
+# AUTOBLOG
 def autoblog_feed(make=None):
     if make is not None:
         return autoblog_make_feed(make)
@@ -70,16 +71,66 @@ def format_autoblog_entry(entry, make_feed=False):
     return formatted
 
 
-def motortrend_feed():
+# MOTORTREND
+def motortrend_feed(make=None):
     url = 'http://www.motortrend.com/widgetrss/motortrend-stories.xml'
-    return parse_feed(url)
+    return parse_feed(url, blog='motortrend')
 
 
-def caranddriver_feed():
+def motortrend_make_feed(make):
+    pass
+
+
+def format_motortrend_entry(entry, make_feed=False):
+    soup = BeautifulSoup(entry['summary'], 'html.parser')
+    try:
+        image = soup.find('img').attrs['src']
+    except:
+        image = None
+
+    summary = BeautifulSoup(entry['summary'], 'html.parser').text
+
+    formatted = {
+        'title': entry['title'],
+        'author': entry['author'],
+        'link': entry['link'],
+        'date': entry['published'],
+        'summary': summary,
+        'image': image,
+    }
+
+    return formatted
+
+
+# CAR AND DRIVER (doesn't work?? no rss feed)
+def caranddriver_feed(make=None):
     url = 'http://feeds.feedburner.com/caranddriver/blog.xml'
-    return parse_feed(url)
+    return parse_feed(url, 'caranddriver')
 
 
+def format_caranddriver_entry(entry):
+    soup = BeautifulSoup(entry['summary'], 'html.parser')
+    try:
+        image = soup.find('img').attrs['src']
+    except:
+        image = None
+
+    summary = BeautifulSoup(entry['summary'], 'html.parser').text
+    print summary
+
+    formatted = {
+        'title': entry['title'],
+        'author': entry['author'],
+        'link': entry['link'],
+        'date': entry['published'],
+        'summary': summary,
+        'image': image,
+    }
+
+    return formatted
+
+
+# TOPGEAR (doesn't work?? no rss feed)
 def topgear_feed():
     pass
 
@@ -89,9 +140,33 @@ def thecarconnection_feed():
     return parse_feed(url)
 
 
-def autoweek_feed():
-    url = 'http://autoweek.com/rss.xml'
-    return parse_feed(url)
+# AUTOWEEK
+def autoweek_feed(make=None):
+    url = 'http://autoweek.com/rss/2057/feed.xml'
+    return parse_feed(url, blog='autoweek')
+
+
+def format_autoweek_entry(entry, make_feed=False):
+    pp.pprint(entry)
+    soup = BeautifulSoup(entry['summary_detail'], 'html.parser').text
+    # pp.pprint(soup.text)
+    # try:
+    #     image = soup.find('img').attrs['src']
+    # except:
+    #     image = None
+
+    summary = BeautifulSoup(entry['summary'], 'html.parser').text
+
+    formatted = {
+        'title': entry['title'],
+        'author': entry['author'],
+        'link': entry['link'],
+        'date': entry['published'],
+        'summary': summary,
+        'image': image,
+    }
+
+    return formatted
 
 
 def automobilemag_feed():
@@ -101,5 +176,8 @@ def automobilemag_feed():
 
 formatters = {
     'autoblog': format_autoblog_entry,
+    'motortrend': format_motortrend_entry,
+    'caranddriver': format_caranddriver_entry,
+    'autoweek': format_autoweek_entry,
 }
 

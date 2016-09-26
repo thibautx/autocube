@@ -1,7 +1,7 @@
 from app import db
 import json
 import requests
-from app.appointments.models import TimeKitUser
+from sqlalchemy import func
 
 API_TOKEN = 'UJuBHHwPxpEKKNQYafhtsKNHYDZb68FA'
 ID = '43a21818-1988-41ba-90ee-38bd7063effd'
@@ -11,22 +11,10 @@ HEADERS = {
     'Accept': 'text/plain'
 }
 
-def create_from_user(user):
-    timekit_user = TimeKitUser(app_id=ID,
-                               email=user.email,
-                               password='abc123',
-                               timezone='America/Chicago')
-    db.session.add(timekit_user)
-    user.timekit_user.append(timekit_user)
-    db.session.commit()
-
-
-def _generate_password():
-    pass
-
 
 def register_user(user):
     """
+    Register a (User) on Time Kit.
 
     :param user: (User)
     :return:
@@ -72,7 +60,7 @@ def auth_user(user):
     data = {
         'id': ID,
         'email': user.email,
-        'password': user.timekit_user[0].password,
+        'password': user.timekit['password'],
     }
     r = requests.post(api_url, data=json.dumps(data), headers=HEADERS).json()
     data = r['data']
@@ -88,7 +76,11 @@ def create_calendar(user, name=None, description=None):
     }
     api_token = auth_user(user)
     auth = (user.email, api_token)
-    r = requests.post(api_url, data=json.dumps(data), auth=auth, headers=HEADERS).json()
+    r = requests.post(api_url, data=json.dumps(data), auth=auth, headers=HEADERS).json()['data']
+    # user.timekit['calendar_id'] = r['id']
+    # calendar_id = r['id']
+    # user.update().values(timekit=func.json_object_set_key('calendar_id', calendar_id))
+    # db.session.commit()
     return r
 
 
@@ -99,11 +91,31 @@ def get_calendar(user):
     :param user:
     :return:
     """
-    api_url = 'https://api.timekit.io/v2/calendars'
+    api_url = 'https://api.timekit.io/v2/calendars/{}'.format(user.calender_id)
     api_token = auth_user(user)
     auth = (user.email, api_token)
     r = requests.get(api_url, auth=auth, headers=HEADERS).json()
     return r['data'][0]['id']
+
+
+def create_widget(user, name=None):
+    api_url = 'https://api.timekit.io/v2/widgets'
+    api_token = auth_user(user)
+    data = {
+        'name': user.first_name + 'Calendar',
+        'slug': user.first_name.lower() + '-widget',
+        'config': {
+            'email': user.email,
+            'calendar': user.timekit['calendar_id'],
+            'apiToken': api_token
+        }
+    }
+    auth = (user.email, api_token)
+    r = requests.post(api_url, data=json.dumps(data), auth=auth, headers=HEADERS).json()['data']
+    # widget_id = r['id']
+    # user.timekit['widget_id'] = widget_id
+    # db.session.commit()
+    return r
 
 
 if __name__ == "__main__":

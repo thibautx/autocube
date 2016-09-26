@@ -6,6 +6,7 @@ from app.garage.models import Car
 from flask import Blueprint, render_template, request, jsonify, redirect, url_for
 from flask_login import login_required, current_user
 
+GOOGLE_MAPS_API_KEY = 'AIzaSyDC-_cXzQetjUnrB4GXyGyaK2qgLbwpkv4'
 garage_module = Blueprint('_garage', __name__, url_prefix='/garage')
 
 @garage_module.route('/')
@@ -24,8 +25,21 @@ def car_details(id):
     return render_template('garage/car.html',
                            car=car,
                            recalls=car.recalls,
-                           service_bulletins=car.service_bulletins)
+                           service_bulletins=car.service_bulletins,
+                           maps_api=GOOGLE_MAPS_API_KEY)
 
+
+@garage_module.route('/car/<id>/service', methods=['POST'])
+def service_car(id):
+    car = Car.query.get(id)
+    zip = request.form['zip']
+
+    dealers = edmunds.get_dealers(zip, car.make)
+    import pprint
+    pp = pprint.PrettyPrinter(indent=2)
+    pp.pprint(dealers[0])
+    return render_template('garage/service_car.html',
+                           dealers=dealers)
 
 @garage_module.route('/car', methods=['POST'])
 @login_required

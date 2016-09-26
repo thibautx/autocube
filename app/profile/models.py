@@ -5,7 +5,6 @@ from sqlalchemy import orm
 from sqlalchemy.dialects.postgresql import JSON
 from app import db
 import app.appointments.timekit as timekit
-from app.appointments.models import TimeKitUser
 
 
 roles_users = db.Table('roles_users',
@@ -30,15 +29,16 @@ class User(db.Model, UserMixin):
     is_staff = sa.Column(sa.Boolean)
     first_name = sa.Column(sa.String(120))
     last_name = sa.Column(sa.String(120))
+    zip_code = sa.Column(sa.Integer)
 
     roles = orm.relationship('Role', secondary=roles_users, backref=orm.backref('users', lazy='dynamic'))
     cars = orm.relationship('Car', secondary=cars_users, backref=orm.backref('users', lazy='dynamic'))
 
     is_service = sa.Column(sa.Boolean, default=True)
-    timekit_user = orm.relationship('TimeKitUser', backref=orm.backref('users', uselist=False))
+    makes_serviced = sa.Column(JSON)
+    timekit = sa.Column(JSON)
 
     news_subscriptions = db.Column(JSON)
-
 
     @property
     def cn(self):

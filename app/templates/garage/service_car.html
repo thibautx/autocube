@@ -1,0 +1,26 @@
+{% extends "page.html" %}
+{% block title %} Car Details {% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+
+{% for dealer in dealers %}
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h2>{{ dealer['name']}}</h2>
+        <br>
+        Distance: {{ dealer['distance'] }} <br>
+        Address: {{ dealer['address'] }} <br>
+        Contact Info: {{ dealer['contactInfo'] }} <br>
+        Hours: {{ dealer['operations'] }} <br>
+
+
+      </div>
+    </div>
+{% endfor %}
+
+{% endblock %}
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/car-details-tabs.js') }}" type="text/javascript"></script>
+{% endblock %}

@@ -85,9 +85,12 @@ def init_app(app):
     login_manager.login_view = "/login"
 
     # Setup Flask-Security
+    from flask_security.forms import ChangePasswordForm
     security = Security()
-    security = security.init_app(app, SQLAlchemyUserDatastore(db, User, Role))
+    security = security.init_app(app, SQLAlchemyUserDatastore(db, User, Role),
+                                 change_password_form=ChangePasswordForm)
     security.send_mail_task(send_mail)
+
 
     from flask_social_blueprint.core import SocialBlueprint
     SocialBlueprint.init_bp(app, SocialConnection, url_prefix="/auth")
