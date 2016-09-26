@@ -1,3 +1,4 @@
+from app import db
 import json
 import requests
 from app.appointments.models import TimeKitUser
@@ -15,7 +16,10 @@ def create_from_user(user):
                                email=user.email,
                                password='abc123',
                                timezone='America/Chicago')
+    db.session.add(timekit_user)
     user.timekit_user.append(timekit_user)
+    db.session.commit()
+
 
 def _generate_password():
     pass
@@ -79,13 +83,28 @@ def auth_user(user):
 def create_calendar(user, name=None, description=None):
     api_url = 'https://api.timekit.io/v2/calendars'
     data = {
-        'name': 'test calendar',
+        'name': user.first_name + 'Calendar',
         'description': 'test calendar description'
     }
     api_token = auth_user(user)
-    auth = (user, api_token)
+    auth = (user.email, api_token)
     r = requests.post(api_url, data=json.dumps(data), auth=auth, headers=HEADERS).json()
     return r
+
+
+def get_calendar(user):
+    """
+    Get user's calendar-id
+
+    :param user:
+    :return:
+    """
+    api_url = 'https://api.timekit.io/v2/calendars'
+    api_token = auth_user(user)
+    auth = (user.email, api_token)
+    r = requests.get(api_url, auth=auth, headers=HEADERS).json()
+    return r['data'][0]['id']
+
 
 if __name__ == "__main__":
     # register_user()

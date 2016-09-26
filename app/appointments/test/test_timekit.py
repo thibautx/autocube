@@ -12,16 +12,19 @@ class TestTimeKit(unittest.TestCase):
         cls.test_user = User.query.filter(User.email == 'txiong3@illinois.edu')[0]
 
     def test_register_user(self):
-        print timekit.register_user(self.test_user)
+        timekit.register_user(self.test_user)
 
     def test_auth_user(self):
         # add user
         timekit.create_from_user(self.test_user)
         api_token = timekit.auth_user(self.test_user)
-        print api_token
 
     def test_create_calendar(self):
-        pass
+        timekit.create_calendar(self.test_user)
+
+    def test_get_calendar(self):
+        print 'test get calendar'
+        print timekit.get_calendar(self.test_user)
 
     def test_remove_user(self):
         # print timekit.remove_user(self.test_user)

@@ -2,6 +2,7 @@ import json
 import feeds
 from app import db
 from app.profile.models import User
+from app.garage.models import Car
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 from collections import OrderedDict
@@ -37,11 +38,25 @@ def news():
         if val == 1:
             news_items += f[feed]()
 
+    make_feeds = get_make_feeds(user_feeds)
     return render_template('news/index.html',
                            feeds=f,
                            news_items=news_items,
-                           user_feeds=user_feeds)
+                           user_feeds=user_feeds,
+                           makes=make_feeds.keys(),
+                           make_feeds=make_feeds)
 
+
+def get_make_feeds(user_feeds):
+    cars_distinct_make = Car.query.filter(Car.user_id == current_user.id).distinct(Car.make).all()  #
+    makes = [car.make for car in cars_distinct_make]
+    make_feeds = {make: [] for make in makes}
+    for make in makes:
+        for feed, val in user_feeds.items():
+            if val == 1:
+                make_feeds[make] += f[feed](make=make)
+
+    return make_feeds
 
 @news_module.route('/update-subscriptions', methods=['POST'])
 @login_required
