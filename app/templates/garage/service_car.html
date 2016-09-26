@@ -4,7 +4,23 @@
 {{ super() }}
 {% endblock %}
 {% block content %}
+<h1>Autocube Dealers</h1>
+{% for autocube_dealer in autocube_dealers %}
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h2>{{ autocube_dealer['name']}}</h2>
+        <br>
+        Distance: {{ autocube_dealer['distance'] }} <br>
+        Address: {{ autocube_dealer['address'] }} <br>
+        Contact Info: {{ autocube_dealer['contactInfo'] }} <br>
+        Hours: {{ autocube_dealer['operations'] }} <br>
 
+
+      </div>
+    </div>
+{% endfor %}
+
+<h1>Non autocube dealers</h1>
 {% for dealer in dealers %}
     <div class="panel panel-default">
       <div class="panel-body">

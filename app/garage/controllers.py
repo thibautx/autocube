@@ -5,6 +5,9 @@ from app import db
 from app.garage.models import Car
 from flask import Blueprint, render_template, request, jsonify, redirect, url_for
 from flask_login import login_required, current_user
+from app.profile.models import User
+from pyzipcode import ZipCodeDatabase
+from geopy.distance import vincenty
 
 GOOGLE_MAPS_API_KEY = 'AIzaSyDC-_cXzQetjUnrB4GXyGyaK2qgLbwpkv4'
 garage_module = Blueprint('_garage', __name__, url_prefix='/garage')
@@ -33,13 +36,30 @@ def car_details(id):
 def service_car(id):
     car = Car.query.get(id)
     zip = request.form['zip']
+    try:
+        max_distance = request.form['distance']
+    except KeyError:
+        pass
 
+    # non registered dealers
     dealers = edmunds.get_dealers(zip, car.make)
-    import pprint
-    pp = pprint.PrettyPrinter(indent=2)
-    pp.pprint(dealers[0])
+
+    autocube_dealers = User.query.filter(User.is_service == True and _distance_filter(User.zip, zip) == True).all()
+    # import pprint
+    # pp = pprint.PrettyPrinter(indent=2)
+    # pp.pprint(dealers[0])
     return render_template('garage/service_car.html',
+                           autocube_dealers=autocube_dealers,
                            dealers=dealers)
+
+def _distance_filter(dealer_zip, customer_zip, max_distance=10):
+    zcdb = ZipCodeDatabase()
+    dealer_lat_long = (zcdb[dealer_zip].latitude, zcdb[dealer_zip].longitude)
+    customer_lat_long = (zcdb[customer_zip].latitude, zcdb[customer_zip].longitude)
+    distance = vincenty(dealer_lat_long, customer_lat_long)
+    print distance
+    return distance < max_distance
+
 
 @garage_module.route('/car', methods=['POST'])
 @login_required

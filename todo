@@ -11,7 +11,7 @@ Garage:
 - API for car images
 
 Garage.Car:
--
+- change model for Dealer (faster searching)
 
 News:
 - sections
