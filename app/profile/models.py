@@ -4,8 +4,6 @@ from flask_security import UserMixin, RoleMixin
 from sqlalchemy import orm
 from sqlalchemy.dialects.postgresql import JSON
 from app import db
-import app.appointments.timekit as timekit
-
 
 roles_users = db.Table('roles_users',
                        sa.Column('user_id', sa.Integer(), sa.ForeignKey('user.id')),
@@ -63,6 +61,13 @@ class User(db.Model, UserMixin):
         from app.auth.models import SocialConnection
         return SocialConnection.query.filter(SocialConnection.user_id == self.id).all()
 
+
+class Dealer(db.Model, UserMixin):
+    __tablename__ = 'dealer'
+    id = sa.Column(sa.Integer, primary_key=True)
+    email = sa.Column(sa.String(250), unique=True)
+    name = sa.Column(sa.String(250), unique=True)
+    password = sa.Column(sa.String(255))
 
 class Role(db.Model, RoleMixin):
     id = sa.Column(sa.Integer(), primary_key=True)

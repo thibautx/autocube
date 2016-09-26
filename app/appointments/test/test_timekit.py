@@ -20,7 +20,7 @@ class TestTimeKit(unittest.TestCase):
             'widget_id': '5bb2d2f0-e0d9-4b4c-89de-3a098542b016',
         }
 
-        setattr(cls.test_user, 'timekit', timekit)
+        # setattr(cls.test_user, 'timekit', timekit)
         #
         # makes_serviced = {
         #     'honda': 1
@@ -55,3 +55,6 @@ class TestTimeKit(unittest.TestCase):
 
     def test_create_widget(self):
         print timekit.create_widget(self.test_user)
+
+    def test_get_widget(self):
+        print timekit.get_widget(self.test_user)

@@ -50,7 +50,8 @@ def service_car(id):
     # pp.pprint(dealers[0])
     return render_template('garage/service_car.html',
                            autocube_dealers=autocube_dealers,
-                           dealers=dealers)
+                           dealers=dealers,
+                           car=car)
 
 def _distance_filter(dealer_zip, customer_zip, max_distance=10):
     zcdb = ZipCodeDatabase()

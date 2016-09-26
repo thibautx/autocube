@@ -15,6 +15,10 @@
         Contact Info: {{ autocube_dealer['contactInfo'] }} <br>
         Hours: {{ autocube_dealer['operations'] }} <br>
 
+        <a href="{{ url_for('_appointments.schedule_with_dealer', dealer_id=autocube_dealer.id, car_id=car.id) }}" class="btn btn-info" role="button">
+            Schedule
+        </a>
+
 
       </div>
     </div>
@@ -38,5 +42,7 @@
 
 {% endblock %}
 {% block scripts %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" defer></script> <script src="//cdn.timekit.io/booking-js/v1/booking.min.js" defer></script>
+{#    <script>window.timekitBookingConfig = { widgetId: '{{ autocube_dealer.timekit['widget_id'] }}' }</script>#}
     <script src="{{ url_for('static', filename='js/car-details-tabs.js') }}" type="text/javascript"></script>
 {% endblock %}

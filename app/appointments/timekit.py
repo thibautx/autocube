@@ -112,11 +112,14 @@ def create_widget(user, name=None):
     }
     auth = (user.email, api_token)
     r = requests.post(api_url, data=json.dumps(data), auth=auth, headers=HEADERS).json()['data']
-    # widget_id = r['id']
-    # user.timekit['widget_id'] = widget_id
-    # db.session.commit()
     return r
 
+def get_widget(user):
+    api_url = 'https://api.timekit.io/v2/widgets/embed/{}'.format(user.timekit['widget_id'])
+    api_token = auth_user(user)
+    auth = (user.email, api_token)
+    r = requests.get(api_url, auth=auth, headers=HEADERS).json()['data']
+    return r
 
 if __name__ == "__main__":
     # register_user()

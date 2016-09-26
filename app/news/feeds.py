@@ -8,7 +8,8 @@ pp = pprint.PrettyPrinter(indent=2)
 def parse_feed(url, blog, make_feed=False):
     entries = fp.parse(url)['entries']
     f_format = formatters[blog]
-    return [f_format(entry, make_feed=make_feed) for entry in entries]
+    return [format_entry(entry) for entry in entries]
+    # return [f_format(entry, make_feed=make_feed) for entry in entries]
 
 
 def format_entry(entry):
@@ -28,8 +29,7 @@ def format_entry(entry):
         'summary': summary,
         'image': image,
     }
-
-    # return formatted
+    return formatted
 
 # AUTOBLOG
 def autoblog_feed(make=None):

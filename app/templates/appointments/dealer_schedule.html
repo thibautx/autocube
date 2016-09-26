@@ -1,0 +1,18 @@
+{% extends "page.html" %}
+{% block title %} Car Details {% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+<h1>Schedule with {{ dealer.first_name }}</h1>
+
+    Service your {{ car.year }} {{ car.make }} {{ car.model }}
+
+<div id="bookingjs"></div>
+
+
+{% endblock %}
+{% block scripts %}
+    <script src="//cdn.timekit.io/booking-js/v1/booking.min.js" defer></script>
+    <script>window.timekitBookingConfig = { widgetId: '{{ dealer.timekit['widget_id'] }}' }</script>
+{% endblock %}
