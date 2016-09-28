@@ -1,0 +1,34 @@
+{% macro news_subscriptions() %}
+<div class="tab-pane fade" role="tabpanel" id="tab-news-subscriptions">
+	<form class="form-horizontal" action="{{ url_for('.update_subscriptions') }}" method="post">
+		<fieldset>
+
+			<!-- Form Name -->
+			<legend>Subscriptions</legend>
+
+			<!-- Feed Checkboxes -->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="feeds">Feeds</label>
+				<div class="col-md-4">
+				{% for feed in feeds %}
+					<div class="checkbox">
+						<input type="checkbox" name="feeds" value="{{ feed }}" {% if user_feeds[feed] == 1 %}checked{% endif %}>
+							{{ feed }}
+						</label>
+					</div>
+				{% endfor %}
+				</div>
+			</div>
+
+			<!-- Submit Button -->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="submit"></label>
+				<div class="col-md-4">
+					<button id="submit" class="btn btn-default">Save</button>
+				</div>
+			</div>
+		</fieldset>
+
+	</form>
+</div>
+{% endmacro %}

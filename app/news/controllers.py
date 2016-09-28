@@ -23,7 +23,6 @@ PER_PAGE = 10
 @news_module.route('/')
 @login_required
 def news():
-
     try:
         user_feeds = json.loads(User.query.get(current_user.id).news_subscriptions)
     except:

@@ -53,6 +53,7 @@ def service_car(id):
                            dealers=dealers,
                            car=car)
 
+
 def _distance_filter(dealer_zip, customer_zip, max_distance=10):
     zcdb = ZipCodeDatabase()
     dealer_lat_long = (zcdb[dealer_zip].latitude, zcdb[dealer_zip].longitude)

@@ -4,96 +4,15 @@
 {% block head %}
 {{ super() }}
 {% endblock %}
+
+{% from "news/news_tabs.html" import news_tabs with context%}
+{% from "news/news_tabs_content.html" import news_tabs_content with context %}
+
 {% block content %}
 <div id="tab-news">
+    {{ news_tabs() }}
 
-    <!-- Tabs -->
-    <ul class="nav nav-tabs">
-        <li class="active"><a href="#tab-1" role="tab" data-toggle="tab">My News</a></li>
-        {% for make in makes %}
-            <li><a href="#{{ make }}-feed" role="tab" data-toggle="tab">{{ make }} Feed</a></li>
-        {% endfor %}
-        <li><a href="#tab-2" role="tab" data-toggle="tab">Subscriptions </a></li>
-    </ul>
+    {{ news_tabs_content() }}
 
-    <!-- Tab Content -->
-    <div class="tab-content">
-
-        <!-- All News -->
-        <div class="tab-pane fade in active" role="tabpanel" id="tab-1">
-            {% for item in news_items %}
-                <div class="row">
-                    <div class="col-lg-10 col-lg-offset-2 col-lg-pull-1 col-md-10 col-md-offset-2 col-md-pull-1">
-                        <br>
-                        <article class="blog-item">
-                            <div class="row">
-                                <div class="col-md-4"><img src="{{ item.image }}" width="400" height="200" id="article-image" class="pull-left img-responsive"></div>
-                                <div class="col-md-8">
-                                    <div id="article-content" class="text">
-                                        <h3><a href="#">{{ item.title }}</a></h3>
-                                        <p>{{ item.summary|safe }} </p>
-                                        <h4><a href="{{ item.link }}" target="blank">Read More</a></h4></div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-
-        {% for make in makes %}
-        <div class="tab-pane fade" role="tabpanel" id="{{ make }}-feed">
-            {% for item in make_feeds[make] %}
-                 <div class="col-lg-10 col-lg-offset-2 col-lg-pull-1 col-md-10 col-md-offset-2 col-md-pull-1">
-                        <br>
-                        <article class="blog-item">
-                            <div class="row">
-                                <div class="col-md-4"><img src="{{ item.image }}" width="400" height="200" id="article-image" class="pull-left img-responsive"></div>
-                                <div class="col-md-8 col-md-offset-0">
-                                    <div id="article-content" class="text">
-                                        <h3><a href="#">{{ item.title }}</a></h3>
-                                        <p>{{ item.summary }} </p>
-                                        <h4><a href="{{ item.link }}">Read More</a></h4></div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-            {% endfor %}
-        </div>
-        {% endfor %}
-
-        <div class="tab-pane fade" role="tabpanel" id="tab-2">
-            <form class="form-horizontal" action="{{ url_for('.update_subscriptions') }}" method="post">
-                <fieldset>
-                <!-- Form Name -->
-                <legend>Subscriptions</legend>
-
-                <!-- Multiple Checkboxes -->
-                <div class="form-group">
-                  <label class="col-md-4 control-label" for="feeds">Feeds</label>
-                  <div class="col-md-4">
-                    {% for feed in feeds %}
-                    <div class="checkbox">
-                    <input type="checkbox" name="feeds" value="{{ feed }}" {% if user_feeds[feed] == 1 %}checked{% endif %}>
-                        {{ feed }}
-                    </label>
-                    </div>
-                    {% endfor %}
-                  </div>
-                </div>
-
-                <!-- Button -->
-                <div class="form-group">
-                  <label class="col-md-4 control-label" for="submit"></label>
-                  <div class="col-md-4">
-                    <button id="submit" class="btn btn-default">Save</button>
-                  </div>
-                </div>
-                </fieldset>
-            </form>
-        </div>
-    </div>
 </div>
 {% endblock %}
