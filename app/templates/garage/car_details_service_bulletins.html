@@ -1,0 +1,20 @@
+{% macro body() %}
+<div class="tab-pane" role="tabpanel" id="tab-3">
+	{% for bulletin in service_bulletins %}
+	<div class="panel panel-danger">
+			<div class="panel-heading">NHTSA Campaign: {{ bulletin.nhtsa_number }}</div>
+			<div class="panel-body">
+					<h4>Summary:</h4>
+					{{ bulletin.summary }} <br> <br>
+					<h4>Affected Components:</h4>
+					{{ bulletin.component_description}} <br><br>
+			</div>
+			<div class="panel-footer">
+				<button type="button" class="btn btn-default">
+						SERVICE NOW
+				</button>
+			</div>
+	</div>
+	{% endfor %}
+</div>
+{% endmacro %}
