@@ -1,17 +1,19 @@
 {% macro news_item(item) %}
-<div class="col-lg-10 col-lg-offset-2 col-lg-pull-1 col-md-10 col-md-offset-2 col-md-pull-1">
-<br>
-    <article class="blog-item">
-        <div class="row">
-            <div class="col-md-4"><img src="{{ item.image }}" width="400" height="200" id="article-image" class="pull-left img-responsive"></div>
-                <div class="col-md-8 col-md-offset-0">
-                    <div id="article-content" class="text">
-                        <h3><a href="#">{{ item.title }}</a></h3>
-                        <p>{{ item.summary }} </p>
-                        <h4><a href="{{ item.link }}">Read More</a></h4></div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-    </article>
+<div class="box-item">
+	<div class="box-post">
+			<span class="label label-success">
+					<a href="#" rel="tag">Travel</a>
+			</span>
+			<h1 class="post-title">
+					<a href="{{ item.link }}">
+							{{ item.title }}
+					</a>
+			</h1>
+			<span class="meta">
+					<span><i class="glyphicon glyphicon-comment"></i> <a href="http://wordpress.thebebel.com/showcase/newsbook/2015/01/19/meet-asias-best-destinations-for-the-summer/#respond">No Comments</a></span>
+					<span><i class="glyphicon glyphicon-time"></i> Sep 15, 2015</span>
+			</span>
+	</div>
+	<img src="{{ item.image }}">
 </div>
 {% endmacro %}

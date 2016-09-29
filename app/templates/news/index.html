@@ -3,9 +3,10 @@
 {% block title %} News {% endblock %}
 {% block head %}
 {{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/news-grid.css') }}">
 {% endblock %}
 
-{% from "news/news_tabs.html" import news_tabs with context%}
+{% from "news/news_tabs.html" import news_tabs with context %}
 {% from "news/news_tabs_content.html" import news_tabs_content with context %}
 
 {% block content %}
