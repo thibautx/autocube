@@ -1,3 +1,49 @@
+/*! =========================================================
+ *
+ Material Dashboard - V1.0.0
+*
+* =========================================================
+*
+* Copyright 2016 Creative Tim (http://www.creative-tim.com/product/material-dashboard)
+ *
+ *                       _oo0oo_
+ *                      o8888888o
+ *                      88" . "88
+ *                      (| -_- |)
+ *                      0\  =  /0
+ *                    ___/`---'\___
+ *                  .' \|     |// '.
+ *                 / \|||  :  |||// \
+ *                / _||||| -:- |||||- \
+ *               |   | \  -  /// |   |
+ *               | \_|  ''\---/''  |_/ |
+ *               \  .-\__  '-'  ___/-. /
+ *             ___'. .'  /--.--\  `. .'___
+ *          ."" '<  `.___\_<|>_/___.' >' "".
+ *         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+ *         \  \ `_.   \_ __\ /__ _/   .-` /  /
+ *     =====`-.____`.___ \_____/___.-`___.-'=====
+ *                       `=---='
+ *
+ *     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *
+ *               Buddha Bless:  "No Bugs"
+ *
+ * ========================================================= */
+
+/* ANIMATION */
+
+/* SHADOWS */
+
+/* Shadows (from mdl http://www.getmdl.io/) */
+
+/*!
+Animate.css - http://daneden.me/animate
+Licensed under the MIT license - http://opensource.org/licenses/MIT
+
+Copyright (c) 2015 Daniel Eden
+*/
+
 @-webkit-keyframes shake {
   from, to {
     -webkit-transform: translate3d(0, 0, 0);
@@ -185,6 +231,15 @@ body,h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4 {
   line-height: 1.5em;
 }
 
+a {
+  color: #9c27b0;
+}
+
+a:hover,a:focus {
+  color: #89229b;
+  text-decoration: none;
+}
+
 /*           Animations              */
 
 * {
@@ -194,6 +249,10 @@ body,h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4 {
 
 *:focus {
   outline: 0;
+}
+
+a:focus,a:active {
+  outline: 0 !important;
 }
 
 @keyframes checkbox-on {
@@ -287,7 +346,7 @@ body,h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4 {
 }
 
 .card .card-content {
-  padding: 15px 20px;
+  padding: 125px 20px;
 }
 
 .card .card-content .category {
@@ -340,9 +399,23 @@ body,h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4 {
   color: #FFFFFF;
 }
 
-.card-profile {
-  margin-top: 30px;
-  text-align: center;
+.card [data-background-color] a {
+  color: #FFFFFF;
+}
+
+.card-plain {
+  background: transparent;
+  box-shadow: none;
+}
+
+.card-plain .card-header {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.card-plain .content {
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 @media (min-width: 992px) {
