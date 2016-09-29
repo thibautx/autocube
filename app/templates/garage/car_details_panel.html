@@ -1,38 +1,37 @@
 {% macro body() %}
 <div class="panel-body" style="background: #FFFFFF">
-	<!-- Back to garage -->
-	<form class="btn-group">
-		<a href="{{ url_for('.garage_home') }}" class="btn btn-default" role="button">
-			<i class="material-icons">arrow_back</i>Back to garage
-		</a>
-	</form>
 
-	<!-- Remove Car -->
-	<form class="btn-group">
-		<form action="{{ url_for('.remove_car', id=car.id) }}" method=post>
-			<button class="btn btn-default">
-				<input type=hidden value="{{ car.id }}" name=car_id>
-					<span class="material-icons">delete_forever</span> Remove car
-			</button>
+	<div class="col-md-4">
+		<!-- Back to garage -->
+		<form class="btn-group">
+			<a href="{{ url_for('.garage_home') }}" class="btn btn-default" role="button">
+				<i class="material-icons">arrow_back</i>Back to garage
+			</a>
 		</form>
-	</form>
+		<!-- Remove Car -->
+		<form class="btn-group">
+			<form action="{{ url_for('.remove_car', id=car.id) }}" method=post>
+				<button class="btn btn-default">
+					<input type=hidden value="{{ car.id }}" name=car_id>
+						<span class="material-icons">delete_forever</span> Remove car
+				</button>
+			</form>
+		</form>
+		<br><br>
+		<img src="../../static/images/lambo.jpeg" height="200px" width="400px">
+	</div>
 
-{#			</div>#}
-{#			<div class="col-md-4">#}
-{#					<img src="../../static/images/lambo.jpeg" height="100px" width="200px">#}
-{#			</div>#}
-{#	</div>#}
-{#	<div class="row">#}
-{#			<div class="col-md-4">#}
-{#				 <h4>{{ car.year }} </h4>#}
-{#					<h2>{{ car.make }} {{ car.model }}</h2>#}
-{#					Recommended services: <br>#}
-{#					Total Mileage: <br>#}
-{#					Daily Mileage Average: <br>#}
-{#			</div>#}
-{#			<div class="col-md-4">#}
-{#					baz#}
-{#			</div>#}
-{#	</div>#}
+	<div class="col-md-4">
+		<h4>{{ car.year }} </h4>
+		<h2>{{ car.make }} {{ car.model }}</h2>
+		Recommended services: <br>
+		Total Mileage: <br>
+		Daily Mileage Average: <br>
+	</div>
+
+	<div class="col-md-4">
+			baz
+	</div>
+
 </div>
 {% endmacro %}

@@ -4,7 +4,9 @@
  * Copyright 2013-2016 bootstrap-select
  * Licensed under MIT (https://github.com/silviomoreto/bootstrap-select/blob/master/LICENSE)
  */
-
+.dropdown-menu>.active>a, .dropdown-menu>.active>a:hover, .dropdown-menu>.active>a:focus{
+  background-color: #FF9800;
+}
 select.bs-select-hidden,
 select.selectpicker {
   display: none !important;
@@ -22,7 +24,7 @@ select.selectpicker {
 .bootstrap-select > .dropdown-toggle.bs-placeholder:hover,
 .bootstrap-select > .dropdown-toggle.bs-placeholder:focus,
 .bootstrap-select > .dropdown-toggle.bs-placeholder:active {
-  color: #999;
+  color: #FFFFFF;
 }
 .bootstrap-select > select {
   position: absolute !important;

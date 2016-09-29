@@ -15,45 +15,26 @@
 
 {% block content %}
 <div class="card card-nav-tabs">
-
 	<div class="header" data-background-color="orange">
-	<div class="nav-tabs-navigation">
-		<div class="nav-tabs-wrapper">
-		<ul class="nav nav-tabs" data-tabs="tabs">
-			<h2 class="nobreak">My Cars</h2>
-			<li>	<button type="submit" class="btn btn-default btn-md" data-toggle="modal" data-target="#add-car">
-			 ADD A NEW CAR <i class="mdi mdi-plus-box mdi-14px"></i>
-	</button></li>
-		</ul>
+		<div class="nav-tabs-navigation">
+			<div class="nav-tabs-wrapper">
+			<ul class="nav nav-tabs" data-tabs="tabs">
+				<h2>My Cars</h2>
+				<li>
+					<button type="submit" class="btn btn-default btn-md" data-toggle="modal" data-target="#add-car">
+						ADD A NEW CAR <i class="mdi mdi-plus-box mdi-14px"></i>
+					</button>
+				</li>
+			</ul>
+			</div>
 		</div>
 	</div>
-	</div>
-	</div>
+</div>
 
-{#	<h2 class="title">My Cars</h2>#}
-{#	<button type="submit" class="btn btn-default btn-md" data-toggle="modal" data-target="#add-car">#}
-{#		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> ADD A NEW CAR#}
-{#	</button>#}
-	{% for car in cars %}
-	{{ garage_car_item(car) }}
-	{% endfor %}
-
-{#<div class="card card-plain">#}
-{#<div class="card-header" data-background-color="orange">#}
-{#		<h1 class="title">My Cars</h1>#}
-{#		<p class="category">Handcrafted by our friends from <a target="_blank" href="https://design.google.</p>#}
-{#</div>#}
-{#<div class="card-content">#}
-{##}
-{#<button type="submit" class="btn btn-default btn-md" data-toggle="modal" data-target="#add-car">#}
-{#</button>#}
-{#    {% for car in cars %}#}
-{#     	{{ garage_car_item(car) }}#}
-{#    {% endfor %}#}
-{##}
-{#		{{ garage_add_car.body() }}#}
-{#	</div>#}
-{#	</div>#}
+{% for car in cars %}
+{{ garage_car_item(car) }}
+{% endfor %}
+{{ garage_add_car.body() }}
 
 {% endblock %}
 {% block scripts %}
