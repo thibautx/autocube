@@ -1,49 +1,13 @@
 {% extends "page.html" %}
 {% set active_page = "garage" %}
 {% import "garage/car_details_tabs.html" as tabs with context %}
+{% import "garage/car_details_panel.html" as panel with context %}
 {% block title %} Car Details {% endblock %}
 {% block head %}
 {{ super() }}
 {% endblock %}
 {% block content %}
-<div class="panel panel-default">
-    <div class="panel-body">
-{#        <div class="jumbotron" style="background: #ffffff; !important">#}
-            <div class="row">
-                <div class="col-md-2">
-                    <a href="{{ url_for('.garage_home') }}" class="btn btn-default btn-sm" role="button">
-                        <span class="glyphicon glyphicon-arrow-left"></span> Back to my cars
-                    </a>
-                </div>
-                <div class="col-md-2 col-md-offset-8">
-                    <form action="{{ url_for('.remove_car', id=car.id) }}" method=post>
-                        <button class="btn btn-default btn-sm">
-                            <input type=hidden value="{{ car.id }}" name=car_id>
-                                <span class="glyphicon glyphicon-trash"></span> Remove car
-                            </input>
-                        </button>
-                    </form>
-                </div>
-            </div>
-            <br>
-            <br>
-            <div class="row">
-                <div class="col-md-4">
-                    <img src="../../static/images/lambo.jpeg" height="100px" width="200px">
-                </div>
-                <div class="col-md-4">
-                   <h4>{{ car.year }} </h4>
-                    <h2>{{ car.make }} {{ car.model }}</h2>
-                    Recommended services: <br>
-                    Total Mileage: <br>
-                    Daily Mileage Average: <br>
-                </div>
-                <div class="col-md-4">
-                    baz
-                </div>
-            </div>
-        </div>
-{#    </div>#}
+{{ panel.body() }}
 {{ tabs.body() }}
 <!-- Service Car Modal -->
 <div class="modal fade" id="serviceCarModal" role="dialog">

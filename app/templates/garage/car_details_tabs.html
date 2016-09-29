@@ -3,27 +3,47 @@
 {% import "garage/car_details_recalls.html" as car_details_recalls with context %}
 
 {% macro body() %}
-<div class="panel-body">
-		<ul class="nav nav-tabs" id="myTab">
-				<li class="active"><a href="#tab-1" role="tab" data-toggle="tab">Car Details</a></li>
-				<li>
-						<a href="#tab-2" role="tab" data-toggle="tab">Recalls <span class="label label-danger">{{ recalls|length }}</span></a>
-				</li>
-				<li><a href="#tab-3" role="tab" data-toggle="tab">Service Bulletins <span class="label label-warning">{{ service_bulletins|length }}</span></a></li>
-		</ul>
-		<div class="tab-content">
-				<br>
-				<br>
+{#<div class="panel-body">#}
+{#		<ul class="nav nav-tabs" id="myTab">#}
 
+{#		</ul>#}
+	<div class="card card-nav-tabs">
+		<div class="header header-success" data-background-color="orange">
+			<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+			<div class="nav-tabs-navigation">
+				<div class="nav-tabs-wrapper">
+					<ul class="nav nav-tabs" data-tabs="tabs">
+{#						<li class="active">#}
+{#							<a href="#profile" data-toggle="tab">#}
+{#								<i class="material-icons">face</i>#}
+{#								Profile#}
+{#							</a>#}
+{#						</li>#}
+						<li class="active">
+							<a href="#tab-details" role="tab" data-toggle="tab">Car Details</a>
+						</li>
+						<li>
+							<a href="#tab-recalls" role="tab" data-toggle="tab">Recalls <span class="label label-danger">{{ recalls|length }}</span></a>
+						</li>
+						<li>
+							<a href="#tab-service-bulletins" role="tab" data-toggle="tab">Service Bulletins <span class="label label-info">{{ service_bulletins|length }}</span></a>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<div class="tab-content">
+{#		<div class="tab-content">#}
 				<!-- Car Details-->
 				{{ car_details_details.body() }}
-
 				<!-- Recalls -->
 				{{ car_details_recalls.body() }}
-
 				<!-- Service Bulletins -->
 				{{ car_details_service_bulletins.body() }}
+			</div>
 		</div>
-</div>
+{#</div>#}
 </div>
 {% endmacro %}
