@@ -1,11 +1,20 @@
 {% macro news_tabs() %}
-
-<ul class="nav nav-tabs">
-    <li class="active"><a href="#tab-news-all" role="tab" data-toggle="tab">My News</a></li>
-    {% for make in makes %}
-        <li><a href="#{{ make }}-feed" role="tab" data-toggle="tab">{{ make }} Feed</a></li>
-    {% endfor %}
-    <li><a href="#tab-news-subscriptions" role="tab" data-toggle="tab">Subscriptions </a></li>
-</ul>
-
+{#<ul class="nav nav-tabs-title">#}
+{#    <li class="active"><a href="#tab-news-all" role="tab" data-toggle="tab">My News</a></li>#}
+{#    {% for make in makes %}#}
+{#        <li><a href="#{{ make }}-feed" role="tab" data-toggle="tab">{{ make }} Feed</a></li>#}
+{#    {% endfor %}#}
+{#    <li><a href="#tab-news-subscriptions" role="tab" data-toggle="tab">Subscriptions </a></li>#}
+{#</ul>#}
+	<div class="nav-tabs-navigation">
+		<div class="nav-tabs-wrapper">
+			<ul class="nav nav-tabs" data-tabs="tabs">
+		    <li class="active"><a href="#tab-news-all" role="tab" data-toggle="tab">My News</a></li>
+					{% for make in makes %}
+							<li><a href="#{{ make }}-feed" role="tab" data-toggle="tab">{{ make }} Feed</a></li>
+				{% endfor %}
+				<li><a href="#tab-news-subscriptions" role="tab" data-toggle="tab">Subscriptions </a></li>
+			</ul>
+		</div>
+	</div>
 {% endmacro %}

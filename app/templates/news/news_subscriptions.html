@@ -2,7 +2,6 @@
 <div class="tab-pane fade" role="tabpanel" id="tab-news-subscriptions">
 	<form class="form-horizontal" action="{{ url_for('.update_subscriptions') }}" method="post">
 		<fieldset>
-
 			<!-- Form Name -->
 			<legend>Subscriptions</legend>
 
@@ -12,9 +11,10 @@
 				<div class="col-md-4">
 				{% for feed in feeds %}
 					<div class="checkbox">
-						<input type="checkbox" name="feeds" value="{{ feed }}" {% if user_feeds[feed] == 1 %}checked{% endif %}>
+						<label for="feeds"></label>
+{#						<input type="checkbox" id="feeds" name="feeds" value="{{ feed }}" {% if user_feeds[feed] == 1 %}checked{% endif %}>#}
 							{{ feed }}
-						</label>
+					<label class="checkbox-inline"><input type="checkbox" value="">Option 3</label>
 					</div>
 				{% endfor %}
 				</div>
@@ -28,7 +28,6 @@
 				</div>
 			</div>
 		</fieldset>
-
 	</form>
-</div>
+	</div>
 {% endmacro %}

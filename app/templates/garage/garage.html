@@ -3,10 +3,16 @@
 {% block title %} Garage {% endblock %}
 {% block head %}
 {{ super() }}
-    {% set active_page = active_page|default('garage') -%}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap-select.css') }}">
 {% endblock %}
-{% block content %}
+{% set active_page = active_page|default('garage') %}
+{% endblock %}
 
+{% from "garage/garage_car_item.html" import garage_car_item with context %}
+{% import "garage/garage_add_car.html"  as garage_add_car with context %}
+
+{% block content %}
 <div class="panel panel-default">
     <div class="panel-heading">
          <div class="container-fluid">
@@ -15,7 +21,7 @@
             </div>
             <div class="col-md-2 col-md-push-4">
                 <h1>
-                <button type="submit" class="btn btn-default btn-sm" data-toggle="modal" data-target="#addCarModal">
+                <button type="submit" class="btn btn-default btn-sm" data-toggle="modal" data-target="#add-car">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> ADD A NEW CAR
                 </button>
                 </h1>
@@ -23,126 +29,13 @@
         </div>
     </div>
     {% for car in cars %}
-        <div class="panel-body">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Car Info</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="col-md-4">
-                        <img src="../../static/images/lambo.jpeg" height="100px" width="200px">
-                        <br>
-                          <a href="{{ url_for('.car_details', id=car.id)}}" class="btn btn-default" role="button">
-                              View Car Information
-                          </a>
-                    </div>
-                    <div class="col-md-4">
-                        {{ car.year }}
-                        <h2><b>{{ car.make }} {{ car.model }}</b></h2>
-                        Recommended services: <br>
-                        Total Mileage: <br>
-                        Daily Mileage Average: <br>
-                    </div>
-                    <div class="col-md-4">RECALLS!!!</div>
-                </div>
-            </div>
-        </div>
+     	{{ garage_car_item(car) }}
     {% endfor %}
+
+		{{ garage_add_car.body() }}
 </div>
-
-<!-- Add Car Modal -->
-<div class="modal fade" id="addCarModal" role="dialog">
-<div class="modal-dialog">
-
-    <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <h4 class="modal-title" align="center">Add a new car</h4>
-    </div>
-
-    <div class="modal-body container-fluid">
-    <div class="col-md-3 col-md-offset-3">
-    <form name="add-car" action="{{ url_for('.add_car') }}" method="POST">
-        <div class="form-group">
-            <label for="make"></label>
-            <select id="make" name="make" class="selectpicker" data-live-search="true">
-                <option disabled="disabled" selected="selected">Make</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="model"></label>
-            <select id="model" name="model" class="selectpicker" data-live-search="true">
-                <option disabled="disabled" selected="selected">Model</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="year"></label>
-            <select id="year" name="year" class="selectpicker" data-live-search="true">
-                <option disabled="disabled" selected="selected">Year</option>
-            </select>
-        </div>
-
-        <br>
-        <div class="form-group">
-            <button type="submit" class="btn btn-default tn-md">Add Car</button>
-        </div>
-    </form>
-    </div>
-    </div>
-  </div>
-</div>
-</div>
-
 {% endblock %}
 {% block scripts %}
-<script>
-    var make_selector = '#make';
-    var model_selector = '#model';
-    var year_selector = '#year';
-
-    $(document).ready(function() {
-        // Populate make select
-        $.each({{makes | safe}}, function(index, make) {
-            $(make_selector).append($('<option>').text(make).attr('value', make));
-        });
-
-        // When selected make changes, populate model select
-        $(make_selector).change(function() {
-            var selected_make = this.value;
-            $(model_selector).empty();
-            $.getJSON("{{ url_for('.models')}}", {
-                    make: selected_make
-                },
-                function(data) {
-                    $(model_selector).append($('<option>').text('Model').attr('disabled', 'disabled').attr('selected', 'selected'));
-                    $.each(data, function(number, model) {
-                        $(model_selector).append($('<option>').text(model).attr('value', model));
-                    });
-                    $(model_selector).selectpicker('refresh');
-                    $(model_selector).selectpicker('render');
-
-                    $(model_selector).change(function() {
-                        var selected_model = this.value;
-                        $(year_selector).empty();
-                        $.getJSON("{{ url_for('.model_years')}}", {
-                                make: selected_make,
-                                model: selected_model
-                            },
-                            function(data) {
-                                $(year_selector).append($('<option>').text('Year').attr('disabled', 'disabled').attr('selected', 'selected'));
-                                $.each(data, function(number, year) {
-                                    $(year_selector).append($('<option>').text(year).attr('value', year));
-                                });
-                                $(year_selector).selectpicker('refresh');
-                                $(year_selector).selectpicker('render');
-                            }
-                        );
-                    });
-                }
-            );
-        });
-    });
-</script>
+<script src="{{ url_for('static', filename='js/bootstrap-select.js')}}" type="text/javascript"></script>
+{{ garage_add_car.script() }}
 {% endblock %}
