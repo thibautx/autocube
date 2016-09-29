@@ -6,7 +6,7 @@
 	<div class="logo">
 			<img src="{{ url_for('static', filename='images/autocube_logo.png')}}">
 	</div>
-	<div class="navbar-fixed-left">
+	<div class="sidebar-wrapper navbar-fixed-left">
 		<ul class="nav">
 			 {% for href, id, caption in navigation_bar %}
 					<li{% if id == active_page %} class="active"{% endif %}>
