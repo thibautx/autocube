@@ -1515,9 +1515,9 @@ output {
 .form-group textarea ~ .form-control-highlight {
   margin-top: -11px;
 }
-/*.form-group select {*/
-  /*appearance: none;*/
-/*}*/
+.form-group select {
+  appearance: none;
+}
 .form-group select ~ .material-input:after {
   display: none;
 }
