@@ -38,7 +38,6 @@ def news():
             news_items += f[feed]()
 
     make_feeds = get_make_feeds(user_feeds)
-    print f
     return render_template('news/index.html',
                            feeds=f,
                            news_items=news_items,

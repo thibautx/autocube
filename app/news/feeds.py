@@ -5,14 +5,14 @@ from bs4 import BeautifulSoup
 
 pp = pprint.PrettyPrinter(indent=2)
 
-def parse_feed(url, blog, make_feed=False):
+def parse_feed(url, source, make_feed=False):
     entries = fp.parse(url)['entries']
-    f_format = formatters[blog]
-    return [format_entry(entry) for entry in entries]
+    # f_format = formatters[blog]
+    return [format_entry(entry, source) for entry in entries]
     # return [f_format(entry, make_feed=make_feed) for entry in entries]
 
 
-def format_entry(entry):
+def format_entry(entry, source):
     soup = BeautifulSoup(entry['summary'], 'html.parser')
     try:
         image = soup.find('img').attrs['src']
@@ -22,6 +22,7 @@ def format_entry(entry):
     summary = BeautifulSoup(entry['summary'], 'html.parser').text
 
     formatted = {
+        'source': source,
         'title': entry['title'],
         'author': entry['author'],
         'link': entry['link'],
@@ -37,7 +38,7 @@ def autoblog_feed(make=None):
         return autoblog_make_feed(make)
     else:
         url = 'http://www.autoblog.com/rss.xml'
-        return parse_feed(url, 'autoblog', make_feed=True)
+        return parse_feed(url, 'Autoblog', make_feed=True)
 
 
 def autoblog_make_feed(make):
@@ -74,7 +75,7 @@ def format_autoblog_entry(entry, make_feed=False):
 # MOTORTREND
 def motortrend_feed(make=None):
     url = 'http://www.motortrend.com/widgetrss/motortrend-stories.xml'
-    return parse_feed(url, blog='motortrend')
+    return parse_feed(url, source='motortrend')
 
 
 def motortrend_make_feed(make):
@@ -143,7 +144,7 @@ def thecarconnection_feed():
 # AUTOWEEK
 def autoweek_feed(make=None):
     url = 'http://autoweek.com/rss/2057/feed.xml'
-    return parse_feed(url, blog='autoweek')
+    return parse_feed(url, source='autoweek')
 
 
 def format_autoweek_entry(entry, make_feed=False):
