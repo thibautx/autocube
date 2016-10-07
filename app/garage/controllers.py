@@ -17,7 +17,7 @@ garage_module = Blueprint('_garage', __name__, url_prefix='/garage')
 def garage_home():
     makes = edmunds.get_makes()
     cars = Car.query.filter(Car.user_id == current_user.id).all()
-    return render_template('garage/garage.html',
+    return render_template('garage/index/garage.html',
                            cars=cars,
                            makes=json.dumps(makes))
 

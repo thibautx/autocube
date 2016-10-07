@@ -1,0 +1,2 @@
+import autoblog
+import autoweek

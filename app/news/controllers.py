@@ -1,21 +1,22 @@
 import json
-import feeds
-from app import db
-from app.profile.models import User
-from app.garage.models import Car
+from collections import OrderedDict
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
-from collections import OrderedDict
+from app import db
+from app.garage.models import Car
+from app.profile.models import User
+
+import feeds
 
 news_module = Blueprint('_news', __name__, url_prefix='/news')
 
 f = OrderedDict()
-f['autoblog'] = feeds.autoblog_feed
-f['motortrend'] = feeds.motortrend_feed
-f['caranddriver'] = feeds.caranddriver_feed
-f['thecarconnection'] = feeds.thecarconnection_feed
-f['autoweek'] = feeds.autoweek_feed
-f['automobilemag'] = feeds.automobilemag_feed
+f['autoblog'] = feeds.autoblog.feed
+f['autoweek'] = feeds.autoweek.feed
+# f['motortrend'] = sadf.motortrend_feed
+# f['caranddriver'] = sadf.caranddriver_feed
+# f['thecarconnection'] = sadf.thecarconnection_feed
+# f['automobilemag'] = sadf.automobilemag_feed
 
 PER_PAGE = 10
 
@@ -31,11 +32,16 @@ def news():
 
 
     # TODO: multi-sort by date
-    # load subscribed feeds
+    # load subscribed sadf
     news_items = []
     for feed, val in user_feeds.items():
         if val == 1:
-            news_items += f[feed]()
+            try:
+                news_items += f[feed]()
+            except Exception as e:
+                print repr(e)
+
+    print news_items
 
     make_feeds = get_make_feeds(user_feeds)
     return render_template('news/index.html',
@@ -53,7 +59,10 @@ def get_make_feeds(user_feeds):
     for make in makes:
         for feed, val in user_feeds.items():
             if val == 1:
-                make_feeds[make] += f[feed](make=make)
+                try:
+                    make_feeds[make] += f[feed](make=make)
+                except:
+                    pass
 
     return make_feeds
 

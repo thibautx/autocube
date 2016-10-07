@@ -1,0 +1,30 @@
+{% extends "page.html" %}
+{% set active_page = "garage" %}
+{% block title %} Garage {% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap-select.css') }}">
+{% set active_page = active_page|default('garage') %}
+{% endblock %}
+
+{% import "garage/index/components/car_item.html" as car_item with context %}
+{% import "garage/index/components/add_car.html" as add_car with context %}
+
+{% block content %}
+
+{{ add_car.button() }}
+
+{% for car in cars %}
+{{ car_item.body(car) }}
+{% endfor %}
+
+<div id="add_car_modal">
+	{{ add_car.modal() }}
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/bootstrap-select.min.js')}}" type="text/javascript"></script>
+{{ add_car.script() }}
+{% endblock %}

@@ -11,6 +11,13 @@
 /* ANIMATION */
 /* SHADOWS */
 /* Shadows (from mdl http://www.getmdl.io/) */
+
+/* Custom */
+body.modal-open div.modal-backdrop {
+    z-index: 0;
+}
+
+
 body {
   background-color: #E5E5E5;
   color: #3C4858;
@@ -1317,10 +1324,10 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   left: 15px;
 }
 .togglebutton label input[type=checkbox]:checked + .toggle {
-  background-color: rgba(156, 39, 176, 0.7);
+  background-color: rgba(226, 166, 10, 0.7);
 }
 .togglebutton label input[type=checkbox]:checked + .toggle:after {
-  border-color: #9c27b0;
+  border-color: #c08b0a;
 }
 .togglebutton label input[type=checkbox]:checked + .toggle:active:after {
   box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4), 0 0 0 15px rgba(156, 39, 176, 0.1);
@@ -1681,7 +1688,7 @@ output {
 }
 .form-group.is-focused .form-control {
   outline: none;
-  background-image: linear-gradient(#9c27b0, #9c27b0), linear-gradient(#D2D2D2, #D2D2D2);
+  background-image: linear-gradient(#e2a60a, #a37909), linear-gradient(#D2D2D2, #D2D2D2);
   background-size: 100% 2px, 100% 1px;
   box-shadow: none;
   transition-duration: 0.3s;
@@ -2605,7 +2612,7 @@ select.form-control[multiple], .form-group.is-focused select.form-control[multip
 .navbar.navbar-transparent {
   background-color: transparent;
   box-shadow: none;
-  color: #fff;
+  color: #333333;
   padding-top: 25px;
 }
 .navbar.navbar-transparent .logo-container .brand {
@@ -3203,7 +3210,7 @@ h2.title {
 }
 .card .header-primary,
 .card .content-primary {
-  background: linear-gradient(60deg, #ab47bc, #7b1fa2);
+  background: linear-gradient(60deg, #333333, #070707);
 }
 .card .header-info,
 .card .content-info {
