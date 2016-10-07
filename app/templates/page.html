@@ -7,17 +7,17 @@
 ] %}
 {% set active_page = active_page|default('index') %}
 {% import "sidebar.html" as sidebar with context %}
+{% import "navbar.html" as navbar with context %}
 {% block title %} AUTOCUBE {% endblock %}
-
 {% block head %}
 {{ super() }}
-{{ sidebar.css() }}
 {% endblock %}
 
-{% block nav %}
+{% block page %}
 <div class="wrapper">
 	{{ sidebar.body() }}
 	<div class="main-panel">
+		{{ navbar.body() }}
 		<div class="content">
 			<div class="container-fluid">
 				{% block content %}{% endblock %}

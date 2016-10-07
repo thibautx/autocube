@@ -1,117 +1,123 @@
 {% extends "base.html" %}
 {% block title %} AUTOCUBE {% endblock %}
+{% import "login.html" as login %}
 {% block head %}
 {{ super() }}
 {% endblock %}
 {% block landing %}
-<div class="jumbotron hero">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2 get-it">
-            <h1 class="text-center">Never worry about the safety of your car again.</h1>
-            <p class="text-center">Autocube brings you the latest news and safety updates for your vehicles. We put you in touch with dealers to fix your car's safety recalls for free.</p>
-        </div>
-    </div>
-    <div class="row row-centered">
-        <div class="col-md-1 col-centered">
-        <button class="btn btn-default btn-lg" type="button" data-toggle="modal" href="javascript:void(0)" onclick="openRegisterModal();">Get Started</button>
-        </div>
-    </div>
-</div>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4" id="landing-content"><i class="glyphicon glyphicon-flash" id="landing-icon"></i>
-                    <h6 class="text-center">WE MAKE IT EASY</h6>
-                    <p class="text-center">Our mechanics will come to your home or office, even on evenings and weekends. </p>
-                    <div class="row">
-                        <div class="col-md-12"><a href="#">Learn More →</a></div>
-                    </div>
-                </div>
-                <div class="col-md-4" id="landing-content2"><i class="glyphicon glyphicon-usd" id="landing-icon"></i>
-                    <h6>FAIR AND TRANSPARENT PRICING </h6>
-                    <p class="text-center">We offer fair and transparent pricing and savings up to 30% compared to repair shops. </p>
-                    <div class="row">
-                        <div class="col-md-12"><a href="#">Learn More →</a></div>
-                    </div>
-                </div>
-                <div class="col-md-4" id="landing-content3"><i class="glyphicon glyphicon-check" id="landing-icon"></i>
-                    <h6>HAPPINESS GUARANTEED </h6>
-                    <p class="text-center">We only work with highly rated mechanics.All services are backed by our 12-month / 12,000-mile warranty. </p>
-                    <div class="row">
-                        <div class="col-md-12"><a href="#">Learn More →</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<body class="landing-page">
+	<div class="wrapper">
+		<!-- Header -->
+		<div class="header header-filter" style="background-image: url('{{ url_for('static', filename='images/landing-bg.jpg') }}');">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6">
+{#						<img src="{{ url_for('static', filename='images/autocube_logo.png') }}" alt="autocube" style="width:50vh;height:25vh;">#}
+						<h1>
+							AUTOCUBE
+						</h1>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<h1 class="title">Never worry about the safety of your car again.</h1>
+						<h4>Autocube brings you the latest news and safety updates for your vehicles. We put you in touch with dealers to fix your car's safety recalls for free..</h4>
+						<br/>
+						<button class="btn btn-default btn-lg" type="button" data-toggle="modal" href="javascript:void(0)" onclick="openRegisterModal();">
+							Get Started
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
-  <div class="container">
-		 <div class="modal fade login" id="loginModal">
-		      <div class="modal-dialog login animated">
-    		      <div class="modal-content">
-    		         <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Login with</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="box">
-                             <div class="content">
-                                <div class="social">
-                                    <a class="circle github"
-                                       href="/auth/github">
-                                        <i class="fa fa-github fa-fw"></i>
-                                    </a>
-                                    <a id="google_login" class="circle google"
-                                       href="/auth/google_oauth2">
-                                        <i class="fa fa-google-plus fa-fw"></i>
-                                    </a>
-                                    <a id="facebook_login" class="circle facebook"
-                                       href="{{ url_for('social.login', provider='Facebook') }}">
-                                        <i class="fa fa-facebook fa-fw"></i>
-                                    </a>
-                                </div>
-                                <div class="division">
-                                    <div class="line l"></div>
-                                      <span>or</span>
-                                    <div class="line r"></div>
-                                </div>
-                                <div class="error"></div>
-                                <div class="form loginBox">
-                                    <form method="post" action="/login" accept-charset="UTF-8">
-                                    <input id="email" class="form-control" type="text" placeholder="Email" name="email">
-                                    <input id="password" class="form-control" type="password" placeholder="Password" name="password">
-                                    <input class="btn btn-default btn-login" type="button" value="Login" onclick="loginAjax()">
-                                    </form>
-                                </div>
-                             </div>
-                        </div>
-                        <div class="box">
-                            <div class="content registerBox" style="display:none;">
-                             <div class="form">
-                                <form method="post" html="{:multipart=>true}" data-remote="true" action="/register" accept-charset="UTF-8">
-                                <input id="email" class="form-control" type="text" placeholder="Email" name="email">
-                                <input id="password" class="form-control" type="password" placeholder="Password" name="password">
-                                <input id="password_confirmation" class="form-control" type="password" placeholder="Repeat Password" name="password_confirmation">
-                                <input class="btn btn-default btn-register" type="submit" value="Create account" name="commit">
-                                </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="forgot login-footer">
-                            <span>Looking to
-                                 <a href="javascript: showRegisterForm();">create an account</a>
-                            ?</span>
-                        </div>
-                        <div class="forgot register-footer" style="display:none">
-                             <span>Already have an account?</span>
-                             <a href="javascript: showLoginForm();">Login</a>
-                        </div>
-                    </div>
-    		      </div>
-		      </div>
-		  </div>
-    </div>
+		<!-- Main -->
+		<div class="main main-raised">
+			<div class="container">
+				<div class="section text-center section-landing">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2">
+							<h2 class="title">What is autocube?</h2>
+							<h5 class="description">
+							Our flagship web & mobile interface allows our users to directly communicate and interface with Automotive Manufacturers and Dealers.
+							</h5>
+						</div>
+					</div>
+					<div class="features">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="info">
+									<div class="icon icon-primary">
+										<i class="material-icons">flash_on</i>
+									</div>
+									<h4 class="info-title">WE MAKE IT EASY</h4>
+									<p>Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough.</p>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="info">
+									<div class="icon icon-success">
+										<i class="material-icons">monetization_on</i>
+									</div>
+									<h4 class="info-title">FAIR AND TRANSPARENT PRICING </h4>
+									<p>Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough.</p>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="info">
+									<div class="icon icon-danger">
+										<i class="material-icons">check_circle</i>
+									</div>
+									<h4 class="info-title">HAPPINESS GUARANTEED </h4>
+									<p>We only work with highly rated mechanics. All services are backed by our 12-month / 12,000-mile warranty. </p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
+				<!-- Contact -->
+				<div class="section landing-section">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2">
+							<h2 class="text-center title">Dealer? Work with us</h2>
+							<h4 class="text-center description">
+								Connect with customers and service their cars.
+							</h4>
+							<!-- Contact Form -->
+							<form class="contact-form">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group label-floating">
+											<label class="control-label">Your Name</label>
+											<input type="email" class="form-control">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group label-floating">
+											<label class="control-label">Your Email</label>
+											<input type="email" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="form-group label-floating">
+									<label class="control-label">Your Messge</label>
+									<textarea class="form-control" rows="4"></textarea>
+								</div>
+								<div class="row">
+									<div class="col-md-4 col-md-offset-4 text-center">
+										<button class="btn btn-primary btn-raised">
+										Send Message
+										</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{{ login.body() }}
+</body>
 {% endblock %}

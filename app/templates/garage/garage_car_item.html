@@ -1,40 +1,39 @@
-{% macro garage_car_item(car) %}
-<div class="panel panel-default">
-	<div class="panel-body">
-		<!-- Column 1 -->
-		<div class="col-md-4">
-			<div class="row">
-			<img src="../../static/images/lambo.jpeg" height="100px" width="200px">
+{% macro body(car) %}
+<div class="card card-background" style="background-image: url('../../static/images/bmw.jpg')">
+	<div class="content">
+		<h1 class="card-title">
+			{{ car.year }} {{ car.make }} {{ car.model }}
+		</h1>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="card-description">
+					thing 1
+				</div>
 			</div>
-			<div class="row">
-				<a href="{{ url_for('.car_details', id=car.id)}}" class="btn btn-default" role="button">
-						View Car Information
-				</a>
+			<div class="col-md-4">
+				<div class="card-description">
+					thing 2
+				</div>
 			</div>
-		</div>
-
-		<!-- Column 2 -->
-		<div class="col-md-4">
-			<div class="row">
-				{{ car.year }}
-			</div>
-			<div class="row">
-				<h3 class="title"><b>{{ car.make }} {{ car.model }}</b></h3>
-			</div>
-			<div class="row">
-				Recommended services:
-			</div>
-			<div class="row">
-				Total Mileage:
-			</div>
-			<div class="row">
-				Daily Mileage Average:
+			<div class="col-md-4">
+				<div class="card-description">
+					thing 3
+				</div>
 			</div>
 		</div>
-
-		<!-- Column 3 -->
-		<div class="col-md-4">RECALLS!!!</div>
-
+		<div class="row">
+			<a href="{{ url_for('.car_details', id=car.id) }}" class="btn btn-white btn-simple">
+				<i class="material-icons">info_outline</i> View Car Info
+			</a>
+			<form class="btn-group">
+			<form action="{{ url_for('.remove_car', id=car.id) }}" method=post>
+				<button class="btn btn-white btn-simple">
+					<input type=hidden value="{{ car.id }}" name=car_id>
+						<span class="material-icons">delete_forever</span> Remove car
+				</button>
+			</form>
+		</form>
+		</div>
 	</div>
 </div>
 {% endmacro %}

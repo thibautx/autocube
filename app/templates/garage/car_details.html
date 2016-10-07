@@ -1,5 +1,6 @@
 {% extends "page.html" %}
 {% set active_page = "garage" %}
+{% import "garage/garage_car_item.html" as car_item with context %}
 {% import "garage/car_details_tabs.html" as tabs with context %}
 {% import "garage/car_details_panel.html" as panel with context %}
 {% block title %} Car Details {% endblock %}
@@ -7,12 +8,14 @@
 {{ super() }}
 {% endblock %}
 {% block content %}
-{{ panel.body() }}
+	<a href="{{ url_for('.garage_home') }}" class="btn btn-default" role="button">
+		<i class="material-icons">arrow_back</i> Back to garage
+	</a>
+{{ car_item.body(car) }}
 {{ tabs.body() }}
 <!-- Service Car Modal -->
 <div class="modal fade" id="serviceCarModal" role="dialog">
 <div class="modal-dialog">
-
     <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -31,6 +34,7 @@
             </div>
         </form>
     </div>
+
   </div>
 </div>
 </div>

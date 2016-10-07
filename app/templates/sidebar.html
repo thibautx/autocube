@@ -1,34 +1,42 @@
-{% macro css() %}
-	<link rel="stylesheet" href="//cdn.materialdesignicons.com/1.7.22/css/materialdesignicons.min.css">
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/sidebar.css') }}">
-{% endmacro %}
 {% macro body() %}
-<div class="sidebar" data-color="orange">
+<div class="sidebar" data-color="purple" data-image="../assets/img/sidebar-1.jpg">
+
 	<div class="logo">
-			<img src="{{ url_for('static', filename='images/autocube_logo.png')}}">
+		<img src="{{ url_for('static', filename='images/autocube_logo.png')}}">
 	</div>
-	<div class="sidebar-wrapper ">
-	<ul class="nav">
-	 {% for href, id, caption in navigation_bar %}
+
+	<div class="sidebar-wrapper">
+		<ul class="nav">
+		{% for href, id, caption in navigation_bar %}
 		<li{% if id == active_page %} class="active"{% endif %}>
-			<a href="{{ href|e }}">
-				{% if id == 'profile' %}
-				<i class="material-icons">account_box</i>
-				{% endif %}
-				{% if id == 'garage' %}
-				<i class="mdi mdi-car"></i>
-				{% endif %}
-				{% if id == 'news' %}
-				<i class="mdi mdi-newspaper"></i>
-				{% endif %}
-				{% if id == 'appointments' %}
-				<i class="mdi mdi-calendar"></i>
-				{% endif %}
-				{{ caption|e }}
-			</a>
+		<a href="{{ href|e }}">
+		{% if id == 'profile' %}
+		<i class="material-icons">account_box</i>
+		{% endif %}
+		{% if id == 'garage' %}
+		<i class="mdi mdi-car"></i>
+		{% endif %}
+		{% if id == 'news' %}
+		<i class="mdi mdi-newspaper"></i>
+		{% endif %}
+		{% if id == 'appointments' %}
+		<i class="mdi mdi-calendar"></i>
+		{% endif %}
+		{{ caption|e }}
+		</a>
 		</li>
 		{% endfor %}
-	</ul>
+		</ul>
 	</div>
 </div>
+{#<button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".sidebar-nav">#}
+{#<div class="sidebar sidebar-offcanvas" data-color="orange">#}
+{#	<div class="logo">#}
+{#	</div>#}
+{#	<div class="sidebar-wrapper ">#}
+{#		<ul class="nav">#}
+{#
+{#		</ul>#}
+{#	</div>#}
+{#</div>#}
 {% endmacro %}

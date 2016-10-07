@@ -3,12 +3,8 @@
 {% import "garage/car_details_recalls.html" as car_details_recalls with context %}
 
 {% macro body() %}
-{#<div class="panel-body">#}
-{#		<ul class="nav nav-tabs" id="myTab">#}
-
-{#		</ul>#}
 	<div class="card card-nav-tabs">
-		<div class="header" data-background-color="orange">
+		<div class="header header-primary">
 			<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
 			<div class="nav-tabs-navigation">
 				<div class="nav-tabs-wrapper">
@@ -22,11 +18,11 @@
 						<li>
 							<a href="#tab-service-bulletins" role="tab" data-toggle="tab">Service Bulletins <span class="label label-info">{{ service_bulletins|length }}</span></a>
 						</li>
-
 					</ul>
 				</div>
 			</div>
 		</div>
+
 		<div class="content">
 			<div class="tab-content">
 				<!-- Car Details-->
@@ -37,6 +33,6 @@
 				{{ car_details_service_bulletins.body() }}
 			</div>
 		</div>
-{#</div>#}
+
 </div>
 {% endmacro %}

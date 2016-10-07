@@ -10,10 +10,8 @@
 {% from "news/news_tabs_content.html" import news_tabs_content with context %}
 
 {% block content %}
-<div id="tab-news">
 <div class="card card-nav-tabs">
-    {{ news_tabs() }}
-    {{ news_tabs_content() }}
-</div>
+	{{ news_tabs() }}
+	{{ news_tabs_content() }}
 </div>
 {% endblock %}
