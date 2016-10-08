@@ -17,6 +17,10 @@ body.modal-open div.modal-backdrop {
     z-index: 0;
 }
 
+.black{
+  color: #000000;
+}
+
 .navbar-brand.h1 {
   margin-top: 0;
   padding-bottom: 10px
@@ -35,7 +39,7 @@ body.inverse {
   background: #333333;
 }
 body.inverse, body.inverse .form-control {
-  color: #ffffff;
+  color: #000000;
 }
 body.inverse .modal,
 body.inverse .modal .form-control,
@@ -3157,6 +3161,18 @@ h2.title {
   background: #fff;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
+
+.card.black {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  margin-bottom: 30px;
+  border-radius: 6px;
+  color: rgba(0, 0, 0, 0.87);
+  background: #fff;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
 .card .card-height-indicator {
   margin-top: 100%;
 }
