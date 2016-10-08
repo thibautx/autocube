@@ -22,6 +22,10 @@ body.modal-open div.modal-backdrop {
   padding-bottom: 10px
 }
 
+.panel-body.recalls {
+  color: #000000;
+}
+
 body {
   background-color: #E5E5E5;
   color: #3C4858;

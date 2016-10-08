@@ -3,7 +3,7 @@
 {% for bulletin in service_bulletins %}
 <div class="panel panel-danger">
 	<div class="panel-heading">NHTSA Campaign: {{ bulletin.nhtsa_number }}</div>
-	<div class="panel-body">
+	<div class="panel-body recalls">
 			<h4>Summary:</h4>
 			{{ bulletin.summary }} <br> <br>
 			<h4>Affected Components:</h4>
