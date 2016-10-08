@@ -1,0 +1,14 @@
+{% extends "page.html" %}
+{% set active_page = "service" %}
+{% block title %} Garage {% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap-select.css') }}">
+{% set active_page = active_page|default('garage') %}
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

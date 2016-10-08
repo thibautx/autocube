@@ -141,6 +141,7 @@ def format_dealer(dealer):
         'address': format_dealer_address(dealer),
         'website': format_dealer_website(dealer),
         'phone': format_dealer_phone(dealer),
+        'operations': dealer['operations'],
     }
 
     return dealer_formatted

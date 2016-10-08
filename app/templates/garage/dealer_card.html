@@ -1,21 +1,56 @@
 {% macro non_autocube(dealer) %}
-<div class="card card-pricing">
-{#	<div class="content">#}
-	{#	<h2 class="category text-success">{{ dealer.name }}</h2>#}
+<div class="card card-background card-pricing" style="background-color: rgba(0, 0, 0, 0.1)">
+	<div class="content">
 		<h2 class="card-title">{{ dealer.name }}</h2>
-		<ul>
+		<div class="card-description">
+			<ul>
+				<li><i class="material-icons">public</i>
+					<a href="{{ dealer.website }}">
+						{{ dealer.website }}
+					</a>
+				</li>
+				<li><i class="material-icons">call</i> {{ dealer.phone }}</li>
+				<li><i class="material-icons">place</i> {{ dealer.address }}</li>
+				<li><i class="material-icons">alarm</i>
+					{% for day, hours in dealer['operations'].iteritems() %}
+						{{ day }}: {{ hours }}
+						<br>
+					{% endfor %}
+				</li>
+			</ul>
+		</div>
+	{#	<a href="#" class="btn btn-default">#}
+	{#		Get Started#}
+	{#	</a>#}
+	</div>
+</div>
+{% endmacro %}
+
+{% macro autocube_dealer(dealer) %}
+<div class="card card-background card-pricing" style="background-image: url('http://theexpiredmeter.com/wp-content/uploads/2012/03/Row-of-cars.jpg')">
+	<div class="content">
+		<h2 class="card-title">{{ dealer['name'] }} Autocube Dealer</h2>
+		<div class="card-description">
+			<ul>
 			<li><i class="material-icons">public</i>
+				<br>
 				<a href="{{ dealer.website }}">
 					{{ dealer.website }}
 				</a>
 			</li>
 			<li><i class="material-icons">call</i> {{ dealer.phone }}</li>
 			<li><i class="material-icons">place</i> {{ dealer.address }}</li>
-			<li><i class="material-icons">alarm</i> Private Messages</li>
+			<li><i class="material-icons">alarm</i>
+{#				{% for day, hours in dealer['operations'].iteritems() %}#}
+{#					{{ day }}: {{ hours }}#}
+{#					<br>#}
+{#				{% endfor %}#}
+			</li>
 		</ul>
-	{#	<a href="#" class="btn btn-default">#}
-	{#		Get Started#}
-	{#	</a>#}
-{#	</div>#}
+		</div>
+        <a href="{{ url_for('_appointments.schedule_with_dealer', dealer_id=autocube_dealer.id, car_id=car.id) }}" class="btn btn-info" role="button">
+            Schedule
+        </a>
+	</div>
 </div>
 {% endmacro %}

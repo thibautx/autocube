@@ -40,11 +40,14 @@ from app.profile.controllers import profile_module as mod_profile
 # from app.inventory.controllers import inventory_module as mod_inventory
 from app.garage.controllers import garage_module as mod_recalls
 from app.appointments.controllers import appointments_module as mod_appointments
+from app.service.controllers import service_module as mod_service
 app.register_blueprint(mod_landing)
 app.register_blueprint(mod_news)
 app.register_blueprint(mod_profile)
 # app.register_blueprint(mod_inventory)
 app.register_blueprint(mod_recalls)
 app.register_blueprint(mod_appointments)
+app.register_blueprint(mod_service)
+
 
 db.create_all()

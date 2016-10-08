@@ -27,7 +27,7 @@
 # def inventory():
 #     listings = get_all_listings()
 #     makes = get_all_makes()
-#     return render_template('inventory/index.html',
+#     return render_template('inventory/landing.html',
 #                            listings=listings, makes=makes)
 #
 # @inventory_module.route('/filter', methods=['GET', 'POST'])
@@ -46,7 +46,7 @@
 #         if model is not None:
 #             listings = get_listings_by_make_model(make, model)
 #
-#         return render_template('inventory/index.html',
+#         return render_template('inventory/landing.html',
 #                                listings=listings, makes=makes, models=models)
 #
 #

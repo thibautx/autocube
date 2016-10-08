@@ -6,30 +6,22 @@
 {% endblock %}
 {% block landing %}
 <body class="landing-page">
-	<div class="wrapper">
 		<!-- Header -->
-		<div class="header header-filter" style="background-image: url('{{ url_for('static', filename='images/landing-bg.jpg') }}');">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6">
-{#						<img src="{{ url_for('static', filename='images/autocube_logo.png') }}" alt="autocube" style="width:50vh;height:25vh;">#}
-						<h1>
-							AUTOCUBE
-						</h1>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6">
-						<h1 class="title">Never worry about the safety of your car again.</h1>
-						<h4>Autocube brings you the latest news and safety updates for your vehicles. We put you in touch with dealers to fix your car's safety recalls for free..</h4>
-						<br/>
-						<button class="btn btn-default btn-lg" type="button" data-toggle="modal" href="javascript:void(0)" onclick="openRegisterModal();">
-							Get Started
-						</button>
-					</div>
+
+		<div class="page-header header-filter" data-parallax="active" style="background-image: url('{{ url_for('static', filename='images/landing-bg.jpg') }}');s">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+				<h1 class="title">Never worry about the safety of your car again.</h1>
+					<h4>Autocube brings you the latest news and safety updates for your vehicles. We put you in touch with dealers to fix your car's safety recalls for free..</h4>
+					<br>
+					<button class="btn btn-default btn-lg" type="button" data-toggle="modal" href="javascript:void(0)" onclick="openRegisterModal();">
+						Get Started
+					</button>
 				</div>
 			</div>
-		</div>
+			</div>
+    </div>
 
 		<!-- Main -->
 		<div class="main main-raised">
@@ -117,7 +109,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	{{ login.body() }}
+{{ login.body() }}
 </body>
 {% endblock %}

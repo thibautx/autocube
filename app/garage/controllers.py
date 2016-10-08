@@ -129,4 +129,4 @@ def page_not_found(e):
 #         model = request.args.get('model')
 #         garage = nhtsa.get_recalls(year, make, model)
 #         dealers = edmunds.get_dealers(60601, make)
-#         return render_template('garage/index.html', garage=garage, dealers=dealers)
+#         return render_template('garage/landing.html', garage=garage, dealers=dealers)

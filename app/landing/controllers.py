@@ -38,7 +38,7 @@ def home():
     if current_user.is_authenticated:
         return redirect(url_for('_garage.garage_home'))
     else:
-        return render_template('index.html')
+        return render_template('landing.html')
 
 @landing_module.route('/register-dealer')
 def register_dealer():
