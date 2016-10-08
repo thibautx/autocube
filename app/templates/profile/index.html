@@ -1,14 +1,15 @@
 {% extends "page.html" %}
 {% set active_page = "profile" %}
+{% set page_title = "Profile" %}
 {% import "profile/profile_update_info.html" as update_info with context %}
 {% import "profile/profile_change_password.html" as change_password with context %}
-{% block title %}Profile{% endblock %}
+{% block title %}{{ page_title }}{% endblock %}
 {% block head %}
 {{ super() }}
 {% endblock %}
 {% block content %}
 
-<div class="card card-nav-tabs">
+	<div class="card card-nav-tabs">
 	<div class="header header-primary">
 		<div class="nav-tabs-navigation">
 			<div class="nav-tabs-wrapper">

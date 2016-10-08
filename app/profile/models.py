@@ -62,12 +62,6 @@ class User(db.Model, UserMixin):
         return SocialConnection.query.filter(SocialConnection.user_id == self.id).all()
 
 
-class Dealer(db.Model, UserMixin):
-    __tablename__ = 'dealer'
-    id = sa.Column(sa.Integer, primary_key=True)
-    email = sa.Column(sa.String(250), unique=True)
-    name = sa.Column(sa.String(250), unique=True)
-    password = sa.Column(sa.String(255))
 
 class Role(db.Model, RoleMixin):
     id = sa.Column(sa.Integer(), primary_key=True)
