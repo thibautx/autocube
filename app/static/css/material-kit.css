@@ -22,6 +22,7 @@ body {
   background-color: #E5E5E5;
   color: #3C4858;
 }
+
 body.inverse {
   background: #333333;
 }
@@ -3522,7 +3523,7 @@ h2.title {
 .card-pricing ul {
   list-style: none;
   padding: 0;
-  max-width: 240px;
+  max-width: 50vh;
   margin: 10px auto;
 }
 .card-pricing ul li {

@@ -8,6 +8,7 @@
 {% set active_page = active_page|default('index') %}
 {% import "sidebar.html" as sidebar with context %}
 {% import "navbar.html" as navbar with context %}
+{% import "footer.html" as footer with context %}
 {% block title %} AUTOCUBE {% endblock %}
 {% block head %}
 {{ super() }}
@@ -23,6 +24,7 @@
 				{% block content %}{% endblock %}
 			</div>
 		</div>
+		{{ footer.body() }}
 	</div>
 </div>
 {% endblock %}

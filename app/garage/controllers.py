@@ -25,11 +25,13 @@ def garage_home():
 @garage_module.route('/car/<id>')
 def car_details(id):
     car = Car.query.get(id)
-    return render_template('garage/car_details.html',
+    from forms import CarDetailsForm
+    return render_template('garage/car_details/car_details.html',
                            car=car,
                            recalls=car.recalls,
                            service_bulletins=car.service_bulletins,
-                           maps_api=GOOGLE_MAPS_API_KEY)
+                           maps_api=GOOGLE_MAPS_API_KEY,
+                           form=CarDetailsForm())
 
 
 @garage_module.route('/car/<id>/service', methods=['POST'])

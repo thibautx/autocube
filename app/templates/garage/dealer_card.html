@@ -1,0 +1,21 @@
+{% macro non_autocube(dealer) %}
+<div class="card card-pricing">
+{#	<div class="content">#}
+	{#	<h2 class="category text-success">{{ dealer.name }}</h2>#}
+		<h2 class="card-title">{{ dealer.name }}</h2>
+		<ul>
+			<li><i class="material-icons">public</i>
+				<a href="{{ dealer.website }}">
+					{{ dealer.website }}
+				</a>
+			</li>
+			<li><i class="material-icons">call</i> {{ dealer.phone }}</li>
+			<li><i class="material-icons">place</i> {{ dealer.address }}</li>
+			<li><i class="material-icons">alarm</i> Private Messages</li>
+		</ul>
+	{#	<a href="#" class="btn btn-default">#}
+	{#		Get Started#}
+	{#	</a>#}
+{#	</div>#}
+</div>
+{% endmacro %}

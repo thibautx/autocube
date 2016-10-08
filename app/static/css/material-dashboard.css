@@ -139,7 +139,7 @@
 }
 
 .sidebar {
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
@@ -148,7 +148,7 @@
 }
 
 .sidebar .sidebar-wrapper {
-  position: relative;
+  position: fixed;
   height: calc(100vh - 75px);
   overflow: auto;
   width: 260px;
@@ -167,16 +167,16 @@
 
 .sidebar .nav li:hover > a {
   background: rgba(200, 200, 200, 0.2);
-  color: #e2a60a;
+  color: #FFFFFF;
 }
 
 .sidebar .nav li:hover > a i {
-  color: #e2a60a;
+  color: #FFFFFF;
 }
 
-.sidebar .nav li.active > a {
-  color: #e2a60a;
-}
+/*.sidebar .nav li.active > a {*/
+  /*color: #e2a60a;*/
+/*}*/
 
 .sidebar .nav li.active > a i {
   color: #e2a60a;
@@ -267,6 +267,7 @@
   z-index: 2;
   float: right;
   overflow: auto;
+  overflow-y: scroll;
   width: calc(100% - 260px);
   min-height: 100%;
   -webkit-transform: translate3d(0px, 0, 0);

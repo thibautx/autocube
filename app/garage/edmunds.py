@@ -91,49 +91,69 @@ def get_dealers(zip, make, radius=50):
     :param make: (str)
     :param radius: (int)
     :return: (list of JSON)
-        { u'active': True,
-              u'address': { u'apartment': u'',
-                            u'city': u'Chicago',
-                            u'country': u'USA',
-                            u'county': u'Cook',
-                            u'latitude': 41.901994,
-                            u'longitude': -87.631403,
-                            u'stateCode': u'IL',
-                            u'stateName': u'Illinois',
-                            u'street': u'1100 N Clark St',
-                            u'zipcode': u'60610'},
-              u'contactInfo': { u'phone': u'(888) 709-3477',
-                                u'website': u'http://www.fjhonda.com'},
-              u'dealerId': u'5532',
-              u'distance': 1.298797419911752,
-              u'fiveStarAwardYears': u'2016',
-              u'name': u'Fletcher Jones Honda',
-              u'niceName': u'FletcherJonesHonda',
-              u'operations': { u'Friday': u'09:00 AM-06:00 PM',
-                               u'Monday': u'09:00 AM-08:00 PM',
-                               u'Saturday': u'09:00 AM-06:00 PM',
-                               u'Sunday': u'Day off',
-                               u'Thursday': u'09:00 AM-08:00 PM',
-                               u'Tuesday': u'09:00 AM-08:00 PM',
-                               u'Wednesday': u'09:00 AM-08:00 PM'},
-              u'reviews': { u'sales': { u'count': 57,
-                                        u'notRecommendedCount': 4,
-                                        u'overallRating': 4.238,
-                                        u'recommendedCount': 17},
-                            u'service': { u'count': 71,
-                                          u'notRecommendedCount': 2,
-                                          u'overallRating': 4.755,
-                                          u'recommendedCount': 47}},
-              u'states': [u'USED', u'NEW'],
-              u'type': u'ROOFTOP'
-        }
+    { u'active': True,
+          u'address': { u'apartment': u'',
+                        u'city': u'Chicago',
+                        u'country': u'USA',
+                        u'county': u'Cook',
+                        u'latitude': 41.901994,
+                        u'longitude': -87.631403,
+                        u'stateCode': u'IL',
+                        u'stateName': u'Illinois',
+                        u'street': u'1100 N Clark St',
+                        u'zipcode': u'60610'},
+          u'contactInfo': { u'phone': u'(888) 709-3477',
+                            u'website': u'http://www.fjhonda.com'},
+          u'dealerId': u'5532',
+          u'distance': 1.298797419911752,
+          u'fiveStarAwardYears': u'2016',
+          u'name': u'Fletcher Jones Honda',
+          u'niceName': u'FletcherJonesHonda',
+          u'operations': { u'Friday': u'09:00 AM-06:00 PM',
+                           u'Monday': u'09:00 AM-08:00 PM',
+                           u'Saturday': u'09:00 AM-06:00 PM',
+                           u'Sunday': u'Day off',
+                           u'Thursday': u'09:00 AM-08:00 PM',
+                           u'Tuesday': u'09:00 AM-08:00 PM',
+                           u'Wednesday': u'09:00 AM-08:00 PM'},
+          u'reviews': { u'sales': { u'count': 57,
+                                    u'notRecommendedCount': 4,
+                                    u'overallRating': 4.238,
+                                    u'recommendedCount': 17},
+                        u'service': { u'count': 71,
+                                      u'notRecommendedCount': 2,
+                                      u'overallRating': 4.755,
+                                      u'recommendedCount': 47}},
+          u'states': [u'USED', u'NEW'],
+          u'type': u'ROOFTOP'
+    }
     """
     api_url = 'https://api.edmunds.com/api/dealer/v2/dealers?zipcode={}&make={}&radius={}&fmt=json&api_key={}'\
         .format(zip, make, radius, API_KEY)
     r = requests.get(api_url).json()
     dealers = r['dealers']
+    dealers = [format_dealer(dealer) for dealer in dealers]
     return dealers
 
+def format_dealer(dealer):
+    dealer_formatted = {
+        'name': dealer['name'],
+        'address': format_dealer_address(dealer),
+        'website': format_dealer_website(dealer),
+        'phone': format_dealer_phone(dealer),
+    }
+
+    return dealer_formatted
+
+def format_dealer_website(dealer):
+    return dealer['contactInfo']['website']
+
+def format_dealer_phone(dealer):
+    return dealer['contactInfo']['phone']
+
+def format_dealer_address(dealer):
+    address = dealer['address']
+    return '{}, {}, {} {}'.format(address['street'], address['city'], address['stateCode'], address['zipcode'])
 
 def get_listings(zip):
     api_url = 'https://api.edmunds.com/api/inventory/v2/inventories?zipcode={}&fmt=json&api_key={}'\
