@@ -1,6 +1,7 @@
-import utils
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required
+
+import utils
 
 news_module = Blueprint('_news', __name__, url_prefix='/news')
 

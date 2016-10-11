@@ -1,10 +1,12 @@
 import json
+from collections import OrderedDict
+
+from flask_login import current_user
+
 import feeds
 from app import db
 from app.garage.models import Car
 from app.profile.models import User
-from flask_login import current_user
-from collections import OrderedDict
 
 f = OrderedDict()
 f['Autoblog'] = feeds.autoblog.feed

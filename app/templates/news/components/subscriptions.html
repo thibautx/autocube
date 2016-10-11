@@ -5,9 +5,7 @@
 			<!-- Feed Checkboxes -->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="feeds">Feeds</label>
-
 				<div class="col-md-4">
-
 				{% for feed in feeds %}
 					<div class="checkbox">
 						<div class="togglebutton">
@@ -18,8 +16,12 @@
 						</div>
 					</div>
 				{% endfor %}
+				</div>
+			</div>
 
-				<label class="col-md-4 control-label" for="feeds">Categories</label>
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="categories">Categories</label>
+				<div class="col-md-4">
 				{% for category in news_categories %}
 					<div class="checkbox">
 						<div class="togglebutton">
@@ -30,10 +32,9 @@
 						</div>
 					</div>
 				{% endfor %}
-
 				</div>
-
 			</div>
+
 			<!-- Submit Button -->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="submit"></label>
@@ -41,6 +42,7 @@
 					<button id="submit" class="btn btn-default">Save</button>
 				</div>
 			</div>
+
 		</fieldset>
 	</form>
 </div>

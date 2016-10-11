@@ -1,10 +1,13 @@
 import json
-from geopy.distance import vincenty
-from pyzipcode import ZipCodeDatabase
+from flask import Blueprint, render_template, request
 from app.garage import edmunds
-from flask import Blueprint, render_template, request, jsonify, redirect, url_for
-from app.service.models import Dealer
 from app.garage.models import Car
+from app.profile.models import User
+from app.service.models import Dealer
+from pyzipcode import ZipCodeDatabase
+import zipcode
+from geopy.distance import vincenty
+from sqlalchemy import func
 
 service_module = Blueprint('_service', __name__, url_prefix='/service')
 
@@ -13,6 +16,7 @@ def home():
     makes = edmunds.get_makes()
     return render_template("service/index.html",
                            makes=json.dumps(makes))
+
 
 @service_module.route('/dealers', methods=['GET'])
 def list_dealers():
@@ -26,30 +30,33 @@ def list_dealers():
                                makes=makes,
                                dealers=dealers)
 
-@service_module.route('/car/<id>/service', methods=['POST'])
+
+
+@service_module.route('/schedule/<dealer_id>/<car_id>')
+def schedule_with_dealer(dealer_id, car_id):
+    car = Car.query.filter(Car.id == car_id)[0]
+    dealer = Dealer.query.filter(Dealer.id == dealer_id)[0]
+    return render_template('service/dealer_schedule.html',
+                           dealer=dealer,
+                           car=car)
+
+@service_module.route('/car/<id>/service/campaign_number=', methods=['POST'])
 def service_car(id):
     car = Car.query.get(id)
-    zip = request.form['zip']
+    target_zip = request.form['zip']
+
     try:
         max_distance = request.form['distance']
     except KeyError:
         pass
 
-    # non registered dealers
-    dealers = edmunds.get_dealers(zip, car.make)
-    autocube_dealers = Dealer.query.filter(_distance_filter(Dealer.zip, zip) == True).all()
-    # import pprint
-    # pp = pprint.PrettyPrinter(indent=2)
-    # pp.pprint(dealers[0])
+    dealers = edmunds.get_dealers(target_zip, car.make)
+    all_autocube_dealers = Dealer.query.all()
+    autocube_dealers = [dealer for dealer in all_autocube_dealers if _distance_filter(dealer.zip, target_zip) == True]
     return render_template('service/list_dealers.html',
                            autocube_dealers=autocube_dealers,
                            dealers=dealers,
                            car=car)
-
-@service_module.route('/fix-defects', methods=['GET'])
-def fix_defects():
-    pass
-
 
 def _distance_filter(dealer_zip, customer_zip, max_distance=10):
     zcdb = ZipCodeDatabase()
@@ -58,3 +65,15 @@ def _distance_filter(dealer_zip, customer_zip, max_distance=10):
     distance = vincenty(dealer_lat_long, customer_lat_long)
     print distance
     return distance < max_distance
+
+
+# def _distance_filter(dealer_zip, customer_zip, max_distance=10):
+#     print dealer_zip, customer_zip
+#     _dealer_zip = zipcode.isequal(str(dealer_zip)).to_dict()
+#     _target_zip = zipcode.isequal(str(customer_zip)).to_dict()
+#     print _dealer_zip, _target_zip
+#     dealer_lat_long = (_dealer_zip['lat'], _dealer_zip['lon'])
+#     customer_lat_long = (_target_zip['lat'], _target_zip['lon'])
+#     distance = vincenty(dealer_lat_long, customer_lat_long)
+#     return distance < max_distance
+#     # return True

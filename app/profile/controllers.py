@@ -1,7 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
-from app.profile.models import User
-from flask_user.forms import ChangePasswordForm
 
 profile_module = Blueprint('_profile', __name__, url_prefix='/profile')
 

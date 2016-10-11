@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Dealer Registered</title>
+</head>
+<body>
+
+<h1>Save this info for reference!</h1>
+
+Timekit info:
+
+<dl>
+<dt>Email</dt>
+<dd>{{ email }}</dd>
+{% for key, value in timekit.iteritems() %}
+	<dt>{{ key }}</dt>
+	<dd>{{ value }}</dd>
+{% endfor %}
+</dl>
+
+<a href="https://app.timekit.io/">https://app.timekit.io/</a>
+
+</body>
+</html>

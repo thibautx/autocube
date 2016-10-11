@@ -1,8 +1,10 @@
 from datetime import datetime
+
 import sqlalchemy as sa
 from flask_security import UserMixin, RoleMixin
 from sqlalchemy import orm
 from sqlalchemy.dialects.postgresql import JSON
+
 from app import db
 
 roles_users = db.Table('roles_users',

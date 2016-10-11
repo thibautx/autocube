@@ -10,7 +10,7 @@
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
         <div class="card card-signup">
-          <h2 class="card-title text-center">Dealer Register</h2>
+          <h2 class="card-title text-center">Register</h2>
           <div class="row">
             <div class="col-md-5 col-md-offset-1">
               <div class="info info-horizontal">
@@ -18,7 +18,7 @@
                   <i class="material-icons">timeline</i>
                 </div>
                 <div class="description">
-                  <h4 class="info-title">Foo</h4>
+                  <h4 class="info-title">Marketing</h4>
                   <p class="description">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                   </p>
@@ -29,7 +29,7 @@
                   <i class="material-icons">code</i>
                 </div>
                 <div class="description">
-                  <h4 class="info-title">Bar</h4>
+                  <h4 class="info-title">Fully Coded in HTML5</h4>
                   <p class="description">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                   </p>
@@ -40,7 +40,7 @@
                   <i class="material-icons">group</i>
                 </div>
                 <div class="description">
-                  <h4 class="info-title">Baz</h4>
+                  <h4 class="info-title">Built Audience</h4>
                   <p class="description">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                   </p>
@@ -49,42 +49,27 @@
             </div>
             <div class="col-md-5">
               <div class="social text-center">
+							 <button class="btn btn-just-icon btn-round btn-facebook">
+                <i class="fa fa-facebook"> </i>
+                </button>
+								 <button class="btn btn-just-icon btn-round btn-google">
+                <i class="fa fa-google"></i>
+                </button>
                 <h4> or </h4>
               </div>
-              <form class="form" method="post" action="{{ url_for('.register_dealer') }}">
+              <form class="form" method="" action="">
                 <div class="content">
-
-									<!-- Name -->
-									<div class="input-group">
-                    <span class="input-group-addon">
-                    <i class="material-icons">store</i>
-                    </span>
-                    <div class="form-group is-empty"><input type="text" name="name" class="form-control" placeholder="Dealership Name"><span class="material-input"></span></div>
-                  </div>
-
-
-									<!-- zip code -->
-									<div class="input-group">
-                    <span class="input-group-addon">
-                    <i class="material-icons">room</i>
-                    </span>
-                    <div class="form-group is-empty"><input type="text" class="form-control" name="zip" placeholder="Zip code"><span class="material-input"></span></div>
-                  </div>
-
-									<!-- email -->
-									<div class="input-group">
+                  <div class="input-group">
                     <span class="input-group-addon">
                     <i class="material-icons">email</i>
                     </span>
-                    <div class="form-group is-empty"><input type="text" class="form-control" name="email" placeholder="Email"><span class="material-input"></span></div>
+                    <div class="form-group is-empty"><input type="text" class="form-control" placeholder="Email..."><span class="material-input"></span></div>
                   </div>
-
-									<!-- password -->
                   <div class="input-group">
                     <span class="input-group-addon">
                     <i class="material-icons">lock_outline</i>
                     </span>
-                    <div class="form-group is-empty"><input type="password" name="password" placeholder="Password" class="form-control"><span class="material-input"></span></div>
+                    <div class="form-group is-empty"><input type="password" placeholder="Password..." class="form-control"><span class="material-input"></span></div>
                   </div>
                   <!-- If you want to add a checkbox to this form, uncomment this code -->
                   <div class="checkbox">
@@ -96,9 +81,7 @@
                   </div>
                 </div>
                 <div class="footer text-center">
-									<button class="btn" type="submit">
-										Get Started
-									</button>
+                  <a href="#pablo" class="btn btn-primary btn-round">Get Started</a>
                 </div>
               </form>
             </div>

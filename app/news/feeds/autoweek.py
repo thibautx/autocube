@@ -1,8 +1,9 @@
+import pprint
 import urllib2
+
 import feedparser as fp
 from bs4 import BeautifulSoup
 
-import pprint
 pp = pprint.PrettyPrinter(indent=2)
 
 def feed(make=None):

@@ -1,8 +1,10 @@
 import os
-import app
-import unittest
 import tempfile
+import unittest
+
 from flask import json
+
+import app
 from app.database import init_db
 
 

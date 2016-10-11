@@ -1,6 +1,8 @@
 import feedparser as fp
 from bs4 import BeautifulSoup
+
 from utils import published_parsed_to_datetime
+
 
 def feed(make=None):
     if make is not None:

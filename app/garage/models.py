@@ -1,5 +1,6 @@
 import sqlalchemy as sa
-from sqlalchemy import orm, Enum, Table
+from sqlalchemy import orm, Enum
+
 from app import db
 
 recalls_cars = db.Table('recalls_cars',

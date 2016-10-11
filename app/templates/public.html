@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% from "public/components/top_nav.html" import top_nav %}
+{% set active_page = active_page|default('index') %}
+{% set page_title = page_title %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block landing %}
+{{ top_nav() }}
+{% block content %}
+{% endblock %}
+{% endblock %}

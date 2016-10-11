@@ -1,6 +1,6 @@
 from flask_wtf import Form
-from wtforms import StringField, BooleanField, PasswordField, validators
-from wtforms.validators import DataRequired
+from wtforms import StringField, PasswordField, validators
+
 
 class DealerRegistrationForm(Form):
     name = StringField('Name', [validators.Length(min=4, max=20)])

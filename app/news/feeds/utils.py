@@ -1,5 +1,6 @@
-from time import mktime
 from datetime import datetime
+from time import mktime
+
 
 def published_parsed_to_datetime(published_parsed):
     """

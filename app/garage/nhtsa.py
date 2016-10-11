@@ -1,5 +1,7 @@
-import requests
 from datetime import datetime
+
+import requests
+
 
 def get_all_years():
     api_url = 'http://www.nhtsa.gov/webapi/api/Recalls/vehicle?format=json'

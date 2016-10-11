@@ -1,10 +1,12 @@
 from flask import Flask
 from flask_admin import Admin
+from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
 
 # Configurations
 app.config.from_object('config')
@@ -40,13 +42,13 @@ from app.public.controllers import public_module as mod_public
 from app.news.controllers import news_module as mod_news
 from app.profile.controllers import profile_module as mod_profile
 from app.garage.controllers import garage_module as mod_recalls
-from app.appointments.controllers import appointments_module as mod_appointments
+# from app.appointments.controllers import appointments_module as mod_appointments
 from app.service.controllers import service_module as mod_service
 app.register_blueprint(mod_public)
 app.register_blueprint(mod_news)
 app.register_blueprint(mod_profile)
 app.register_blueprint(mod_recalls)
-app.register_blueprint(mod_appointments)
+# app.register_blueprint(mod_appointments)
 app.register_blueprint(mod_service)
 
 

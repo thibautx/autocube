@@ -132,25 +132,31 @@ def get_dealers(zip, make, radius=50):
         .format(zip, make, radius, API_KEY)
     r = requests.get(api_url).json()
     dealers = r['dealers']
+    print len(dealers)
+    for a in dealers:
+        print a
     dealers = [format_dealer(dealer) for dealer in dealers]
     return dealers
 
 def format_dealer(dealer):
+    try:
+        website = dealer['contactInfo']['website']
+        phone = dealer['contactInfo']['phone']
+
+    except KeyError:
+        website = 'n/a'
+        phone = 'n/a'
+
     dealer_formatted = {
         'name': dealer['name'],
         'address': format_dealer_address(dealer),
-        'website': format_dealer_website(dealer),
-        'phone': format_dealer_phone(dealer),
+        'website': website,
+        'phone': phone,
         'operations': dealer['operations'],
     }
 
     return dealer_formatted
 
-def format_dealer_website(dealer):
-    return dealer['contactInfo']['website']
-
-def format_dealer_phone(dealer):
-    return dealer['contactInfo']['phone']
 
 def format_dealer_address(dealer):
     address = dealer['address']

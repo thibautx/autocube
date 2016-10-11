@@ -1,17 +1,14 @@
-{% extends "base.html" %}
-{% from "public/components/top_nav.html" import top_nav %}
+{% extends "public.html" %}
 {% block title %} AUTOCUBE {% endblock %}
 {% import "login.html" as login %}
 {% block head %}
 {{ super() }}
 {% endblock %}
-{% block landing %}
+{% block content %}
 
 <body class="landing-page">
 
-		<!-- Top Nav -->
-		{{ top_nav() }}
-		<!-- Header -->
+<!-- Header -->
 		<div class="page-header header-filter" data-parallax="active" style="background-image: url('{{ url_for('static', filename='images/landing-bg.jpg') }}')">
 		<div class="container">
 			<div class="row">
@@ -19,9 +16,12 @@
 				<h1 class="title">Never worry about the safety of your car again.</h1>
 					<h4>Autocube brings you the latest news and safety updates for your vehicles. We put you in touch with dealers to fix your car's safety recalls for free..</h4>
 					<br>
-					<button class="btn btn-default btn-lg" type="button" data-toggle="modal" href="javascript:void(0)" onclick="openRegisterModal();">
-						Get Started
-					</button>
+{#					<button class="btn btn-default btn-lg" type="button" data-toggle="modal" href="javascript:void(0)" onclick="openRegisterModal();">#}
+{#						<button class="btn btn-default btn-lg" href="{{ url_for_security('login') }}">#}
+{#						Get Started#}
+{#					</button>#}
+						<a class="btn" href="{{ url_for_security('login') }}">Login</a>
+						<a class="btn" href="{{ url_for_security('register') }}">Register</a>
 				</div>
 			</div>
 			</div>
