@@ -1,0 +1,49 @@
+{% macro register_form() %}
+{#<form class="form-horizontal" method="post" action="/register-dealer">#}
+{#  <div class="form-group">#}
+{#    <label><label for="name">Name</label></label>#}
+{#    <input class="form-control" id="name" name="name" type="text" value="thib123">#}
+{#    <span class="material-input"></span>#}
+{#  </div>#}
+{#  <span class="material-input"></span>#}
+{#  <div class="form-group">#}
+{#    <label><label for="email">Email Address</label></label>#}
+{#    <input class="form-control" id="email" name="email" type="text" value="thibaut@gmail.com">#}
+{#    <span class="material-input"></span>#}
+{#  </div>#}
+{#  <span class="material-input"></span>#}
+{#  <div class="form-group is-empty">#}
+{#    <label><label for="password">New Password</label></label>#}
+{#    <input class="form-control" id="password" name="password" type="password" value="">#}
+{#    <span class="material-input"></span>#}
+{#  </div>#}
+{#  <span class="material-input"></span>#}
+{#  <div class="form-group is-empty">#}
+{#    <label><label for="confirm">Confirm Password</label></label>#}
+{#    <input class="form-control" id="confirm" name="confirm" type="password" value="">#}
+{#    <span class="material-input"></span>#}
+{#  </div>#}
+{#  <span class="material-input"></span>#}
+{#	<button class="btn" type="submit">Register</button>#}
+{#</form>#}
+
+{% from "_formhelpers.html" import render_field %}
+	<form class="form-horizontal" method="post" action="{{ url_for(".register_dealer") }}">
+			{{render_field(form.name)}}
+			<span class="material-input"></span>
+			{{render_field(form.email)}}
+			<span class="material-input"></span>
+			{{render_field(form.password)}}
+			<span class="material-input"></span>
+			{{render_field(form.confirm)}}
+			<span class="material-input"></span>
+{#			{{render_field(form.accept_tos, class_="form-control")}}#}
+{#			<button type="submit" class="btn">Register</button>#}
+				<p><input type=submit value=Register></p>
+
+	</form>
+
+	{% if error %}
+		<p class="error"><strong>Error:</strong>{{error}}</p>
+	{% endif %}
+{% endmacro %}

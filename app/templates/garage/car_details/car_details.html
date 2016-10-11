@@ -1,6 +1,7 @@
 {% extends "page.html" %}
 {% set active_page = "garage" %}
-{% import "garage/index/components/car_item.html" as car_item with context %}
+{% set page_title = "Car Details" %}
+{% import "garage/car_details/components/car_item.html" as car_item with context %}
 {% import "garage/car_details/components/card.html" as tabs with context %}
 {% import "garage/car_details/components/details_tab.html" as panel with context %}
 {% block title %} Car Details {% endblock %}
@@ -14,6 +15,7 @@
 </a>
 {{ car_item.body(car) }}
 {{ tabs.body() }}
+
 <!-- Service Car Modal -->
 <div class="modal fade" id="serviceCarModal" role="dialog">
 <div class="modal-dialog">
@@ -24,7 +26,7 @@
     </div>
 
     <div class="modal-body container-fluid">
-        <form name="find-dealer" action="{{ url_for('.service_car', id=car.id) }}" method=post>
+        <form name="find-dealer" action="{{ url_for('_service.service_car', id=car.id) }}" method=post>
             <div class="form-group">
               <label class="col-md-4 control-label" for="zip">Zip Code</label>
               <input id="zip" name="zip" type="text" {% if current_user.zip_code is defined %} value="{{ current_user.zip_code }}"{% endif %}placeholder="Your zip code" class="form-control input-md">

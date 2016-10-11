@@ -8,8 +8,8 @@
 {% set active_page = active_page|default('garage') %}
 {% endblock %}
 
-{% import "garage/index/components/car_item.html" as car_item with context %}
-{% import "garage/index/components/add_car.html" as add_car with context %}
+{% import "garage/components/car_item.html" as car_item with context %}
+{% import "garage/components/add_car.html" as add_car with context %}
 
 {% block content %}
 <br>

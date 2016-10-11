@@ -50,8 +50,6 @@ class SocialConnection(db.Model):
 
             now = datetime.now()
             user = User()
-            print type(profile)
-            print profile.__dict__
             user.email = email
             user.first_name = profile.data.get('first_name')
             user.last_name = profile.data.get('last_name')

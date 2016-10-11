@@ -1,0 +1,22 @@
+{% macro news_tabs() %}
+<div class="header header-primary">
+	<div class="nav-tabs-navigation">
+		<div class="nav-tabs-wrapper">
+			<ul class="nav nav-tabs" data-tabs="tabs">
+
+				<li class="active">
+					<a href="#all-news" role="tab" data-toggle="tab">All News</a></li>
+
+				{% for make in makes %}
+				<li><a href="#{{ make }}-news" role="tab" data-toggle="tab">{{ make }} News</a></li>
+				{% endfor %}
+
+				<li>
+					<a href="#subscriptions" role="tab" data-toggle="tab"><i class="material-icons">playlist_add</i>Subscriptions</a>
+				</li>
+
+			</ul>
+		</div>
+	</div>
+</div>
+{% endmacro %}

@@ -32,11 +32,12 @@ class User(db.Model, UserMixin):
     roles = orm.relationship('Role', secondary=roles_users, backref=orm.backref('users', lazy='dynamic'))
     cars = orm.relationship('Car', secondary=cars_users, backref=orm.backref('users', lazy='dynamic'))
 
-    is_service = sa.Column(sa.Boolean, default=True)
-    makes_serviced = sa.Column(JSON)
-    timekit = sa.Column(JSON)
-
+    # news
     news_subscriptions = db.Column(JSON)
+    news_categories = db.Column(JSON)
+
+    # notifications
+    # notification = db.Column(JSON)
 
     @property
     def cn(self):

@@ -1,9 +1,9 @@
 {% from "news/components/news_item.html" import news_item with context %}
-{% from "news/components/news_subscriptions.html" import news_subscriptions with context %}
+{% from "news/components/subscriptions.html" import news_subscriptions with context %}
 {% macro news_tabs_content() %}
 	<div class="tab-content">
 		<!-- All News -->
-		<div class="tab-pane fade in active" role="tabpanel" id="tab-news-all">
+		<div class="tab-pane fade in active" role="tabpanel" id="all-news">
 			<!-- Column 1 -->
 			<div class="col-md-6 jasgrid">
 				{% for item in news_items %}
@@ -24,7 +24,7 @@
 
 		<!-- Makes News -->
 		{% for make in makes %}
-		<div class="tab-pane fade" role="tabpanel" id="{{ make }}-feed">
+		<div class="tab-pane fade" role="tabpanel" id="{{ make }}-news">
 			<!-- Column 1 -->
 			<div class="col-md-6 jasgrid">
 				{% for item in make_feeds[make] %}

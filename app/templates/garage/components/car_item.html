@@ -1,5 +1,5 @@
 {% macro body(car) %}
-<div class="card card-background" style="background-image: url('../../../../static/images/bmw.jpg')">
+<div class="card card-background" style="background-image: url('../../../static/images/bmw.jpg')">
 	<div class="content">
 		<h1 class="card-title">
 			{{ car.year }} {{ car.make }} {{ car.model }}
@@ -9,18 +9,21 @@
 			<div class="col-md-4">
 				<div class="card-description">
 					<p>
-						<div class="row">
-							<i class="material-icons text-warning">warning</i> Recalls
-						</div>
-						<div class="row">
-							<span class="material-icons text-danger">error</span> Service Bulletins
-						</div>
+						License Plate: {{ car.license_place }}
+						<br>
+						VIN: {{ car.vin }}
+						<br>
+						Mileage {{ car.current_mileage }}
 					</p>
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="card-description">
-					<p>Thing 2</p>
+					<p>
+						{{ car.recalls|length }} Recalls
+						<br>
+						{{ car.service_bulletins|length }} Service Bulletins
+					</p>
 				</div>
 			</div>
 			<div class="col-md-4">
@@ -36,13 +39,11 @@
 					<span class="material-icons">info_outline</span> View Car Info
 				</a>
 			</div>
-			<form class="btn-group">
-				<form action="{{ url_for('.remove_car', id=car.id) }}" method=post>
-					<button class="btn btn-white btn-simple">
-						<input type=hidden value="{{ car.id }}" name=car_id>
-							<span class="material-icons">delete_forever</span> Remove car
-					</button>
-				</form>
+			<form class="btn-group" action="{{ url_for('.remove_car', id=car.id) }}" method="POST">
+				<button type="submit" class="btn btn-white btn-simple">
+					<input type=hidden value="{{ car.id }}" name=car_id>
+						<span class="material-icons">delete_forever</span> Remove car
+				</button>
 			</form>
 		</div>
 	</div>

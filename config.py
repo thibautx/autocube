@@ -67,4 +67,10 @@ SOCIAL_BLUEPRINT = {
         # App Secret
         'consumer_secret': '3f28ce9bc466f2b295876b0d857f9bd2'
     },
+     "flask_social_blueprint.providers.Google": {
+        # Client ID
+        'consumer_key': '580132776922-2ffpv4idfmqogf4tdnfr5sdpf60493m3.apps.googleusercontent.com',
+        # Client secret
+        'consumer_secret': 'AtOFNbtgBTLul1Di-t0hz0F6'
+    },
 }

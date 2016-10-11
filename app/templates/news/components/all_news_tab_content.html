@@ -1,0 +1,20 @@
+{% macro all_news_tab_content() %}
+<div class="tab-pane fade in active" role="tabpanel" id="tab-news-all">
+	<!-- Column 1 -->
+	<div class="col-md-6 jasgrid">
+		{% for item in news_items %}
+		{% if loop.index is not divisibleby 2 %}
+		{{ news_item(item) }}
+		{% endif %}
+		{% endfor %}
+	</div>
+	<!-- Column 2 -->
+	<div class="col-md-6 jasgrid">
+		{% for item in news_items %}
+			{% if loop.index is divisibleby 2 %}
+			{{ news_item(item) }}
+			{% endif %}
+		{% endfor %}
+	</div>
+</div>
+{% endmacro %}

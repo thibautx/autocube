@@ -7,8 +7,8 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/news-grid.css') }}">
 {% endblock %}
 
-{% from "news/components/news_tabs.html" import news_tabs with context %}
-{% from "news/components/news_tabs_content.html" import news_tabs_content with context %}
+{% from "news/components/tabs.html" import news_tabs with context %}
+{% from "news/components/tabs_content.html" import news_tabs_content with context %}
 
 {% block content %}
 <div class="card card-nav-tabs">

@@ -1,5 +1,6 @@
 import feedparser as fp
 from bs4 import BeautifulSoup
+from utils import published_parsed_to_datetime
 
 def feed(make=None):
     if make is not None:
@@ -36,10 +37,13 @@ def format_entry(entry, make_feed=False):
         'title': entry['title'],
         'author': entry['author'],
         'link': entry['link'],
-        'date': entry['published'],
+        'date': published_parsed_to_datetime(entry['published_parsed']),
         'summary': summary,
         'image': image,
         'source': 'Autoblog',
     }
 
     return formatted
+
+if __name__ == "__main__":
+    feed()

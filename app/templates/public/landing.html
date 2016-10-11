@@ -1,14 +1,18 @@
 {% extends "base.html" %}
+{% from "public/components/top_nav.html" import top_nav %}
 {% block title %} AUTOCUBE {% endblock %}
 {% import "login.html" as login %}
 {% block head %}
 {{ super() }}
 {% endblock %}
 {% block landing %}
-<body class="landing-page">
-		<!-- Header -->
 
-		<div class="page-header header-filter" data-parallax="active" style="background-image: url('{{ url_for('static', filename='images/landing-bg.jpg') }}');s">
+<body class="landing-page">
+
+		<!-- Top Nav -->
+		{{ top_nav() }}
+		<!-- Header -->
+		<div class="page-header header-filter" data-parallax="active" style="background-image: url('{{ url_for('static', filename='images/landing-bg.jpg') }}')">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6">

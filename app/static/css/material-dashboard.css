@@ -166,7 +166,7 @@
 }
 
 .sidebar .nav li:hover > a {
-  background: rgba(200, 200, 200, 0.2);
+  /*background: rgba(200, 200, 200, 0.2);*/
   color: #FFFFFF;
 }
 
@@ -174,9 +174,9 @@
   color: #FFFFFF;
 }
 
-/*.sidebar .nav li.active > a {*/
-  /*color: #e2a60a;*/
-/*}*/
+.sidebar .nav li.active > a {
+  color: #e2a60a;
+}
 
 .sidebar .nav li.active > a i {
   color: #e2a60a;
@@ -233,8 +233,8 @@
 }
 
 .sidebar[data-color="gray"] .nav li.active a {
-  background-color: #333333;
-  /*box-shadow: 0 12px 20px -10px rgba(156, 39, 176, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(156, 39, 176, 0.2);*/
+  background: rgba(200, 200, 200, 0.2);
+
 }
 
 .sidebar[data-color="blue"] .nav li.active a {
