@@ -25,7 +25,6 @@ def garage_home():
 def car_details(id):
     """
     View details of specific car.
-
     :param id:
     :return:
     """
@@ -89,4 +88,3 @@ def model_years():
         model = request.args.get('model')
         _model_years = edmunds.get_model_years(make, model)
         return json.dumps(_model_years)
-

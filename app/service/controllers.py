@@ -1,13 +1,11 @@
 import json
-from flask import Blueprint, render_template, request
 from app.garage import edmunds
 from app.garage.models import Car
-from app.profile.models import User
-from app.service.models import Dealer
-from pyzipcode import ZipCodeDatabase
-import zipcode
+from flask import Blueprint, render_template, request
 from geopy.distance import vincenty
-from sqlalchemy import func
+from pyzipcode import ZipCodeDatabase
+from app.service.models import Dealer
+
 
 service_module = Blueprint('_service', __name__, url_prefix='/service')
 

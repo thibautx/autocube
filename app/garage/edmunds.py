@@ -138,6 +138,7 @@ def get_dealers(zip, make, radius=50):
     dealers = [format_dealer(dealer) for dealer in dealers]
     return dealers
 
+
 def format_dealer(dealer):
     try:
         website = dealer['contactInfo']['website']
@@ -161,6 +162,7 @@ def format_dealer(dealer):
 def format_dealer_address(dealer):
     address = dealer['address']
     return '{}, {}, {} {}'.format(address['street'], address['city'], address['stateCode'], address['zipcode'])
+
 
 def get_listings(zip):
     api_url = 'https://api.edmunds.com/api/inventory/v2/inventories?zipcode={}&fmt=json&api_key={}'\

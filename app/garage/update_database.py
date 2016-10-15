@@ -1,11 +1,10 @@
 import re
 from datetime import datetime
-
+from app.garage.models import Car, Recall, ServiceBulletin
 from sqlalchemy import func
-
 import edmunds
 from app import db
-from app.garage.models import Car, Recall, ServiceBulletin
+
 
 
 # recalls
