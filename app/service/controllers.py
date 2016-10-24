@@ -38,9 +38,9 @@ def schedule_with_dealer(dealer_id, car_id):
                            dealer=dealer,
                            car=car)
 
-@service_module.route('/car/<id>/service/campaign_number=', methods=['POST'])
-def service_car(id):
-    car = Car.query.get(id)
+@service_module.route('/car/<car_id>/service/campaign_number=', methods=['POST'])
+def service_car(car_id):
+    car = Car.query.get(car_id)
     target_zip = request.form['zip']
 
     try:

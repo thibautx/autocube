@@ -26,7 +26,7 @@
     </div>
 
     <div class="modal-body container-fluid">
-        <form name="find-dealer" action="{{ url_for('_service.service_car', id=car.id) }}" method=post>
+        <form name="find-dealer" action="{{ url_for('_service.service_car', car_id=car.id) }}" method=post>
             <div class="form-group">
               <label class="col-md-4 control-label" for="zip">Zip Code</label>
               <input id="zip" name="zip" type="text" {% if current_user.zip_code is defined %} value="{{ current_user.zip_code }}"{% endif %}placeholder="Your zip code" class="form-control input-md">

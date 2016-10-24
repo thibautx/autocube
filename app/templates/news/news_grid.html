@@ -11,8 +11,8 @@
 {% from "news/components/tabs_content.html" import news_tabs_content with context %}
 
 {% block content %}
-<div class="card card-nav-tabs">
+<div class="card card-nav-tabs news">
 	{{ news_tabs() }}
-	{{ news_tabs_content() }}
 </div>
+	{{ news_tabs_content() }}
 {% endblock %}

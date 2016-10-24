@@ -4,6 +4,9 @@
     opacity: 1;
     overflow: hidden;
     position: relative;
+    border-radius: 6px;
+    margin-top: 10px;
+    margin-right: -10px;
 }
 
 .box-item img {

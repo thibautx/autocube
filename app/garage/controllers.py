@@ -28,16 +28,16 @@ def garage_home():
                            makes=json.dumps(makes))
 
 
-@garage_module.route('/car/<id>')
+@garage_module.route('/car/<car_id>')
 @login_required
-def car_details(id):
+def car_details(car_id):
     """
     View details of specific car.
 
-    :param id: (int) car id
+    :param car_id: (int) car id
     :return:
     """
-    car = Car.query.get(id)
+    car = Car.query.get(car_id)
 
     # if current user doesn't own the car, then redirect to garage home
     try:
@@ -54,7 +54,7 @@ def car_details(id):
                            maps_api=GOOGLE_MAPS_API_KEY)
 
 
-# API Methods
+# API
 @garage_module.route('/car', methods=['POST'])
 @login_required
 def add_car():
@@ -77,39 +77,39 @@ def add_car():
         return redirect(url_for('.garage_home'))
 
 
-@garage_module.route('/car/delete/<int:id>', methods=['POST'])
-def remove_car(id):
+@garage_module.route('/car/delete/<car_id>', methods=['POST'])
+def remove_car(car_id):
     """
     Remove car from database.
 
-    :param id:
+    :param car_id:
     :return:
     """
     if request.method == 'POST':
-        db.session.delete(Car.query.get(id))
+        db.session.delete(Car.query.get(car_id))
         db.session.commit()
         return redirect(url_for('.garage_home'))
 
 
-@garage_module.route('/car/update/<int:id>', methods=['POST'])
-def update_car(id):
+@garage_module.route('/car/update/<car_id>', methods=['POST'])
+def update_car(car_id):
     """
     Update car info.
 
-    :param id:
+    :param car_id:
     :return:
     """
     if request.method == 'POST':
-        car = Car.query.get(id)
+        car = Car.query.get(car_id)
         args = request.form.to_dict()
         for arg, value in args.items():
             setattr(car, arg, value)
         db.session.commit()
-        return redirect(url_for('.car_details', id=id))
+        return redirect(url_for('.car_details', id=car_id))
 
 
 @garage_module.route('/models', methods=['GET'])
-def models():
+def get_models():
     """
     Get all possible models from edmunds.
 

@@ -1,11 +1,13 @@
 {% from "news/components/news_item.html" import news_item with context %}
 {% from "news/components/subscriptions.html" import news_subscriptions with context %}
 {% macro news_tabs_content() %}
-	<div class="tab-content">
+	<div class="news-grid" style="margin-top: -45px">
+{#<div class="content">#}
+{#	<div class="tab-content">#}
 		<!-- All News -->
-		<div class="tab-pane fade in active" role="tabpanel" id="all-news">
+{#		<div class="tab-pane fade in active" role="tabpanel" id="all-news">#}
 			<!-- Column 1 -->
-			<div class="col-md-6 jasgrid">
+			<div class="col-md-6">
 				{% for item in news_items %}
 				{% if loop.index is not divisibleby 2 %}
 				{{ news_item(item) }}
@@ -13,36 +15,36 @@
 				{% endfor %}
 			</div>
 			<!-- Column 2 -->
-			<div class="col-md-6 jasgrid">
+			<div class="col-md-6">
 				{% for item in news_items %}
 					{% if loop.index is divisibleby 2 %}
 					{{ news_item(item) }}
 					{% endif %}
 				{% endfor %}
 			</div>
-		</div>
-
-		<!-- Makes News -->
-		{% for make in makes %}
-		<div class="tab-pane fade" role="tabpanel" id="{{ make }}-news">
-			<!-- Column 1 -->
-			<div class="col-md-6 jasgrid">
-				{% for item in make_feeds[make] %}
-				{% if loop.index is not divisibleby 2 %}
-				{{ news_item(item) }}
-				{% endif %}
-				{% endfor %}
-			</div>
-			<!-- Column 2 -->
-			<div class="col-md-6 jasgrid">
-				{% for item in make_feeds[make] %}
-				{% if loop.index is divisibleby 2 %}
-				{{ news_item(item) }}
-				{% endif %}
-				{% endfor %}
-			</div>
-		</div>
-		{% endfor %}
-	 {{ news_subscriptions() }}
+{#		<!-- Makes News -->#}
+{#		{% for make in makes %}#}
+{#		<div class="tab-pane fade" role="tabpanel" id="{{ make }}-news">#}
+{#			<!-- Column 1 -->#}
+{#			<div class="col-md-6">#}
+{#				{% for item in make_feeds[make] %}#}
+{#				{% if loop.index is not divisibleby 2 %}#}
+{#				{{ news_item(item) }}#}
+{#				{% endif %}#}
+{#				{% endfor %}#}
+{#			</div>#}
+{#			<!-- Column 2 -->#}
+{#			<div class="col-md-6">#}
+{#				{% for item in make_feeds[make] %}#}
+{#				{% if loop.index is divisibleby 2 %}#}
+{#				{{ news_item(item) }}#}
+{#				{% endif %}#}
+{#				{% endfor %}#}
+{#			</div>#}
+{#		</div>#}
+{#		{% endfor %}#}
+{#	 {{ news_subscriptions() }}#}
+{#	</div>#}
+{#</div>#}
 	</div>
 {% endmacro %}

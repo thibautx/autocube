@@ -60,13 +60,15 @@ blockquote p {
 }
 
 body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  /*font-family: "Roboto", "Helvetica", "Arial", sans-serif;*/
+  font-family: 'Montserrat', sans-serif;
   font-weight: 300;
   line-height: 1.5em;
 }
 
 .serif-font {
-  font-family: "Roboto Slab", "Times New Roman", serif;
+  /*font-family: "Roboto Slab", "Times New Roman", serif;*/
+  font-family: 'Montserrat', sans-serif;
 }
 
 a {
@@ -2410,7 +2412,8 @@ select.form-control[multiple], .form-group.is-focused select.form-control[multip
   color: #555555;
 }
 .navbar.navbar-inverse {
-  background-color: #212121;
+  /*background-color: #212121;*/
+  background-color: #333333;
   color: #fff;
 }
 .navbar.navbar-inverse .navbar-form .form-group input.form-control::-moz-placeholder,
@@ -2715,8 +2718,8 @@ select.form-control[multiple], .form-group.is-focused select.form-control[multip
 .dropdown-menu li a:hover,
 .dropdown-menu li a:focus,
 .dropdown-menu li a:active {
-  background-color: #9c27b0;
-  color: #FFFFFF;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #000000;
 }
 .dropdown-menu .divider {
   margin: 5px 0;
@@ -2724,8 +2727,8 @@ select.form-control[multiple], .form-group.is-focused select.form-control[multip
 .navbar .dropdown-menu li > a:hover,
 .navbar .dropdown-menu li > a:focus, .navbar.navbar-default .dropdown-menu li > a:hover,
 .navbar.navbar-default .dropdown-menu li > a:focus {
-  color: #FFFFFF;
-  background-color: #9c27b0;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #000000;
 }
 
 @media (min-width: 768px) {
@@ -2924,7 +2927,8 @@ h6, .h6 {
 .footer-big h4,
 .media .media-heading {
   font-weight: 700;
-  font-family: "Roboto Slab", "Times New Roman", serif;
+  /*font-family: "Roboto Slab", "Times New Roman", serif;*/
+  font-family: 'Montserrat', sans-serif;
 }
 .title,
 .title a,
@@ -3162,6 +3166,17 @@ h2.title {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
+.card.news{
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  margin-bottom: 30px;
+  border-radius: 6px;
+  color: rgba(0, 0, 0, 0.87);
+  background: #fff;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
 .card.black {
   display: inline-block;
   position: relative;
@@ -3225,7 +3240,6 @@ h2.title {
 }
 .card .header {
   box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
-  margin: 15px;
   border-radius: 3px;
   padding: 15px 0;
   background-color: #FFFFFF;
@@ -3398,10 +3412,10 @@ h2.title {
 }
 
 .card-nav-tabs {
-  margin-top: 45px;
+  margin-top: 100px;
 }
 .card-nav-tabs .header {
-  margin-top: -30px;
+  margin-top: -80px;
 }
 .card-nav-tabs .nav-tabs {
   background: transparent;

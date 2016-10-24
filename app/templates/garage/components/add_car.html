@@ -62,7 +62,7 @@
 	  $(make_selector).change(function() {
 	    var selected_make = this.value;
 	    $(model_selector).empty();
-	    $.getJSON("{{ url_for('.models')}}", {
+	    $.getJSON("{{ url_for('.get_models')}}", {
 	        make: selected_make
 	      },
 	      function(data) {

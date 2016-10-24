@@ -56,17 +56,37 @@ def get_all_news(user_feeds):
     return news_items
 
 
-def get_makes_news(user_feeds, makes):
+def get_all_makes_news(user_feeds, makes):
+    """
+    Get news for all makes.
+
+    :param user_feeds:
+    :param makes:
+    :return:
+    """
     make_feeds = {make: [] for make in makes}
     for make in makes:
-        for feed, val in user_feeds.items():
-            if val == 1:
-                try:
-                    make_feeds[make] += f[feed](make=make)
-                except:
-                    pass
+        make_feeds[make] = get_make_news(user_feeds, make)
 
     return make_feeds
+
+def get_make_news(user_feeds, make):
+    """
+    Get news for one make.
+
+    :param user_feeds:
+    :param make: (string)
+    :return:
+    """
+    news_items = []
+    for feed, val in user_feeds.items():
+        if val == 1:
+            try:
+                news_items += f[feed](make=make)
+            except:
+                pass
+
+    return news_items
 
 
 def get_user_distinct_makes():
@@ -104,3 +124,5 @@ def db_update_news_categories(subscribed_categories):
     user = User.query.get(current_user.id)
     user.news_categories = json.dumps(categories_json)
     db.session.commit()
+
+

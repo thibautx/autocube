@@ -1,6 +1,7 @@
 {% macro body() %}
 <div class="tab-pane active" role="tabpanel" id="tab-details">
-	<form class="form-horizontal" action="{{ url_for('.update_car', id=car.id) }}" method="post">
+	<div class="align-left">
+	<form class="form-horizontal" action="{{ url_for('.update_car', car_id=car.id) }}" method="post">
 		<fieldset>
 		<!-- Current Mileage -->
 		<div class="form-group">
@@ -60,5 +61,6 @@
 		</div>
 		</fieldset>
 	</form>
+	</div>
 </div>
 {% endmacro %}

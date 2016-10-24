@@ -33,19 +33,22 @@
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="btn-group">
-				<a href="{{ url_for('.car_details', id=car.id) }}" class="btn btn-white btn-simple">
-					<span class="material-icons">info_outline</span> View Car Info
-				</a>
+{#		<div class="col-md-4 col-md-offset-8">#}
+			<div class="row">
+				<div class="btn-group">
+	{#				<a href="{{ url_for('.car_details', car_id=car.id) }}" class="btn btn-white btn-simple">#}
+						<a href="{{ url_for('.car_details', car_id=car.id) }}" class="btn">
+						<span class="material-icons">info_outline</span> View Car Info
+					</a>
+				</div>
+				<form class="btn-group" action="{{ url_for('.remove_car', car_id=car.id) }}" method="POST">
+					<button type="submit" class="btn">
+						<input type=hidden value="{{ car.id }}" name=car_id>
+							<span class="material-icons">delete_forever</span> Remove car
+					</button>
+				</form>
 			</div>
-			<form class="btn-group" action="{{ url_for('.remove_car', id=car.id) }}" method="POST">
-				<button type="submit" class="btn btn-white btn-simple">
-					<input type=hidden value="{{ car.id }}" name=car_id>
-						<span class="material-icons">delete_forever</span> Remove car
-				</button>
-			</form>
-		</div>
+{#		</div>#}
 	</div>
 </div>
 {% endmacro %}
