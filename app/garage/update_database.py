@@ -1,13 +1,14 @@
 import re
 from datetime import datetime
-from app.garage.models import Car, Recall, ServiceBulletin
+
 from sqlalchemy import func
+
 import edmunds
 from app import db
+from app.garage.models import Car, Recall, ServiceBulletin
 
 
-
-# recalls
+# RECALLS
 def on_new_car_update_recalls(make, model, year):
     """
 
@@ -36,7 +37,7 @@ def update_car_recalls(make, model, year):
     :param year:
     :return:
     """
-    pass
+    return make, model, year
 
 
 def update_recalls():
@@ -48,15 +49,12 @@ def update_recalls():
 
     distinct_cars = Car.query.distinct(Car.model, Car.make, Car.year).all()
     for car in distinct_cars:
-        print car.make, car.model, car.year
-
         recalls = edmunds.get_recalls(car.make, car.model, car.year)
         for recall in recalls:
             recall_id = recall['id']
 
             # recall already in database
             if Recall.query.filter(Recall.id == recall_id).count():
-                print 'already in db'
                 pass
 
             # add recall to database
@@ -74,7 +72,38 @@ def update_recalls():
                                    manufactured_to=manufactured_to)
 
                 car.recalls.append(db_recall)  # add recall to the car
-                db.session.add(db_recall)      # add recall to the db
+                db.session.add(db_recall)  # add recall to the db
+                db.session.commit()
+
+def update_all_recalls():
+    distinct_cars = Car.query.distinct(Car.model, Car.make, Car.year).all()
+    for car in distinct_cars:
+        print car.make, car.model, car.year
+
+        recalls = edmunds.get_recalls(car.make, car.model, car.year)
+        for recall in recalls:
+            recall_id = recall['id']
+
+            # recall already in database
+            if Recall.query.filter(Recall.id == recall_id).count():
+                pass
+
+            # add recall to database
+            else:
+                manufactured_from, manufactured_to = _manufactured_to_and_from(recall)
+                consequence = re.sub('([a-zA-Z])',
+                                     lambda x: x.groups()[0].upper(),
+                                     recall['defectConsequence'].lower(), 1)
+                components = ', '.join(recall['componentDescription'].split(':'))
+                db_recall = Recall(id=recall_id,
+                                   nhtsa_number=recall['recallNumber'],
+                                   consequence=consequence,
+                                   components=components,
+                                   manufactured_from=manufactured_from,
+                                   manufactured_to=manufactured_to)
+
+                car.recalls.append(db_recall)  # add recall to the car
+                db.session.add(db_recall)  # add recall to the db
                 db.session.commit()
 
 
@@ -90,14 +119,15 @@ def _manufactured_to_and_from(recall):
 
     return manufactured_from, manufactured_to
 
-# service bulletins
+
+# SERVICE BULLETINS
 def on_new_car_update_service_bulletins(make, model, year):
     # TODO: implement
     pass
 
 
 def update_car_service_bulletins(make, model, year):
-    #TODO: implement
+    # TODO: implement
     pass
 
 
@@ -140,8 +170,9 @@ def update_service_bulletins():
                                                       )
 
                 car.service_bulletins.append(db_service_bulletin)  # add recall to the car
-                db.session.add(db_service_bulletin)      # add recall to the db
+                db.session.add(db_service_bulletin)  # add recall to the db
                 db.session.commit()
+
 
 if __name__ == "__main__":
     update_recalls()
