@@ -1,0 +1,16 @@
+{% extends "page.html" %}
+{% set active_page = "news" %}
+{% set page_title = "News" %}
+{% block title %} {{ page_title }} {% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/news-grid.css') }}">
+{% endblock %}
+
+{% from "news/components/nav.html" import news_tabs with context %}
+{% from "news/components/news_grid.html" import news_tabs_content with context %}
+
+{% block content %}
+	{{ news_tabs() }}
+	{{ news_tabs_content() }}
+{% endblock %}

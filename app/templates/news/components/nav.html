@@ -1,5 +1,6 @@
 {% macro news_tabs() %}
-<div class="header header-primary">
+<div class="card card-nav-tabs news">
+	<div class="header header-primary">
 	<div class="nav-tabs-navigation">
 		<div class="nav-tabs-wrapper">
 			<ul class="nav nav-tabs">
@@ -10,17 +11,18 @@
 
 				{% for make in makes %}
 
-				<li 					{% if active == make %} class="active" {% endif %}>
+				<li {% if active == make %} class="active" {% endif %}>
 					<a href="{{ url_for('.make_news', make=make) }}">{{ make }} News</a>
 				</li>
 				{% endfor %}
 
-				<li>
-					<a href="{{ url_for('.subscriptions') }}" role="tab" data-toggle="tab"><i class="material-icons">playlist_add</i>Subscriptions</a>
+				<li {% if active == 'subscriptions' %} class="active" {% endif %}>
+					<a href="{{ url_for('.subscriptions') }}"><i class="material-icons">playlist_add</i>Subscriptions</a>
 				</li>
 
 			</ul>
 		</div>
 	</div>
+</div>
 </div>
 {% endmacro %}

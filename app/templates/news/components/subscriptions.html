@@ -1,5 +1,6 @@
 {% macro news_subscriptions() %}
-<div class="tab-pane fade black" role="tabpanel" id="subscriptions">
+{#<div class="tab-pane fade black" role="tabpanel" id="subscriptions">#}
+	<div class="card black" style="margin-top: -35px;">
 	<form class="form-horizontal" action="{{ url_for('.update_subscriptions') }}" method="post">
 		<fieldset>
 			<!-- Feed Checkboxes -->

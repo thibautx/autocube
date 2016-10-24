@@ -33,7 +33,7 @@ def news():
     all_news = utils.get_all_news(user_feeds)
     makes = utils.get_user_distinct_makes()
 
-    return render_template('news/news_grid.html',
+    return render_template('news/news.html',
                            user_feeds=user_feeds,
                            news_categories=utils.news_categories,
                            user_categories=user_categories,
@@ -50,7 +50,7 @@ def make_news(make):
     makes = utils.get_user_distinct_makes()
     news_items = utils.get_make_news(user_feeds, make)
 
-    return render_template('news/news_grid.html',
+    return render_template('news/news.html',
                            user_feeds=user_feeds,
                            news_categories=utils.news_categories,
                            user_categories=user_categories,
@@ -62,7 +62,20 @@ def make_news(make):
 @login_required
 @news_module.route('/subscriptions')
 def subscriptions():
-    pass
+
+    user_categories = utils.get_user_news_categories()
+    user_feeds = utils.get_user_news_feeds()
+    makes = utils.get_user_distinct_makes()
+
+    return render_template('news/subscriptions_form.html',
+                           user_feeds=user_feeds,
+                           news_categories=utils.news_categories,
+                           user_categories=user_categories,
+                           makes=makes,
+                           feeds=utils.f,
+                           active='subscriptions')
+                           # user_feeds=user_feeds,
+                           # user)
 
 
 @login_required
