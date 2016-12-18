@@ -37,6 +37,7 @@ def on_new_dealer(dealer):
 
     return timekit
 
+
 def register_user(dealer):
     """
     Register a (Dealer) on Time Kit.

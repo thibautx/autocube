@@ -1,6 +1,7 @@
 {% extends "public.html" %}
 {% block title %} AUTOCUBE {% endblock %}
 {% import "login.html" as login %}
+{% from "footer_public.html" import footer with context%}
 {% block head %}
 {{ super() }}
 {% endblock %}
@@ -113,6 +114,9 @@
 				</div>
 			</div>
 		</div>
+
+{{ footer() }}
+
 {{ login.body() }}
 </body>
 {% endblock %}

@@ -21,6 +21,7 @@ def parse_feed(url, make_feed=False):
     entries = fp.parse(url)['entries'][:10]
     return [format_entry(entry,) for entry in entries]
 
+
 def format_entry(entry, make_feed=False):
     soup = BeautifulSoup(entry['summary'], 'html.parser')
     try:

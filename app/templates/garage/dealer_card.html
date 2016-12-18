@@ -19,9 +19,6 @@
 				</li>
 			</ul>
 		</div>
-	{#	<a href="#" class="btn btn-default">#}
-	{#		Get Started#}
-	{#	</a>#}
 	</div>
 </div>
 {% endmacro %}
@@ -48,9 +45,11 @@
 			</li>
 		</ul>
 		</div>
+				{% if car is defined%}
         <a href="{{ url_for('_service.schedule_with_dealer', dealer_id=dealer.id, car_id=car.id) }}" class="btn btn-info" role="button">
             Schedule
         </a>
+				{% endif %}
 	</div>
 </div>
 {% endmacro %}

@@ -12,7 +12,7 @@ def get_makes():
     api_url = 'http://api.edmunds.com/api/vehicle/v2/makes?fmt=json&api_key={}'\
         .format(API_KEY)
     r = requests.get(api_url).json()
-    all_makes = [make['name'] for make in r['makes']]
+    all_makes = [str(make['name']) for make in r['makes']]
     return all_makes
 
 

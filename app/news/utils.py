@@ -1,11 +1,12 @@
 import json
 from collections import OrderedDict
-from app.garage.models import Car
+
 from flask_login import current_user
+
 import feeds
 from app import db
+from app.garage.models import Car
 from app.profile.models import User
-
 
 f = OrderedDict()
 f['Autoblog'] = feeds.autoblog.feed
@@ -45,6 +46,8 @@ def get_all_news(user_feeds):
 
     :return:
     """
+
+    print 'getting all news'
     news_items = []
     for feed, val in user_feeds.items():
         if val == 1:
@@ -70,6 +73,7 @@ def get_all_makes_news(user_feeds, makes):
 
     return make_feeds
 
+
 def get_make_news(user_feeds, make):
     """
     Get news for one make.
@@ -78,6 +82,7 @@ def get_make_news(user_feeds, make):
     :param make: (string)
     :return:
     """
+    print 'get make news'
     news_items = []
     for feed, val in user_feeds.items():
         if val == 1:

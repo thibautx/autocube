@@ -32,6 +32,7 @@ class Car(db.Model):
     def __init__(self, **kwargs):
         super(Car, self).__init__(**kwargs)
 
+
 class ServiceBulletin(db.Model):
     __tablename__ = 'service_bulletin'
     id = db.Column(db.Integer, primary_key=True)

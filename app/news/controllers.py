@@ -1,11 +1,11 @@
-from app import app
+# from app import cache
 from flask_cache import Cache
+
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required
 
 import utils
 
-cache = Cache(app)
 news_module = Blueprint('_news', __name__, url_prefix='/news')
 
 # f['motortrend'] = sadf.motortrend_feed
@@ -15,21 +15,21 @@ news_module = Blueprint('_news', __name__, url_prefix='/news')
 
 
 PER_PAGE = 10
-
+from app import app
+cache = Cache(app)
 
 @login_required
-@news_module.route('/')
 @cache.cached(timeout=60)
+@news_module.route('/')
 def news():
     """
-    Hopepage (All News)
+    Homepage (All News)
 
     :return:
     """
 
     user_feeds = utils.get_user_news_feeds()
     user_categories = utils.get_user_news_categories()
-
     all_news = utils.get_all_news(user_feeds)
     makes = utils.get_user_distinct_makes()
 
@@ -43,6 +43,7 @@ def news():
                            active='all')
 
 @login_required
+@cache.cached(timeout=60)
 @news_module.route('/<make>')
 def make_news(make):
     user_feeds = utils.get_user_news_feeds()
@@ -60,8 +61,14 @@ def make_news(make):
                            active=make)
 
 @login_required
+@cache.cached(timeout=60)
 @news_module.route('/subscriptions')
 def subscriptions():
+    """
+    User's subscriptions (feeds & categories)
+
+    :return:
+    """
 
     user_categories = utils.get_user_news_categories()
     user_feeds = utils.get_user_news_feeds()

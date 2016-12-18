@@ -2,12 +2,15 @@
 {% from "public/components/top_nav.html" import top_nav %}
 {% set active_page = active_page|default('index') %}
 {% set page_title = page_title %}
+{% from "footer_public.html" import footer with context%}
 {% block head %}
 {{ super() }}
 {% endblock %}
 
 {% block landing %}
 {{ top_nav() }}
-{% block content %}
+
+{% block content %}{% endblock %}
+
 {% endblock %}
-{% endblock %}
+
