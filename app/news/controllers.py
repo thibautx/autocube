@@ -1,5 +1,5 @@
 # from app import cache
-from flask_cache import Cache
+# from flask_cache import Cache
 
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required
@@ -15,11 +15,11 @@ news_module = Blueprint('_news', __name__, url_prefix='/news')
 
 
 PER_PAGE = 10
-from app import app
-cache = Cache(app)
+# from app import app
+# cache = Cache(app)
 
 @login_required
-@cache.cached(timeout=60)
+# @cache.cached(timeout=60)
 @news_module.route('/')
 def news():
     """
@@ -43,7 +43,7 @@ def news():
                            active='all')
 
 @login_required
-@cache.cached(timeout=60)
+# @cache.cached(timeout=60)
 @news_module.route('/<make>')
 def make_news(make):
     user_feeds = utils.get_user_news_feeds()
@@ -61,7 +61,7 @@ def make_news(make):
                            active=make)
 
 @login_required
-@cache.cached(timeout=60)
+# @cache.cached(timeout=60)
 @news_module.route('/subscriptions')
 def subscriptions():
     """
