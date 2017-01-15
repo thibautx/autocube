@@ -16,9 +16,11 @@ def feed(make=None):
 def make_feed(make):
     pass
 
+
 def parse_feed(url, make_feed=False):
     entries = fp.parse(url)['entries'][:10]
     return [format_entry(entry) for entry in entries]
+
 
 def format_entry(entry, make_feed=False):
     # soup = BeautifulSoup(entry['title'], 'html.parser').text
@@ -43,9 +45,11 @@ def format_entry(entry, make_feed=False):
     }
     return formatted
 
+
 def get_article_image(link):
     soup = BeautifulSoup(urllib2.urlopen(link).read(), 'html.parser')
     return soup.find('meta', attrs={'name': 'image'})['content']
+
 
 if __name__ == "__main__":
     feed()

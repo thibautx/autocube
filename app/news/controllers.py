@@ -42,6 +42,7 @@ def news():
                            make_feeds=make_news,
                            active='all')
 
+
 @login_required
 # @cache.cached(timeout=60)
 @news_module.route('/<make>')
@@ -59,6 +60,7 @@ def make_news(make):
                            makes=makes,
                            make_feeds=make_news,
                            active=make)
+
 
 @login_required
 # @cache.cached(timeout=60)

@@ -1,7 +1,7 @@
 import requests
 
-API_KEY = 'jv8tyz4h2twjq3ygqckkrzqa'
-
+# API_KEY = 'jv8tyz4h2twjq3ygqckkrzqa'
+API_KEY = '2jjpecdpabag835ysbqxprzd'
 
 def get_makes():
     """
@@ -82,6 +82,13 @@ def get_image(make, model, year):
     r = requests.get(api_url).json()
     return r
 
+
+def get_front_quarter_image(make, model, year):
+    all_photos = get_image(make, model, year)
+    for photo in all_photos.values()[0]:
+        if photo['shotTypeAbbreviation'] == 'FQ':
+            href = photo['sources'][3]['link']['href']
+            return 'http://media.ed.edmunds-media.com' + href
 
 def get_dealers(zip, make, radius=50):
     """
