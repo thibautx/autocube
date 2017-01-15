@@ -1,6 +1,5 @@
 import requests
 
-# API_KEY = 'jv8tyz4h2twjq3ygqckkrzqa'
 API_KEY = '2jjpecdpabag835ysbqxprzd'
 
 def get_makes():
@@ -83,12 +82,33 @@ def get_image(make, model, year):
     return r
 
 
-def get_front_quarter_image(make, model, year):
+def try_get_image(make, model, year):
+    shots = ['FQ', 'RQ', 'S', 'F', 'B']
+    for shot in shots:
+        try:
+            image = get_image_by_shot(make, model, year, shot)
+            print image
+            return image
+        except:
+            pass
+
+    return 'http://placehold.it/350x150'
+
+
+def get_image_by_shot(make, model, year, shot):
     all_photos = get_image(make, model, year)
     for photo in all_photos.values()[0]:
-        if photo['shotTypeAbbreviation'] == 'FQ':
-            href = photo['sources'][3]['link']['href']
+        if photo['shotTypeAbbreviation'] == shot:
+            max_width = 0
+            max_width_index = 0
+            for i in xrange(len(photo['sources'])):
+                if photo['sources'][i]['size']['width'] > max_width:
+                    max_width_index = i
+                    max_width = photo['sources'][i]['size']['width']
+            href = photo['sources'][max_width_index]['link']['href']
             return 'http://media.ed.edmunds-media.com' + href
+    raise Exception
+
 
 def get_dealers(zip, make, radius=50):
     """
@@ -176,13 +196,3 @@ def get_listings(zip):
         .format(zip, API_KEY)
     r = requests.get(api_url).json()
     return r
-
-
-import pprint
-if __name__ == "__main__":
-    pp = pprint.PrettyPrinter(indent=4)
-    year = 2012
-    make = 'Honda'
-    model = 'Civic'
-    r = get_service_bulletins(make, model, year)
-    pp.pprint(r)

@@ -1,6 +1,6 @@
 import sqlalchemy as sa
 from sqlalchemy import orm, Enum
-from app.garage.edmunds import get_front_quarter_image
+from app.garage.edmunds import try_get_image
 
 from app import db
 
@@ -16,7 +16,9 @@ class Car(db.Model):
     __tablename__ = 'car'
     id = db.Column(db.Integer, primary_key=True)
     make = db.Column(db.String(80))
+    make_no_space = db.Column(db.String(80))
     model = db.Column(db.String(80))
+    model_no_space = db.Column(db.String(80))
     year = db.Column(db.Integer)
     vin = db.Column(db.String, unique=True, nullable=True)
     current_mileage = db.Column(db.Integer, nullable=True)
@@ -33,7 +35,9 @@ class Car(db.Model):
 
     def __init__(self, **kwargs):
         super(Car, self).__init__(**kwargs)
-        self.image_url = get_front_quarter_image(self.make, self.model, self.year)
+        self.make_no_space = self.make.replace(' ', '')
+        self.model_no_space = self.model.replace(' ', '')
+        self.image_url = try_get_image(self.make_no_space, self.model_no_space, self.year)
 
 class ServiceBulletin(db.Model):
     __tablename__ = 'service_bulletin'
