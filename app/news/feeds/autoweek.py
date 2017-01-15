@@ -1,6 +1,7 @@
 import pprint
 import urllib2
 
+from utils import published_parsed_to_datetime
 import feedparser as fp
 from bs4 import BeautifulSoup
 
@@ -39,7 +40,7 @@ def format_entry(entry, make_feed=False):
         'title': entry['title'],
         'author': entry['author'],
         'link': entry['link'],
-        'date': entry['published'],
+        'date': published_parsed_to_datetime(entry['published_parsed']),
         'image': image,
         'source': 'Autoweek',
     }

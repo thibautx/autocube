@@ -10,4 +10,5 @@ def published_parsed_to_datetime(published_parsed):
     :param published_parsed: (time.struct_time)
     :return: (datetime.datetime)
     """
+    # print published_parsed, datetime.fromtimestamp(mktime(published_parsed))
     return datetime.fromtimestamp(mktime(published_parsed))

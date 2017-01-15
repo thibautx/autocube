@@ -20,21 +20,21 @@
 				</div>
 			</div>
 
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="categories">Categories</label>
-				<div class="col-md-4">
-				{% for category in news_categories %}
-					<div class="checkbox">
-						<div class="togglebutton">
-						<label>
-						<input type="checkbox" id="categories" name="categories" value="{{ category }}" {% if user_categories[feed] == 1 %}checked=""{% endif %}>
-						</label>
-						{{ category }}
-						</div>
-					</div>
-				{% endfor %}
-				</div>
-			</div>
+{#			<div class="form-group">#}
+{#				<label class="col-md-4 control-label" for="categories">Categories</label>#}
+{#				<div class="col-md-4">#}
+{#				{% for category in news_categories %}#}
+{#					<div class="checkbox">#}
+{#						<div class="togglebutton">#}
+{#						<label>#}
+{#						<input type="checkbox" id="categories" name="categories" value="{{ category }}" {% if user_categories[feed] == 1 %}checked=""{% endif %}>#}
+{#						</label>#}
+{#						{{ category }}#}
+{#						</div>#}
+{#					</div>#}
+{#				{% endfor %}#}
+{#				</div>#}
+{#			</div>#}
 
 			<!-- Submit Button -->
 			<div class="form-group">

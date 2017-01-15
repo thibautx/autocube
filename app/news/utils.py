@@ -56,6 +56,7 @@ def get_all_news(user_feeds):
             except Exception as e:
                 print repr(e)
 
+    # return sorted(news_items, key=lambda x: x['date'])
     return news_items
 
 
@@ -124,7 +125,7 @@ def db_update_news_categories(subscribed_categories):
         if category in subscribed_categories:
             categories_json[category] = 1
         else:
-            categories_json[category] = 1
+            categories_json[category] = 0
 
     user = User.query.get(current_user.id)
     user.news_categories = json.dumps(categories_json)

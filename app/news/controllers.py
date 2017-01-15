@@ -1,6 +1,3 @@
-# from app import cache
-# from flask_cache import Cache
-
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required
 
@@ -8,18 +5,10 @@ import utils
 
 news_module = Blueprint('_news', __name__, url_prefix='/news')
 
-# f['motortrend'] = sadf.motortrend_feed
-# f['caranddriver'] = sadf.caranddriver_feed
-# f['thecarconnection'] = sadf.thecarconnection_feed
-# f['automobilemag'] = sadf.automobilemag_feed
-
 
 PER_PAGE = 10
-# from app import app
-# cache = Cache(app)
 
 @login_required
-# @cache.cached(timeout=60)
 @news_module.route('/')
 def news():
     """
@@ -44,7 +33,6 @@ def news():
 
 
 @login_required
-# @cache.cached(timeout=60)
 @news_module.route('/<make>')
 def make_news(make):
     user_feeds = utils.get_user_news_feeds()
@@ -63,7 +51,6 @@ def make_news(make):
 
 
 @login_required
-# @cache.cached(timeout=60)
 @news_module.route('/subscriptions')
 def subscriptions():
     """
@@ -83,8 +70,6 @@ def subscriptions():
                            makes=makes,
                            feeds=utils.f,
                            active='subscriptions')
-                           # user_feeds=user_feeds,
-                           # user)
 
 
 @login_required
