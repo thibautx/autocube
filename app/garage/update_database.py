@@ -75,6 +75,7 @@ def update_recalls():
                 db.session.add(db_recall)  # add recall to the db
                 db.session.commit()
 
+
 def update_all_recalls():
     distinct_cars = Car.query.distinct(Car.model, Car.make, Car.year).all()
     for car in distinct_cars:

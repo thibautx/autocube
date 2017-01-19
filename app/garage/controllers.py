@@ -1,6 +1,6 @@
 import json
 
-from update_database import update_recalls, update_service_bulletins
+from utils import on_new_car
 
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
@@ -46,7 +46,6 @@ def car_details(car_id):
     except AttributeError:
         return redirect(url_for('.garage_home'))
 
-
     return render_template('garage/car_details/car_details.html',
                            car=car,
                            recalls=car.recalls,
@@ -69,10 +68,12 @@ def add_car():
         db.session.add(car)
         db.session.commit()
 
+        on_new_car(car)
+
         # if car doesn't exist already in database, update recalls/service bulletins
-        if len(Car.query.filter(Car.make == make and Car.model == model and Car.year == year).all()) == 0:
-            update_recalls()
-            update_service_bulletins()
+        # if len(Car.query.filter(Car.make == make and Car.model == model and Car.year == year).all()) == 0:
+        #     update_recalls()
+        #     update_service_bulletins()
 
         return redirect(url_for('.garage_home'))
 

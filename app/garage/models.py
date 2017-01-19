@@ -12,6 +12,7 @@ recalls_service = db.Table('recalls_service',
                            sa.Column('car_id', sa.Integer(), sa.ForeignKey('car.id')),
                            sa.Column('service_bulletin_id', sa.Integer(), sa.ForeignKey('service_bulletin.id')))
 
+
 class Car(db.Model):
     __tablename__ = 'car'
     id = db.Column(db.Integer, primary_key=True)
@@ -39,9 +40,11 @@ class Car(db.Model):
         self.model_no_space = self.model.replace(' ', '')
         self.image_url = try_get_image(self.make_no_space, self.model_no_space, self.year)
 
+
 class ServiceBulletin(db.Model):
     __tablename__ = 'service_bulletin'
     id = db.Column(db.Integer, primary_key=True)
+    service_bulletin_id = db.Column(db.String)
 
     date = db.Column(db.Date)                       # bulletinDate
     component_number = db.Column(db.Integer)        # componentNumber
@@ -50,19 +53,17 @@ class ServiceBulletin(db.Model):
     nhtsa_number = db.Column(db.String)             # nhtsaItemNumber
     summary = db.Column(db.String)                  # summaryText
 
-    def __init__(self, id, date, component_number, component_description, bulletin_number, nhtsa_number, summary):
-        self.id = id
-        self.date = date
-        self.component_number = component_number
-        self.component_description = component_description
-        self.bulletin_number = bulletin_number
-        self.nhtsa_number = nhtsa_number
-        self.summary = summary
+    active = db.Column(db.Boolean)
+    date_fixed = db.Column(db.Date, nullable=True)
+
+    def __init__(self, **kwargs):
+        super(ServiceBulletin, self).__init__(**kwargs)
 
 
 class Recall(db.Model):
     __tablename__ = 'recall'
     id = db.Column(db.Integer, primary_key=True)
+    recall_id = db.Column(db.String)
 
     nhtsa_number = db.Column(db.String)
     consequence = db.Column(db.String)
@@ -71,10 +72,8 @@ class Recall(db.Model):
     manufactured_from = db.Column(db.Date)
     manufactured_to = db.Column(db.Date)
 
-    def __init__(self, id, nhtsa_number, consequence, components, manufactured_from, manufactured_to):
-        self.id = id
-        self.nhtsa_number = nhtsa_number
-        self.consequence = consequence
-        self.components = components
-        self.manufactured_from = manufactured_from
-        self.manufactured_to = manufactured_to
+    active = db.Column(db.Boolean)
+    date_fixed = db.Column(db.String, nullable=True)
+
+    def __init__(self, **kwargs):
+        super(Recall, self).__init__(**kwargs)

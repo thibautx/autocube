@@ -2,6 +2,7 @@ import requests
 
 API_KEY = '2jjpecdpabag835ysbqxprzd'
 
+
 def get_makes():
     """
     All possible makes.
@@ -45,6 +46,14 @@ def get_model_years(make, model):
 
 
 def get_model_year_id(make, model, year):
+    """
+    Get edmunds id for certain make/model/year.
+
+    :param make:
+    :param model:
+    :param year:
+    :return:
+    """
     api_url = 'https://api.edmunds.com/api/vehicle/v2/{}/{}/{}?fmt=json&api_key={}'\
         .format(make, model, year, API_KEY)
     r = requests.get(api_url).json()
@@ -52,6 +61,15 @@ def get_model_year_id(make, model, year):
 
 
 def get_recalls(make, model, year):
+    """
+
+
+    :param make:
+    :param model:
+    :param year:
+    :return:
+    """
+
     model_year_id = get_model_year_id(make, model, year)
     api_url = 'https://api.edmunds.com/v1/api/maintenance/recallrepository/findbymodelyearid?modelyearid={}&fmt=json&api_key={}'\
         .format(model_year_id, API_KEY)
@@ -196,3 +214,10 @@ def get_listings(zip):
         .format(zip, API_KEY)
     r = requests.get(api_url).json()
     return r
+
+
+if __name__ == "__main__":
+    make = 'Honda'
+    model = 'Civic'
+    year = 2012
+    print get_recalls(make, model, year)

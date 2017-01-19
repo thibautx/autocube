@@ -10,7 +10,9 @@ engine = create_engine(app.config['DATABASE_URI'],
 
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
-                                        bind=engine))
+                                         bind=engine))
+
+
 def init_db():
     Model.metadata.create_all(bind=engine)
 
