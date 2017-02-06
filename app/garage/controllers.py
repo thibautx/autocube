@@ -37,6 +37,7 @@ def car_details(car_id):
     :param car_id: (int) car id
     :return:
     """
+
     car = Car.query.get(car_id)
 
     # if current user doesn't own the car, then redirect to garage home
@@ -46,12 +47,22 @@ def car_details(car_id):
     except AttributeError:
         return redirect(url_for('.garage_home'))
 
+    recalls = [recall for recall in car.recalls if recall.fixed is False]
+    service_bulletins = [service_bulletin for service_bulletin in car.service_bulletins if service_bulletin.active is True]
+
     return render_template('garage/car_details/car_details.html',
                            car=car,
-                           recalls=car.recalls,
+                           recalls=recalls,
                            service_bulletins=car.service_bulletins,
                            maps_api=GOOGLE_MAPS_API_KEY)
 
+@garage_module.route('/car/<car_id>/service-history')
+@login_required
+def car_service_history(car_id):
+    car = Car.query.get(car_id)
+    return render_template('garage/service_history.html',
+                           car=car,
+                           recalls=car.recalls)
 
 # API
 @garage_module.route('/car', methods=['POST'])
@@ -134,3 +145,21 @@ def model_years():
         model = request.args.get('model')
         _model_years = edmunds.get_model_years(make, model)
         return json.dumps(_model_years)
+
+
+@garage_module.route('/car/<car_id>/service-history-update', methods=['POST'])
+@login_required
+def update_service_history(car_id):
+    if request.method == 'POST':
+        car = Car.query.get(car_id)
+        # return str(request.form.keys())
+        # set recalls fixed
+        for recall in car.recalls:
+            if str(recall.id) in request.form.keys():
+                setattr(recall, 'fixed', True)
+            else:
+                setattr(recall, 'fixed', False)
+
+        db.session.commit()
+        return redirect(url_for('.car_service_history', car_id=car.id))
+

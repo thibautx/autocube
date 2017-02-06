@@ -54,5 +54,5 @@ app.register_blueprint(mod_recalls)
 # app.register_blueprint(mod_appointments)
 app.register_blueprint(mod_service)
 
-
+print 'create all'
 db.create_all()

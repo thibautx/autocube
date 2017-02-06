@@ -64,11 +64,11 @@ def service_car(car_id):
     try:
         max_distance = request.form['distance']
     except KeyError:
-        pass
+        max_distance = 10
 
     dealers = edmunds.get_dealers(target_zip, car.make)
     all_autocube_dealers = Dealer.query.all()
-    autocube_dealers = [dealer for dealer in all_autocube_dealers if _distance_filter(dealer.zip, target_zip) == True]
+    autocube_dealers = [dealer for dealer in all_autocube_dealers if _distance_filter(dealer.zip, target_zip, max_distance) == True]
     return render_template('service/list_dealers.html',
                            autocube_dealers=autocube_dealers,
                            dealers=dealers,
@@ -83,14 +83,3 @@ def _distance_filter(dealer_zip, customer_zip, max_distance=10):
     print distance
     return distance < max_distance
 
-
-    # def _distance_filter(dealer_zip, customer_zip, max_distance=10):
-    #     print dealer_zip, customer_zip
-    #     _dealer_zip = zipcode.isequal(str(dealer_zip)).to_dict()
-    #     _target_zip = zipcode.isequal(str(customer_zip)).to_dict()
-    #     print _dealer_zip, _target_zip
-    #     dealer_lat_long = (_dealer_zip['lat'], _dealer_zip['lon'])
-    #     customer_lat_long = (_target_zip['lat'], _target_zip['lon'])
-    #     distance = vincenty(dealer_lat_long, customer_lat_long)
-    #     return distance < max_distance
-    #     # return True

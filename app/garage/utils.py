@@ -47,7 +47,7 @@ def add_recalls(recalls, car):
                            components=components,
                            manufactured_from=manufactured_from,
                            manufactured_to=manufactured_to,
-                           active=True,
+                           fixed=False,
                            date_fixed=None)
 
         car.recalls.append(db_recall)   # add recall to the car

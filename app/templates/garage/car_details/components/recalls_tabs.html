@@ -1,5 +1,12 @@
 {% macro body() %}
 <div class="tab-pane" role="tabpanel" id="tab-recalls">
+{% if recalls is defined %}
+	<div class="panel-body recalls">
+		<button type="submit" class="btn btn-default" data-toggle="modal" data-target="#serviceCarModal">
+			Fix All Safety Recalls Now
+		</button>
+	</div>
+{% endif %}
 	{% for recall in recalls %}
 	<div class="panel panel-danger">
 		<div class="panel-heading">NHTSA Campaign: {{ recall.nhtsa_number }}</div>
@@ -9,9 +16,7 @@
 			<h4>Affected Components:</h4>
 			{{ recall.components}} <br><br>
 		</div>
-			<button type="submit" class="btn btn-default" data-toggle="modal" data-target="#serviceCarModal">
-				FIX SAFETY RECALL NOW
-			</button>
+
 	</div>
 	{% endfor %}
 </div>

@@ -72,7 +72,7 @@ class Recall(db.Model):
     manufactured_from = db.Column(db.Date)
     manufactured_to = db.Column(db.Date)
 
-    active = db.Column(db.Boolean)
+    fixed = db.Column(db.Boolean)
     date_fixed = db.Column(db.String, nullable=True)
 
     def __init__(self, **kwargs):

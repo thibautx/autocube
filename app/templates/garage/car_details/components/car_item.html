@@ -1,5 +1,5 @@
 {% macro body(car) %}
-<div class="card card-background" style="background-image: url('../../../../static/images/bmw.jpg')">
+<div class="card card-background" style="background-image: url({{ car.image_url }}">
 	<div class="content">
 		<h1 class="card-title">
 			{{ car.year }} {{ car.make }} {{ car.model }}
@@ -9,18 +9,22 @@
 			<div class="col-md-4">
 				<div class="card-description">
 					<p>
-						Thing 1
+						"Lorem ipsum dolor sit amet,
 					</p>
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="card-description">
-					<p>Thing 2</p>
+					<p>
+						consectetur adipiscing elit, sed do eiusmod tempor
+					</p>
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="card-description">
-					<p>Thing 3</p>
+					<p>
+						incididunt ut labore et dolore magna aliqua
+					</p>
 				</div>
 			</div>
 		</div>

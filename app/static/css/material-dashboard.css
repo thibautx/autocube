@@ -322,11 +322,11 @@ body {
 }
 
 a {
-  color: #9c27b0;
+  /*color: #9c27b0;*/
 }
 
 a:hover,a:focus {
-  color: #89229b;
+  /*color: #89229b;*/
   text-decoration: none;
 }
 
