@@ -4,7 +4,7 @@ from app import db
 from app.service.models import Dealer
 from app.service.timekit import on_new_dealer
 
-public_module = Blueprint('_public', __name__)
+public_module = Blueprint('public', __name__)
 
 
 @public_module.route('/')
@@ -13,6 +13,14 @@ def home():
         return redirect(url_for('_garage.garage_home'))
     else:
         return render_template('public/landing.html')
+
+
+@public_module.route('/register', methods=['GET', 'POST'])
+def register_by_email():
+    if request.method == 'GET':
+        pass
+    else:
+        return render_template('security/register_user.html')
 
 
 @public_module.route('/register-dealer', methods=['GET', 'POST'])

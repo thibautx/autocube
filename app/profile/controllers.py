@@ -22,4 +22,4 @@ def update_profile():
 @profile_module.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('_public.home'))
+    return redirect(url_for('public.home'))

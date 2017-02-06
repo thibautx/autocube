@@ -49,15 +49,15 @@
             </div>
             <div class="col-md-5">
               <div class="social text-center">
-							 <button class="btn btn-just-icon btn-round btn-facebook">
-                <i class="fa fa-facebook"> </i>
-                </button>
-								 <button class="btn btn-just-icon btn-round btn-google">
+							 <a href="{{ url_for('social.login', provider='Facebook') }}" class="btn btn-just-icon btn-facebook">
+                  <i class="fa fa-facebook"> </i>
+                </a>
+								 <button class="btn btn-just-icon btn-google">
                 <i class="fa fa-google"></i>
                 </button>
-                <h4> or </h4>
+	              <div class="h3 black">or</div>
               </div>
-              <form class="form" method="" action="">
+              <form class="form" method="POST" action="{{ url_for('public.register_by_email') }}">
                 <div class="content">
                   <div class="input-group">
                     <span class="input-group-addon">
