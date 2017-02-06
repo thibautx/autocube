@@ -2902,6 +2902,10 @@ h3, .h3 {
   margin: 20px 0 10px;
 }
 
+h3, .black {
+  color: #000000
+}
+
 h4, .h4 {
   font-size: 1.3em;
   line-height: 1.55em;

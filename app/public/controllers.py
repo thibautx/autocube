@@ -4,7 +4,7 @@ from app import db
 from app.service.models import Dealer
 from app.service.timekit import on_new_dealer
 
-public_module = Blueprint('public', __name__)
+public_module = Blueprint('_public', __name__)
 
 
 @public_module.route('/')

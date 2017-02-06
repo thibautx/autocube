@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, request, redirect, url_for
-from flask_login import login_required, current_user
+from flask import Blueprint, render_template, request, redirect, url_for, session
+from flask_login import login_required, current_user, logout_user
 
 profile_module = Blueprint('_profile', __name__, url_prefix='/profile')
 
@@ -18,3 +18,8 @@ def update_profile():
             setattr(current_user, arg, value)
         return redirect(url_for('.profile'))
 
+@login_required
+@profile_module.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('_public.home'))

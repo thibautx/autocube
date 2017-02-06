@@ -1,5 +1,15 @@
 {% macro body() %}
 <div class="tab-pane" role="tabpanel" id="tab-service-bulletins">
+{% if service_bulletins|length > 0 %}
+	<div class="panel-body recalls">
+		<button type="submit" class="btn btn-default" data-toggle="modal" data-target="#serviceCarModal">
+			Fix all service bulletins now!
+		</button>
+	</div>
+{% else %}
+	<div class="h3 black">No outstanding service bulletins!</div>
+{% endif %}
+
 {% for bulletin in service_bulletins %}
 <div class="panel panel-danger">
 	<div class="panel-heading">NHTSA Campaign: {{ bulletin.nhtsa_number }}</div>
