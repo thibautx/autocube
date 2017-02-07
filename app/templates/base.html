@@ -12,7 +12,6 @@
 
 		{% with messages = get_flashed_messages() %}
 	  {% if messages %}
-	    {% for message in messages %}
 				<!-- Modal -->
 				<div class="modal fade" id="message" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
 				    <div class="modal-dialog">
@@ -20,10 +19,11 @@
 				            <div class="modal-header">
 				                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
 				                </button>
-{#				                 <h4 class="modal-title" id="memberModalLabel">Thank you for signing in!</h4>#}
 				            </div>
 				            <div class="modal-body">
-												<p>{{ message }}</p>
+		                  {% for message in messages %}
+												<p>{{ message }}</p> <br>
+		                  {% endfor %}
 				            </div>
 				            <div class="modal-footer">
 				                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -31,7 +31,6 @@
 				        </div>
 				    </div>
 				</div>
-	    {% endfor %}
 	  {% endif %}
 	{% endwith %}
 

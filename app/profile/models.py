@@ -1,8 +1,9 @@
 from datetime import datetime
-
 import sqlalchemy as sa
+from app import bcrypt
 from flask_security import UserMixin, RoleMixin
 from sqlalchemy import orm
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.dialects.postgresql import JSON
 
 from app import db
@@ -22,7 +23,7 @@ class User(db.Model, UserMixin):
     login = sa.Column(sa.String(250), unique=True)
     email = sa.Column(sa.String(250), unique=True)
     # phone = sa.Column(sa.String(250), unique=True)
-    password = sa.Column(sa.String(255))
+    _password = sa.Column(sa.String(128))
     active = sa.Column(sa.Boolean)
     confirmed_at = sa.Column(sa.DateTime)
     created = sa.Column(sa.DateTime, default=datetime.now)
@@ -40,6 +41,20 @@ class User(db.Model, UserMixin):
 
     # notifications
     # notification = db.Column(JSON)
+
+    # def __init__(self, email):
+    #     self.email = email
+
+    @hybrid_property
+    def password(self):
+        return self._password
+
+    @password.setter
+    def _set_password(self, plaintext):
+        self._password = bcrypt.generate_password_hash(plaintext)
+
+    def is_correct_password(self, plaintext):
+        return bcrypt.check_password_hash(self._password, plaintext)
 
     @property
     def cn(self):

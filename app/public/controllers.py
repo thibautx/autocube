@@ -1,6 +1,8 @@
-from flask import Blueprint, render_template, redirect, url_for, request
-from flask_login import current_user
+import flask
+from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask_login import current_user, login_user
 from app import db
+from app.profile.models import User
 from app.service.models import Dealer
 from app.service.timekit import on_new_dealer
 
@@ -15,12 +17,37 @@ def home():
         return render_template('public/landing.html')
 
 
-@public_module.route('/register', methods=['GET', 'POST'])
-def register_by_email():
-    if request.method == 'GET':
-        pass
+@public_module.route('/login-user',methods=['GET','POST'])
+def login():
+
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        user = User.query.filter_by(email=email).first_or_404()
+
+        if user.is_correct_password(password):
+            print 'correct password'
+            login_user(user, force=True)
+            return redirect(url_for('_garage.garage_home'))
+
     else:
-        return render_template('security/register_user.html')
+        return render_template('security/login_user.html')
+
+
+
+@public_module.route('/register-user', methods=['GET', 'POST'])
+def register_by_email():
+    if request.method == 'POST':
+        user = User(email=request.form['email'],
+                    first_name=request.form['first_name'],
+                    last_name=request.form['last_name'])
+        user._set_password = request.form['password']
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('security.login'))
+    # else:
+    #     return render_template('security/register_user.html')
 
 
 @public_module.route('/register-dealer', methods=['GET', 'POST'])
