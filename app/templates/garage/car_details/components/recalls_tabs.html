@@ -2,7 +2,7 @@
 <div class="tab-pane" role="tabpanel" id="tab-recalls">
 {% if recalls|length > 0 %}
 	<div class="panel-body recalls">
-		<button type="submit" class="btn btn-default" data-toggle="modal" data-target="#serviceCarModal">
+		<button type="submit" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#serviceCarModal">
 			Fix All Safety Recalls Now
 		</button>
 	</div>
@@ -11,11 +11,11 @@
 {% endif %}
 	{% for recall in recalls %}
 	<div class="panel panel-danger">
-		<div class="panel-heading">NHTSA Campaign: {{ recall.nhtsa_number }}</div>
+		<div class="panel-heading h5">NHTSA Campaign: {{ recall.nhtsa_number }}</div>
 		<div class="panel-body recalls">
-			<h4>Recall consequence:</h4>
+			<h3>Recall consequence:</h3>
 			{{ recall.consequence }} <br> <br>
-			<h4>Affected Components:</h4>
+			<h3>Affected Components:</h3>
 			{{ recall.components}} <br><br>
 		</div>
 

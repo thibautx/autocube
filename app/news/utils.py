@@ -101,6 +101,21 @@ def get_user_distinct_makes():
     return makes
 
 
+def initialize_feeds(user_id):
+    """
+    Initialize all subscriptions to 1
+
+    :param subscriptions:
+    """
+    subscriptions_json = {}
+    for feed in f:
+        subscriptions_json[feed] = 1
+
+    user = User.query.get(user_id)
+    user.news_subscriptions = json.dumps(subscriptions_json)
+    db.session.commit()
+
+
 def db_update_news_subscriptions(subscribed_feeds):
     """
     Update user's news subscriptions in the database.

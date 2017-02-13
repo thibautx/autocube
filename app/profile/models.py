@@ -39,11 +39,24 @@ class User(db.Model, UserMixin):
     news_subscriptions = db.Column(JSON)
     news_categories = db.Column(JSON)
 
-    # notifications
-    # notification = db.Column(JSON)
+    def __init__(self, **kwargs):
+        super(User, self).__init__(**kwargs)
+        self.init_subs()
 
-    # def __init__(self, email):
-    #     self.email = email
+
+    def init_subs(self):
+        """
+        INITIALIZE news subscriptions
+
+        :return:
+        """
+        f = ['Autoweek', 'Autoblog']
+        subscriptions_json = {}
+        for feed in f:
+            subscriptions_json[feed] = 1
+
+        self.news_subscriptions = subscriptions_json
+        db.session.commit()
 
     @hybrid_property
     def password(self):
