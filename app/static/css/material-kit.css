@@ -2945,7 +2945,7 @@ h2.title {
 .description,
 .card-description,
 .footer-big p {
-  color: #999999;
+  color: #FFFFFF;
 }
 
 .text-warning {
@@ -3608,7 +3608,8 @@ h2.title {
 .card-background .category,
 .card-background .card-description,
 .card-background small {
-  color: rgba(255, 255, 255, 0.7);
+  /*color: rgba(255, 255, 255, 0.7);*/
+  color: #FFFFFF;
 }
 .card-background .card-title {
   color: #FFFFFF;
