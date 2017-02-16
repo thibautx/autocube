@@ -39,6 +39,11 @@ def login():
 @public_module.route('/register-user', methods=['GET', 'POST'])
 def register_by_email():
     if request.method == 'POST':
+
+        if len(User.query.filter_by(email=request.form['email']).all()) > 0:
+            flash('E-mail {} already registered, please log in.'.format(request.form['email']))
+            return redirect(url_for('security.login'))
+
         user = User(email=request.form['email'],
                     first_name=request.form['first_name'],
                     last_name=request.form['last_name'])
