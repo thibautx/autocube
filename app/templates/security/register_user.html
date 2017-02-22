@@ -88,7 +88,8 @@
                     <i class="material-icons">perm_identity</i>
                     </span>
                     <div class="form-group is-empty has-feedback">
-	                    <input type="text" class="form-control" data-minlength="2" placeholder="First Name..." name="first_name"><span class="material-input"></span></div>
+	                    <input type="text" class="form-control" data-minlength="2" placeholder="First Name..." name="first_name" required>
+	                    <span class="material-input"></span></div>
                       <div class="help-block with-errors"></div>
                   </div>
 
@@ -97,7 +98,8 @@
                     <i class="material-icons">perm_identity</i>
                     </span>
                     <div class="form-group is-empty has-feedback">
-	                    <input type="text" class="form-control" data-minlength="2" placeholder="Last Name..." name="last_name"><span class="material-input"></span></div>
+	                    <input type="text" class="form-control" data-minlength="2" placeholder="Last Name..." name="last_name" required>
+	                    <span class="material-input"></span></div>
                       <div class="help-block with-errors"></div>
                   </div>
 
@@ -107,8 +109,9 @@
                     <i class="material-icons">email</i>
                     </span>
                     <div class="form-group is-empty has-feedback">
-	                    <input type="email" class="form-control" placeholder="Email..." name="email">
+	                    <input type="email" class="form-control" placeholder="Email..." name="email" required>
 	                    <span class="material-input"></span>
+                      <div class="help-block with-errors">Invalid Email</div>
                     </div>
                   </div>
 
@@ -118,7 +121,7 @@
                     <i class="material-icons">lock_outline</i>
                     </span>
                     <div class="form-group has-feedback">
-	                    <input type="password" data-minlength="6" placeholder="Password..." class="form-control" name="password">
+	                    <input type="password" data-minlength="6" placeholder="Password..." class="form-control" name="password" required>
 	                    <span class="material-input"></span>
                       <div class="help-block with-errors">Minimum of 6 characters</div>
 
@@ -127,7 +130,7 @@
                   <!-- If you want to add a checkbox to this form, uncomment this code -->
                   <div class="checkbox">
                     <label>
-                    <input type="checkbox" name="optionsCheckboxes" checked="">
+                    <input type="checkbox" name="optionsCheckboxes" checked="" required>
 											I agree to the
 	                    <a data-toggle="modal" data-target="#termsAndConditions">terms and conditions</a>.
                     </label>

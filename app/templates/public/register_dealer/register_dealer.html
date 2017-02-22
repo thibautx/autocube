@@ -4,6 +4,25 @@
 {{ super() }}
 {% endblock %}
 {% block content %}
+
+		<!-- Terms and Conditions -->
+<div class="modal fade" id="termsAndConditions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Terms and Conditions</h4>
+      </div>
+      <div class="modal-body">
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <body class="signup-page">
 <div class="page-header header-filter" data-parallax="active" style="background-image: url('{{ url_for('static', filename='images/landing-bg.jpg') }}')">
   <div class="container">
@@ -49,17 +68,20 @@
             </div>
             <div class="col-md-5">
               <div class="social text-center">
-                <h4> or </h4>
               </div>
-              <form class="form" method="post" action="{{ url_for('.register_dealer') }}">
+              <form class="form" method="post" data-toggle="validator" action="{{ url_for('.register_dealer') }}">
                 <div class="content">
 
-									<!-- Name -->
+									<!-- dealership name -->
 									<div class="input-group">
                     <span class="input-group-addon">
                     <i class="material-icons">store</i>
                     </span>
-                    <div class="form-group is-empty"><input type="text" name="name" class="form-control" placeholder="Dealership Name"><span class="material-input"></span></div>
+                    <div class="form-group is-empty has-feedback">
+	                    <input type="text" name="name" class="form-control" data-minlength="6"  placeholder="Dealership Name" required>
+	                    <span class="material-input"></span>
+                    </div>
+                    <div class="help-block with-errors"></div>
                   </div>
 
 
@@ -68,7 +90,9 @@
                     <span class="input-group-addon">
                     <i class="material-icons">room</i>
                     </span>
-                    <div class="form-group is-empty"><input type="text" class="form-control" name="zip" placeholder="Zip code"><span class="material-input"></span></div>
+                    <div class="form-group is-empty has-feedback"><input type="number" min="10000" max="99999" class="form-control" name="zip" placeholder="Zip code" required>
+	                    <span class="material-input"></span>
+                    </div>
                   </div>
 
 									<!-- email -->
@@ -76,7 +100,11 @@
                     <span class="input-group-addon">
                     <i class="material-icons">email</i>
                     </span>
-                    <div class="form-group is-empty"><input type="text" class="form-control" name="email" placeholder="Email"><span class="material-input"></span></div>
+                    <div class="form-group is-empty has-feedback">
+	                    <input type="email" class="form-control" name="email" placeholder="Email" required>
+	                    <span class="material-input"></span>
+                      <div class="help-block with-errors">Invalid Email</div>
+                    </div>
                   </div>
 
 									<!-- password -->
@@ -84,14 +112,20 @@
                     <span class="input-group-addon">
                     <i class="material-icons">lock_outline</i>
                     </span>
-                    <div class="form-group is-empty"><input type="password" name="password" placeholder="Password" class="form-control"><span class="material-input"></span></div>
+                    <div class="form-group is-empty has-feedback">
+	                    <input type="password" data-minlength="6" name="password" placeholder="Password" class="form-control" reqyured>
+	                    <span class="material-input"></span>
+                      <div class="help-block with-errors">Minimum of 6 characters</div>
+
+                    </div>
                   </div>
                   <!-- If you want to add a checkbox to this form, uncomment this code -->
                   <div class="checkbox">
                     <label>
-                    <input type="checkbox" name="optionsCheckboxes" checked="">
-{#											<span class="checkbox-material"><span class="check"></span></span>#}
-											I agree to the <a href="#something">terms and conditions</a>.
+                    <input type="checkbox" name="optionsCheckboxes" checked="" required>
+											I agree to the
+                      <a data-toggle="modal" data-target="#termsAndConditions">terms and conditions</a>.
+
                     </label>
                   </div>
                 </div>
@@ -109,4 +143,8 @@
   </div>
 </div>
 </body>
+{% endblock %}
+{% block scripts %}
+  <script type="text/javascript" src="{{ url_for('static', filename='js/validator.min.js') }}" defer></script>
+
 {% endblock %}
