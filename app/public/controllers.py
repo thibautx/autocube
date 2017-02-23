@@ -1,10 +1,11 @@
-import flask
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import current_user, login_user
 from app import db
 from app.profile.models import User
 from app.service.models import Dealer
 from app.service.timekit import on_new_dealer
+from app.garage.edmunds import get_makes
+import json
 
 public_module = Blueprint('public', __name__)
 
@@ -33,6 +34,7 @@ def login():
 
     else:
         return render_template('security/login_user.html')
+
 
 
 
@@ -66,9 +68,20 @@ def register_dealer():
         email = request.form['email']
         password = request.form['password']
         zip = request.form['zip']
+        makes_serviced = json.dumps({
+            make : 1 for make in request.form.getlist('makes')
+        })
 
-        dealer = Dealer(name=name, email=email, password=password, zip=zip)
+        dealer = Dealer(name=name, email=email, zip=zip, makes_serviced=makes_serviced)
         db.session.add(dealer)
+        db.session.commit()
+
+        user = User(email=email,
+                    first_name=name,
+                    is_dealer=True)
+        print password
+        user._set_password = password
+        db.session.add(user)
         db.session.commit()
 
         timekit = on_new_dealer(dealer)
@@ -77,4 +90,21 @@ def register_dealer():
         return render_template("public/dealer_registered.html", timekit=timekit, email=dealer.email)
 
     else:
-        return render_template('public/register_dealer/register_dealer.html')
+        makes = get_makes()
+        return render_template('public/register_dealer/register_dealer.html', makes=makes)
+
+
+@public_module.route('/login-dealer',methods=['GET','POST'])
+def login_dealer():
+
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        user = User.query.filter_by(email=email).first_or_404()
+        if user.is_correct_password(password):
+            login_user(user, force=True)
+            return redirect(url_for('_service.dealer_home'))
+
+    else:
+        return render_template('security/login_dealer.html')

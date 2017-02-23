@@ -17,6 +17,12 @@ cars_users = db.Table('cars_users',
                       sa.Column('car_id', sa.Integer(), sa.ForeignKey('car.id')))
 
 
+dealer_user = db.Table('dealer_user',
+                      sa.Column('user_id', sa.Integer(), sa.ForeignKey('user.id')),
+                      sa.Column('dealer_id', sa.Integer(), sa.ForeignKey('dealer.id')))
+
+
+
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
     id = sa.Column(sa.Integer, primary_key=True)
@@ -34,6 +40,10 @@ class User(db.Model, UserMixin):
 
     roles = orm.relationship('Role', secondary=roles_users, backref=orm.backref('users', lazy='dynamic'))
     cars = orm.relationship('Car', secondary=cars_users, backref=orm.backref('users', lazy='dynamic'))
+
+    is_dealer = sa.Column(sa.Boolean)
+    dealer = orm.relationship('Dealer', secondary=dealer_user, backref=orm.backref('users', lazy='dynamic'))
+
 
     # news
     news_subscriptions = db.Column(JSON)

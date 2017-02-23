@@ -1,5 +1,6 @@
 import sqlalchemy as sa
 from flask_security import UserMixin
+from sqlalchemy import orm
 from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
 from app import db, bcrypt
@@ -7,7 +8,7 @@ from geopy.distance import vincenty
 import zipcode
 
 
-class Dealer(db.Model, UserMixin):
+class Dealer(db.Model):
     __tablename__ = 'dealer'
     id = sa.Column(sa.Integer, primary_key=True)
 
@@ -23,24 +24,7 @@ class Dealer(db.Model, UserMixin):
     makes_serviced = sa.Column(JSON)
     timekit = sa.Column(JSON)
 
+    cars = sa.column(JSON)
 
-    @hybrid_property
-    def password(self):
-        return self._password
-
-    @password.setter
-    def _set_password(self, plaintext):
-        self._password = bcrypt.generate_password_hash(plaintext)
-
-    def is_correct_password(self, plaintext):
-        return bcrypt.check_password_hash(self._password, plaintext)
-
-
-    # @hybrid_method
-    # def distance(self, zip, max_distance=10):
-    #     # zcdb = ZipCodeDatabase()
-    #     # dealer_lat_long = (zcdb[self.zip].latitude, zcdb[self.zip].longitude)
-    #     # customer_lat_long = (zcdb[zip].latitude, zcdb[zip].longitude)
-    #     # distance = vincenty(dealer_lat_long, customer_lat_long)
-    #     # return distance < max_distance
-    #     return True
+    # user_id = db.Column(sa.Integer, sa.ForeignKey('user.id'))
+    # user = orm.relationship('User', foreign_keys=user_id, backref=orm.backref('user', order_by=id))

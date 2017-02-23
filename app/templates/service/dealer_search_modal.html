@@ -18,7 +18,7 @@
 						<div class="form-group">
 							<!-- Zip Code -->
 							<label for="select-zip"></label>
-							<input type="text" class="form-control" name="zip" id="zip" placeholder="Zip code">
+							<input type="number" class="form-control" name="zip" id="zip" placeholder="Zip code" min="10000" max="99999" >
 
 							<!-- Make select -->
 							<label for="select-make"></label>
@@ -41,6 +41,8 @@
 
 
 {% macro script() %}
+	<script type="text/javascript" src="{{ url_for('static', filename='js/validator.min.js') }}" defer></script>
+
 <script>
 	var make_selector = '#select-make';
 	var model_selector = '#car-select-model';

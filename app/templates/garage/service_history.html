@@ -1,0 +1,54 @@
+{% extends "page.html" %}
+{% set active_page = "garage" %}
+{% set page_title = "Garage" %}
+{% block title %} {{ page_title }}{% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap-select.css') }}">
+{% set active_page = active_page|default('garage') %}
+{% endblock %}
+{% import "garage/car_details/components/car_item.html" as car_item with context %}
+
+{% block content %}
+<br>
+    {{ car_item.body(car) }}
+
+
+<h2>Recall History</h2>
+
+
+	<form action="{{ url_for('.update_service_history', car_id=car.id) }}" method="POST">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Recall ID</th>
+        <th>NHTSA Number</th>
+        <th>Description</th>
+          <th>Date Fixed</th>
+          <th>Fixed?</th>
+      </tr>
+    </thead>
+
+      {% for recall in recalls %}
+    <tbody>
+      <tr>
+        <td>{{ recall.recall_id }}</td>
+        <td>{{ recall.nhtsa_number }}</td>
+        <td>{{ recall.consequence }}</td>
+          <td>{{ recall.date_fixed}}</td>
+
+        <td>
+          {% if recall.fixed == true %}
+                <input type="checkbox" name="{{ recall.id }}" id="checkboxes-0" value="1" checked="checked">
+            {% else %}
+					      <input type="checkbox" name="{{ recall.id }}" id="checkboxes-0" value="0">
+            {% endif %}
+      </td>
+      </tr>
+    </tbody>
+  {% endfor %}
+  </table>
+		<button type="submit" id="save" name="save" class="btn btn-default">Save</button>
+</form>
+
+{% endblock %}

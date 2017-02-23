@@ -1,6 +1,6 @@
-import json
-
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, url_for
+from flask_login import login_required, current_user
+from flask_user import roles_required
 from geopy.distance import vincenty
 from pyzipcode import ZipCodeDatabase
 
@@ -10,6 +10,13 @@ from app.service.models import Dealer
 
 service_module = Blueprint('_service', __name__, url_prefix='/service')
 
+
+@service_module.route('/dealer-home')
+@login_required
+def dealer_home():
+    if current_user.is_dealer is False:
+        return redirect(url_for('_garage.garage_home'))
+    return render_template('service/dealer_home.html')
 
 @service_module.route('/')
 def home():

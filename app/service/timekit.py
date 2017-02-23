@@ -68,7 +68,10 @@ def register_user(dealer):
         'password': password,
     }
 
+
     r = requests.post(api_url, data=json.dumps(data), headers=HEADERS).json()['data']
+    print r
+
     api_token = r['api_token']
     id = r['id']
     timekit = {'api_token': api_token,

@@ -1,4 +1,6 @@
 {% extends "page.html" %}
+{% set active_page = "service" %}
+{% set page_title = "Service" %}
 {% block title %} Car Details {% endblock %}
 {% block head %}
 {{ super() }}
@@ -17,6 +19,6 @@
 
 {% endblock %}
 {% block scripts %}
-    <script src="//cdn.timekit.io/booking-js/v1/booking.min.js" defer></script>
+    <script src="cdn.timekit.io/booking-js/v1/booking.min.js" defer></script>
     <script>window.timekitBookingConfig = { widgetId: '{{ dealer.timekit['widget_id'] }}' }</script>
 {% endblock %}
