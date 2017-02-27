@@ -16,6 +16,8 @@ service_module = Blueprint('_service', __name__, url_prefix='/service')
 def dealer_home():
     if current_user.is_dealer is False:
         return redirect(url_for('_garage.garage_home'))
+
+
     return render_template('service/dealer_home.html')
 
 @service_module.route('/')

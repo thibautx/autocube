@@ -77,9 +77,8 @@ def register_dealer():
         db.session.commit()
 
         user = User(email=email,
-                    first_name=name,
+                    dealer=dealer,
                     is_dealer=True)
-        print password
         user._set_password = password
         db.session.add(user)
         db.session.commit()

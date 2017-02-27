@@ -11,7 +11,7 @@ from app.profile.models import User
 f = OrderedDict()
 f['Autoblog'] = feeds.autoblog.feed
 f['Autoweek'] = feeds.autoweek.feed
-f['Car and Driver'] = feeds.caranddriver.feed
+# f['Car and Driver'] = feeds.caranddriver.feed
 
 news_categories = sorted(['Safety', 'Reviews'])
 

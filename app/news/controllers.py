@@ -8,8 +8,8 @@ news_module = Blueprint('_news', __name__, url_prefix='/news')
 
 PER_PAGE = 10
 
-@login_required
 @news_module.route('/')
+@login_required
 def news():
     """
     Homepage (All News)
@@ -32,8 +32,8 @@ def news():
                            active='all')
 
 
-@login_required
 @news_module.route('/<make>')
+@login_required
 def make_news(make):
     user_feeds = utils.get_user_news_feeds()
     user_categories = utils.get_user_news_categories()
@@ -50,8 +50,8 @@ def make_news(make):
                            active=make)
 
 
-@login_required
 @news_module.route('/subscriptions')
+@login_required
 def subscriptions():
     """
     User's subscriptions (feeds & categories)
@@ -72,8 +72,8 @@ def subscriptions():
                            active='subscriptions')
 
 
-@login_required
 @news_module.route('/update-subscriptions', methods=['POST'])
+@login_required
 def update_subscriptions():
     if request.method == 'POST':
         subscriptions = request.form.getlist('feeds')

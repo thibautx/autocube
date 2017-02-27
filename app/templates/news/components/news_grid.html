@@ -2,6 +2,10 @@
 {% macro news_tabs_content() %}
 <div class="news-grid" style="margin-top: -45px">
 
+{#<div class="modal modal-fullscreen fade" id="modal-fullscreen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">#}
+
+
+
 	<!-- Column 1 -->
 	<div class="col-md-6 jasgrid" style="margin-left:-10px">
 		{% for item in news_items %}
@@ -19,4 +23,11 @@
 		{% endfor %}
 	</div>
 </div>
+
+
+
 {% endmacro %}
+{% block scripts %}
+
+
+{% endblock %}

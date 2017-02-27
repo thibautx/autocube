@@ -1,11 +1,12 @@
 import sqlalchemy as sa
-from flask_security import UserMixin
-from sqlalchemy import orm
 from sqlalchemy.dialects.postgresql import JSON
-from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
-from app import db, bcrypt
-from geopy.distance import vincenty
-import zipcode
+from sqlalchemy import orm
+from app import db
+
+
+cars_dealers = db.Table('cars_dealers',
+                      sa.Column('dealer_id', sa.Integer(), sa.ForeignKey('dealer.id')),
+                      sa.Column('car_id', sa.Integer(), sa.ForeignKey('car.id')))
 
 
 class Dealer(db.Model):
@@ -24,7 +25,5 @@ class Dealer(db.Model):
     makes_serviced = sa.Column(JSON)
     timekit = sa.Column(JSON)
 
-    cars = sa.column(JSON)
 
-    # user_id = db.Column(sa.Integer, sa.ForeignKey('user.id'))
-    # user = orm.relationship('User', foreign_keys=user_id, backref=orm.backref('user', order_by=id))
+    cars_serviced = orm.relationship('Car', secondary=cars_dealers, backref=orm.backref('dealers', lazy='dynamic'))

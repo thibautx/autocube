@@ -34,6 +34,8 @@ class Car(db.Model):
     service_bulletins = orm.relationship('ServiceBulletin', secondary=recalls_service,
                                          backref=orm.backref('recalls', lazy='dynamic'))
 
+    service_date = db.Column(db.DateTime)
+
     def __init__(self, **kwargs):
         super(Car, self).__init__(**kwargs)
         self.make_no_space = self.make.replace(' ', '')
@@ -53,11 +55,18 @@ class ServiceBulletin(db.Model):
     nhtsa_number = db.Column(db.String)             # nhtsaItemNumber
     summary = db.Column(db.String)                  # summaryText
 
+    dealer_id = db.Column(db.Integer)               # dealer that's fixing this
     active = db.Column(db.Boolean)
     date_fixed = db.Column(db.Date, nullable=True)
 
+
+
     def __init__(self, **kwargs):
         super(ServiceBulletin, self).__init__(**kwargs)
+
+    def set_dealer(self, dealer_id):
+        self.dealer_id = dealer_id
+        db.session.commit()
 
 
 class Recall(db.Model):
@@ -72,8 +81,13 @@ class Recall(db.Model):
     manufactured_from = db.Column(db.Date)
     manufactured_to = db.Column(db.Date)
 
+    dealer_id = db.Column(db.Integer)
     fixed = db.Column(db.Boolean)
     date_fixed = db.Column(db.String, nullable=True)
 
     def __init__(self, **kwargs):
         super(Recall, self).__init__(**kwargs)
+
+    def set_dealer(self, dealer_id):
+        self.dealer_id = dealer_id
+        db.session.commit()
