@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
-from flask_user import roles_required
 from geopy.distance import vincenty
 from pyzipcode import ZipCodeDatabase
 
+from app import db
 from app.garage import edmunds
 from app.garage.models import Car
 from app.service.models import Dealer
@@ -44,16 +44,6 @@ def list_dealers():
                                autocube_dealers=autocube_dealers,
                                dealers=dealers)
 
-# @service_module.route('/dealers', methods=['GET'])
-# def list_dealers():
-#     if request.method == 'GET':
-#         makes = json.dumps(edmunds.get_makes())
-#         make = request.args['make']
-#         zip = request.args['zip']
-#         dealers = []
-#         return render_template("service/index.html",
-#                                makes=makes,
-#                                dealers=dealers)
 
 
 @service_module.route('/schedule/<dealer_id>/<car_id>')
@@ -78,6 +68,7 @@ def service_car(car_id):
     dealers = edmunds.get_dealers(target_zip, car.make)
     all_autocube_dealers = Dealer.query.all()
     autocube_dealers = [dealer for dealer in all_autocube_dealers if _distance_filter(dealer.zip, target_zip, max_distance) == True]
+    autocube_dealers = [dealer for dealer in autocube_dealers if car.make in dealer.makes_serviced]
     return render_template('service/list_dealers.html',
                            autocube_dealers=autocube_dealers,
                            dealers=dealers,
@@ -92,3 +83,23 @@ def _distance_filter(dealer_zip, customer_zip, max_distance=10):
     print distance
     return distance < max_distance
 
+
+@service_module.route('/update-dealer-car', methods=['POST'])
+def add_car_to_dealer():
+    """
+    On successful appointment booking, add the car to dealer's cars serviced.
+
+    :return:
+    """
+    if request.method == 'POST':
+        dealer_id = request.form['dealer_id']
+        car_id = request.form['car_id']
+
+        dealer = Dealer.query.filter(Dealer.id == dealer_id).all()[0]
+
+        dealer.cars_serviced[car_id] = 1
+        db.session.commit()
+
+
+    else:
+        return redirect(url_for('_garage.home'))

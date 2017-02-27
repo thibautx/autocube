@@ -20,5 +20,21 @@
 {% endblock %}
 {% block scripts %}
     <script src="http://cdn.timekit.io/booking-js/v1/booking.min.js" defer></script>
-    <script>window.timekitBookingConfig = { widgetId: '{{ dealer.timekit['widget_id'] }}' }</script>
+    <script>
+		    window.timekitBookingConfig = {
+		        widgetId: '{{ dealer.timekit['widget_id'] }}',
+		        callbacks: {
+		            'createBookingSuccessful': update_dealer_car()
+		        }
+		    };
+
+		    function update_dealer_car(){
+		      var url = "{{ url_for('_service.add_car_to_dealer') }}";
+					var params = "dealer={{ dealer_id }}&car={{ car_id }}";
+					var xhr = new XMLHttpRequest();
+					xhr.open("POST", url, true);
+					xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+					xhr.send(params)
+		    }
+    </script>
 {% endblock %}
