@@ -4,18 +4,13 @@ from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 from flask_sqlalchemy import SQLAlchemy
-# from flask_cache import Cache
-
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
-# cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 # Configurations
 app.config.from_object('config')
-
 db = SQLAlchemy(app)
-
 
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)

@@ -10,6 +10,7 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 # SQLite for this example
 # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
 # SQLALCHEMY_DATABASE_URI = "postgresql://localhost/autocube"
+# SQLALCHEMY_DATABASE_URI = "postgresql://postgres:asdffdsa@localhost:5432/autocube"
 SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 DATABASE_CONNECT_OPTIONS = {}

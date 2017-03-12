@@ -18,14 +18,21 @@ def home():
         return render_template('public/landing.html')
 
 
-@public_module.route('/login-user',methods=['GET','POST'])
+@public_module.route('/login-user', methods=['GET','POST'])
 def login():
 
     if request.method == 'POST':
+        print "attempt login user"
         email = request.form['email']
         password = request.form['password']
 
-        user = User.query.filter_by(email=email).first_or_404()
+        user = User.query.filter_by(email=email).all()
+        if len(user) == 0:
+            flash("Invalid password, try again.")
+            return redirect(url_for('.login'))
+
+        else:
+            user = user[0]
 
         if user.is_correct_password(password):
             print 'correct password'
@@ -34,8 +41,6 @@ def login():
 
     else:
         return render_template('security/login_user.html')
-
-
 
 
 @public_module.route('/register-user', methods=['GET', 'POST'])
@@ -67,12 +72,19 @@ def register_dealer():
         name = request.form['name']
         email = request.form['email']
         password = request.form['password']
-        zip = request.form['zip']
+        _zip = request.form['zip']
         makes_serviced = json.dumps({
             make : 1 for make in request.form.getlist('makes')
         })
+        website = request.form['website']
+        phone = request.form['phone']
 
-        dealer = Dealer(name=name, email=email, zip=zip, makes_serviced=makes_serviced)
+        dealer = Dealer(name=name,
+                        email=email,
+                        zip=_zip,
+                        makes_serviced=makes_serviced,
+                        website=website,
+                        phone=phone)
         db.session.add(dealer)
         db.session.commit()
 
