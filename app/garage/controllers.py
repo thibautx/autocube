@@ -14,7 +14,7 @@ garage_module = Blueprint('_garage', __name__, url_prefix='/garage')
 
 
 @garage_module.route('/')
-# @login_required
+@login_required
 def garage_home():
     """
     Home page for a garage
