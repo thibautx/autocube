@@ -90,7 +90,8 @@ def register_dealer():
 
         user = User(email=email,
                     dealer=dealer,
-                    is_dealer=True)
+                    is_dealer=True,
+                    first_name=name)
         user._set_password = password
         db.session.add(user)
         db.session.commit()

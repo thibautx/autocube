@@ -25,5 +25,4 @@ class Dealer(db.Model):
     makes_serviced = sa.Column(JSON)
     timekit = sa.Column(JSON)
 
-
     cars_serviced = orm.relationship('Car', secondary=cars_dealers, backref=orm.backref('dealers', lazy='dynamic'))

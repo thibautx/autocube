@@ -59,7 +59,27 @@ def car_details(car_id):
 @garage_module.route('/car/<car_id>/service-history')
 @login_required
 def car_service_history(car_id):
+    """
+    View car's service history.
+
+    :param car_id: (int)
+    """
+
     car = Car.query.get(car_id)
+
+    # make sure dealer owns this car
+    if current_user.is_dealer is True:
+        if car not in current_user.dealer.cars_serviced:
+            return redirect(url_for('.garage_home'))
+
+    else:
+        # if current user doesn't own the car, then redirect to garage home
+        try:
+            if car.user_id != current_user.id:
+                return redirect(url_for('.garage_home'))
+        except AttributeError:
+            return redirect(url_for('.garage_home'))
+
     return render_template('garage/service_history.html',
                            car=car,
                            recalls=car.recalls)

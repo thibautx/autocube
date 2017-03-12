@@ -17,8 +17,8 @@ def dealer_home():
     if current_user.is_dealer is False:
         return redirect(url_for('_garage.garage_home'))
 
-
     return render_template('service/dealer_home.html')
+
 
 @service_module.route('/')
 def home():
@@ -75,15 +75,13 @@ def service_car(car_id):
                            car=car)
 
 
-# TODO: FIX THIS
 def _distance_filter(dealer_zip, customer_zip, max_distance=10):
-    return True
-    # zcdb = ZipCodeDatabase()
-    # dealer_lat_long = (zcdb[dealer_zip].latitude, zcdb[dealer_zip].longitude)
-    # customer_lat_long = (zcdb[customer_zip].latitude, zcdb[customer_zip].longitude)
-    # distance = vincenty(dealer_lat_long, customer_lat_long)
-    # print distance
-    # return distance < max_distance
+    zcdb = ZipCodeDatabase()
+    dealer_lat_long = (zcdb[dealer_zip].latitude, zcdb[dealer_zip].longitude)
+    customer_lat_long = (zcdb[customer_zip].latitude, zcdb[customer_zip].longitude)
+    distance = vincenty(dealer_lat_long, customer_lat_long)
+    print distance
+    return distance < max_distance
 
 
 @service_module.route('/update-dealer-car', methods=['POST'])

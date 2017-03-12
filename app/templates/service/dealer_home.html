@@ -1,40 +1,39 @@
 {% extends "base.html" %}
 {% block head %}
-{{ super() }}
+	{{ super() }}
 {% endblock %}
 
 {% block page %}
 
-<div class="container">
-  <h2>Service Appointments</h2>
-  <p>For dealer {{ current_user.dealer.name }}</p>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-      </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+	<div class="container">
+		<h2>Service Appointments</h2>
+		<p>For dealer {{ current_user.dealer.name }}</p>
+		<table class="table table-bordered">
+			<thead>
+			<tr>
+				<th>Car</th>
+				<th>License Plate</th>
+				<th>Owner Info</th>
+				<th>Link</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for car in current_user.dealer.cars_serviced %}
+				<tr>
+					<td>{{ car.year }} {{ car.make }} {{ car.model }}</td>
+					<td>Doe</td>
+					<td>Name: {{ car.user.first_name }} {{ car.user.last_name }} <br>
+						Email:{{ car.user.email }} <br>
+						Phone: {{ car.user.phone }} <br>
+					</td>
+				<td>
+					<a href="{{ url_for('_garage.car_service_history', car_id=car.id) }}">Service history</a>
+				</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
 
 
 {% endblock %}
