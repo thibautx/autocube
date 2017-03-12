@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 from geopy.distance import vincenty
-# from pyzipcode import ZipCodeDatabase
+from pyzipcode import ZipCodeDatabase
 
 from app import db
 from app.garage import edmunds
