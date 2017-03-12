@@ -47,12 +47,12 @@ def car_details(car_id):
     except AttributeError:
         return redirect(url_for('.garage_home'))
 
-    recalls = [recall for recall in car.recalls if recall.fixed is False]
-    service_bulletins = [service_bulletin for service_bulletin in car.service_bulletins if service_bulletin.active is True]
+    # recalls = [recall for recall in car.recalls if recall.fixed is False]
+    # service_bulletins = [service_bulletin for service_bulletin in car.service_bulletins if service_bulletin.active is True]
 
     return render_template('garage/car_details/car_details.html',
                            car=car,
-                           recalls=recalls,
+                           recalls=car.recalls,
                            service_bulletins=car.service_bulletins,
                            maps_api=GOOGLE_MAPS_API_KEY)
 
