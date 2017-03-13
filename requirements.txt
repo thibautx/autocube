@@ -60,3 +60,4 @@ uritemplate==3.0.0
 Werkzeug==0.12
 WTForms==2.1
 zipcode==2.0.0
+pyzipcode==1.0
