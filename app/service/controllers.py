@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 from geopy.distance import vincenty
-# from pyzipcode import ZipCodeDatabase
+from pyzipcode import ZipCodeDatabase
 
 from app import db
 from app.garage import edmunds
@@ -76,7 +76,7 @@ def service_car(car_id):
 
 
 def _distance_filter(dealer_zip, customer_zip, max_distance=10):
-    return True
+    # return True
     zcdb = ZipCodeDatabase()
     dealer_lat_long = (zcdb[dealer_zip].latitude, zcdb[dealer_zip].longitude)
     customer_lat_long = (zcdb[customer_zip].latitude, zcdb[customer_zip].longitude)
