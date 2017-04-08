@@ -1821,7 +1821,7 @@ label.control-label {
 
 .form-group {
   padding-bottom: 7px;
-  margin: 27px 0 0 0;
+  margin: 10px 0 0 0;
 }
 .form-group .form-control {
   margin-bottom: 7px;
@@ -4137,7 +4137,7 @@ select[data-dropdownjs][disabled] + .dropdownjs > input[readonly] {
       &.tag-primary .tagsinput-add{
           color: $primary-color;
       }
-  
+
       &.tag-success .tag{
            background-color: $success-color;
       }

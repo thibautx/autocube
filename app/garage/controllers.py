@@ -2,7 +2,7 @@ import json
 
 from utils import on_new_car
 
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
 
 import edmunds
@@ -89,6 +89,7 @@ def car_service_history(car_id):
 @login_required
 def add_car():
     if request.method == 'POST':
+        print request.form
         make = request.form['make']
         model = request.form['model']
         year = request.form['year']
