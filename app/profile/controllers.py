@@ -14,9 +14,7 @@ def profile():
 @profile_module.route('/update', methods=['POST'])
 def update_profile():
     if request.method == 'POST':
-        print 'update_profile'
         args = request.form.to_dict()
-        print args
         for arg, value in args.items():
             setattr(current_user, arg, value)
         db.session.commit()
