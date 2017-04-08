@@ -23,6 +23,7 @@ from app.service.models import Dealer
 from app.garage.models import Car, Recall, ServiceBulletin
 from app.auth.models import SocialConnection
 
+
 admin = Admin(app, 'Admin', template_mode='bootstrap3')
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Dealer, db.session))

@@ -137,7 +137,7 @@ def update_car(car_id):
         for arg, value in args.items():
             setattr(car, arg, value)
         db.session.commit()
-        return redirect(url_for('.car_details', id=car_id))
+        return redirect(url_for('.car_details', car_id=car_id))
 
 
 @garage_module.route('/models', methods=['GET'])

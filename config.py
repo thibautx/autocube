@@ -3,6 +3,7 @@ import os
 DEBUG = True
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
+
 # SQLALCHEMY_DATABASE_URI = "postgresql://postgres:asdffdsa@localhost:5432/autocube"
 SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -28,7 +29,7 @@ BABEL_DEFAULT_TIMEZONE = "UTC"
 
 # Flask-Mail
 # http://pythonhosted.org/Flask-Mail/
-SERVER_EMAIL = 'Flask-SocialBlueprint <support@example.com>'
+SERVER_EMAIL = 'Autocube <mail@autocube.com>'
 
 # Flask-SocialBlueprint
 # https://github.com/wooyek/flask-social-blueprint

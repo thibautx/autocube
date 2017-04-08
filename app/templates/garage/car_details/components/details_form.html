@@ -1,66 +1,83 @@
 {% macro body() %}
-<div class="tab-pane active" role="tabpanel" id="tab-details">
-	<div class="align-left">
-	<form class="form-horizontal" action="{{ url_for('.update_car', car_id=car.id) }}" method="post">
-		<fieldset>
-		<!-- Current Mileage -->
-		<div class="form-group">
-			<label class="col-md-4 control-label" for="current_mileage">Current Mileage</label>
-			<div class="col-md-4">
-			<input id="current_mileage" name="current_mileage" type="text"
-				 {% if car.current_mileage is not none %}
-				 value="{{ car.current_mileage }}"
-				 {% endif %}
-				 placeholder="Current mileage on this car"
-				 class="form-control input-md">
-			</div>
-		</div>
+	<div class="tab-pane active" role="tabpanel" id="tab-details">
+		<div class="align-left">
+			<form class="form-horizontal" action="{{ url_for('.update_car', car_id=car.id) }}" method="post">
+				<fieldset>
 
-		<!-- VIN -->
-		<div class="form-group">
-			<label class="col-md-4 control-label" for="vin">VIN</label>
-			<div class="col-md-4">
-			<input id="vin" name="vin" type="text"
-				 {% if car.vin is not none %}
-				 value="{{ car.vin }}"
-				 {% endif %}
-				 placeholder="Vin on this car"
-				 class="form-control input-md">
-			</div>
-		</div>
+					<!-- Current Mileage -->
+					<div class="form-group is-empty has-feedback">
+						<label class="col-md-4 control-label" for="current_mileage">Current Mileage</label>
+						<div class="col-md-4">
+							<input id="current_mileage" name="current_mileage" type="number" min="1" max="999999"
+									{% if car.current_mileage is not none %}
+										 value="{{ car.current_mileage }}"
+									{% else %}
+										 value="0"
+									{% endif %}
+										 placeholder="Current mileage on this car"
+										 class="form-control input-md">
+							<span class="material-input"></span>
+							<div class="help-block with-errors"></div>
+						</div>
+					</div>
 
-		<!-- Transmission Type -->
-		<div class="form-group">
-			<label class="col-md-4 control-label" for="transmission_type">What is your transmission type?</label>
-			<div class="col-md-4">
-				<select id="transmission_type" name="transmission_type" class="form-control">
-					<option value="automatic">Automatic</option>
-					<option value="manual">Manual</option>
-				</select>
-			</div>
-		</div>
+					{#					<div class="form-group is-empty has-feedback">#}
+					{#						<input type="password" data-minlength="6" name="password" placeholder="Password" class="form-control" required>#}
+					{#						<span class="material-input"></span>#}
+					{#						<div class="help-block with-errors"></div>#}
 
-		<!-- Oil Type-->
-		<div class="form-group">
-			<label class="col-md-4 control-label" for="oil_type">What type of engine oil do you use?</label>
-			<div class="col-md-4">
-				<select id="oil_type" name="oil_type" class="form-control">
-					<option value="1">Regular</option>
-					<option value="2">Synthetic</option>
-					<option value="3">I don't know</option>
-				</select>
-			</div>
-		</div>
+					<!-- VIN -->
+					<div class="form-group is-empty has-feedback">
+						<label class="col-md-4 control-label" for="vin">VIN</label>
+						<div class="col-md-4">
+							<input id="vin" name="vin" type="text" pattern=".{17}" required title="VIN must be 17 characters long."
+									{% if car.vin is not none %}
+										 value="{{ car.vin }}"
+									{% endif %}
+										 placeholder="Vin on this car"
+										 class="form-control input-md">
+						</div>
+					<span class="material-input"></span>
+					<div class="help-block with-errors"></div>
+					</div>
 
-		<!-- Button -->
-		<div class="form-group">
-			<label class="col-md-4 control-label" for="car-details-save"></label>
-			<div class="col-md-4">
-				<button id="car-details-save" class="btn btn-default" type="submit">Save</button>
-			</div>
+					<!-- Transmission Type -->
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="transmission_type">What is your transmission type?</label>
+						<div class="col-md-4">
+							<select id="transmission_type" name="transmission_type" class="form-control">
+								<option value="automatic">Automatic</option>
+								<option value="manual">Manual</option>
+							</select>
+						</div>
+					</div>
+
+					<!-- Oil Type-->
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="oil_type">What type of engine oil do you use?</label>
+						<div class="col-md-4">
+							<select id="oil_type" name="oil_type" class="form-control">
+								<option value="1">Regular</option>
+								<option value="2">Synthetic</option>
+								<option value="3">I don't know</option>
+							</select>
+						</div>
+					</div>
+
+					<!-- Button -->
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="car-details-save"></label>
+						<div class="col-md-4">
+							<button id="car-details-save" class="btn btn-default" type="submit">Save</button>
+						</div>
+					</div>
+				</fieldset>
+			</form>
 		</div>
-		</fieldset>
-	</form>
 	</div>
-</div>
+
+	{% block scripts %}
+		<script type="text/javascript" src="{{ url_for('static', filename='js/validator.min.js') }}" defer></script>
+
+	{% endblock %}
 {% endmacro %}
