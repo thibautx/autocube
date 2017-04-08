@@ -28,15 +28,13 @@
     <!-- Service Car Modal -->
     <div class="modal-body container-fluid">
       <form name="find-dealer" action="{{ url_for('_service.service_car', car_id=car.id) }}" method=post>
-
 	      <div class="form-group">
           <label class="col-md-4 control-label" for="zip">Zip Code</label>
           <input id="zip" name="zip" type="number" min="10000" max="99999"{% if current_user.zip_code is defined %} value="{{ current_user.zip_code }}"{% endif %}placeholder="Your zip code" class="form-control input-md">
         </div>
-
         <div class="form-group">
-          <label class="col-md-4 control-label" for="zip">Within distance</label>
-			    <select id="selectbasic" name="selectbasic" class="form-control">
+          <label for="select-distance" class="col-md-4 control-label">Within distance</label>
+					<select id="select-distance" name="distance" class="form-control">
 			      <option value="1">1</option>
 			      <option value="5">5</option>
 			      <option value="10">10</option>
@@ -48,7 +46,6 @@
 						<option value="250">250</option>
 			    </select>
         </div>
-
         <div class="form-group">
           <button type="submit" class="btn btn-default tn-md">Find dealers</button>
         </div>
