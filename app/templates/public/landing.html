@@ -82,24 +82,24 @@
 								Connect with customers and service their cars.
 							</h4>
 							<!-- Contact Form -->
-							<form class="contact-form">
+							<form class="contact-form" action="{{ url_for('.contact_email') }}" method="post">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group label-floating">
 											<label class="control-label">Your Name</label>
-											<input type="email" class="form-control">
+											<input type="text" class="form-control" name="name">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group label-floating">
 											<label class="control-label">Your Email</label>
-											<input type="email" class="form-control">
+											<input type="email" class="form-control" name="email">
 										</div>
 									</div>
 								</div>
 								<div class="form-group label-floating">
 									<label class="control-label">Your Message</label>
-									<textarea class="form-control" rows="4"></textarea>
+									<textarea class="form-control" rows="4" name="message"></textarea>
 								</div>
 								<div class="row">
 									<div class="col-md-4 col-md-offset-4 text-center">

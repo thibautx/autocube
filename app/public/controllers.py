@@ -1,11 +1,14 @@
+import json
+
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import current_user, login_user
-from app import db
+from flask_mail import Message
+from config import CONTACT_EMAIL
+from app import app, db, mail
+from app.garage.edmunds import get_makes
 from app.profile.models import User
 from app.service.models import Dealer
 from app.service.timekit import on_new_dealer
-from app.garage.edmunds import get_makes
-import json
 
 public_module = Blueprint('public', __name__)
 
@@ -58,8 +61,8 @@ def register_by_email():
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('security.login'))
-    # else:
-    #     return render_template('security/register_user.html')
+        # else:
+        #     return render_template('security/register_user.html')
 
 
 @public_module.route('/register-dealer', methods=['GET', 'POST'])
@@ -74,8 +77,8 @@ def register_dealer():
         password = request.form['password']
         _zip = request.form['zip']
         makes_serviced = json.dumps({
-            make : 1 for make in request.form.getlist('makes')
-        })
+                                        make : 1 for make in request.form.getlist('makes')
+                                        })
         website = request.form['website']
         phone = request.form['phone']
 
@@ -106,9 +109,8 @@ def register_dealer():
         return render_template('public/register_dealer/register_dealer.html', makes=makes)
 
 
-@public_module.route('/login-dealer',methods=['GET','POST'])
+@public_module.route('/login-dealer', methods=['GET','POST'])
 def login_dealer():
-
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
@@ -120,3 +122,16 @@ def login_dealer():
 
     else:
         return render_template('security/login_dealer.html')
+
+@public_module.route('/contact', methods=['POST'])
+def contact_email():
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        message = request.form['message']
+        subject = "Contact from {} ({})".format(name, email)
+        msg = Message(subject=subject, sender=CONTACT_EMAIL, recipients=[CONTACT_EMAIL])
+        msg.body = message
+        mail.send(msg)
+    else:
+        return render_template('public/landing.html')

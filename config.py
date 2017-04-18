@@ -4,8 +4,8 @@ DEBUG = True
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 
-# SQLALCHEMY_DATABASE_URI = "postgresql://postgres:asdffdsa@localhost:5432/autocube"
-SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+SQLALCHEMY_DATABASE_URI = "postgresql://postgres:asdffdsa@localhost:5432/autocube"
+# SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 DATABASE_CONNECT_OPTIONS = {}
 THREADS_PER_PAGE = 2
@@ -30,6 +30,13 @@ BABEL_DEFAULT_TIMEZONE = "UTC"
 # Flask-Mail
 # http://pythonhosted.org/Flask-Mail/
 SERVER_EMAIL = 'Autocube <mail@autocube.com>'
+CONTACT_EMAIL = 'thibaut.xiong@gmail.com'
+MAIL_SERVER = 'smtp.googlemail.com'
+MAIL_PORT = 465
+MAIL_USE_TLS = False
+MAIL_USE_SSL = True
+MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 
 # Flask-SocialBlueprint
 # https://github.com/wooyek/flask-social-blueprint

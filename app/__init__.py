@@ -1,3 +1,4 @@
+from flask_mail import Mail
 from flask import Flask
 from flask_admin import Admin
 from flask_bcrypt import Bcrypt
@@ -11,6 +12,7 @@ bcrypt = Bcrypt(app)
 # Configurations
 app.config.from_object('config')
 db = SQLAlchemy(app)
+mail = Mail(app)
 
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
