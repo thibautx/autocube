@@ -30,7 +30,7 @@
       <form name="find-dealer" action="{{ url_for('_service.service_car', car_id=car.id) }}" method=post>
 	      <div class="form-group">
           <label class="col-md-4 control-label" for="zip">Zip Code</label>
-          <input id="zip" name="zip" type="number" min="10000" max="99999"{% if current_user.zip_code is defined %} value="{{ current_user.zip_code }}"{% endif %}placeholder="Your zip code" class="form-control input-md">
+          <input required id="zip" name="zip" type="number"  max="99999"{% if current_user.zip_code is defined %} value="{{ current_user.zip_code }}"{% endif %}placeholder="Your zip code" class="form-control input-md">
         </div>
         <div class="form-group">
           <label for="select-distance" class="col-md-4 control-label">Within distance</label>
