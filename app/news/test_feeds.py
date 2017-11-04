@@ -1,18 +1,19 @@
 import pprint
 import unittest
+import feeds
 
 pp = pprint.PrettyPrinter(indent=4)
 
 class TestFeeds(unittest.TestCase):
 
     def test_autoblog_feed(self):
-        feed = sadf.autoblog_feed()
+        feed = feeds.autoblog.autoblog_feed()
         # pp.pprint(feed)
         # soup = BeautifulSoup(feed[0]['summary'], 'html.parser')
         # print soup.text
 
 
-    def test_autoblog_make_feed(self):
+    def feeds(self):
         feed = sadf.autoblog_make_feed('Honda')
         pp.pprint(feed)
 

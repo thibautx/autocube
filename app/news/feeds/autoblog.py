@@ -5,6 +5,7 @@ from utils import published_parsed_to_datetime
 
 
 def feed(make=None):
+    print 'autoblog feed'
     if make is not None:
         return make_feed(make)
     else:
@@ -13,7 +14,8 @@ def feed(make=None):
 
 
 def make_feed(make):
-    url = 'http://www.autoblog.com/category/{}/rss.xml'.format(make)
+    url = 'http://www.autoblog.com/category/{}/rss.xml'.format(make.lower())
+    print url
     return parse_feed(url)
 
 

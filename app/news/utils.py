@@ -48,7 +48,6 @@ def get_all_news(user_feeds):
     :return:
     """
 
-    print 'getting all news'
     news_items = []
     for feed, val in user_feeds.items():
         if val == 1:
@@ -90,9 +89,12 @@ def get_make_news(user_feeds, make):
         if val == 1:
             try:
                 news_items += f[feed](make=make)
-            except:
+                print news_items
+            except Exception as e:
+                print repr(e)
                 pass
 
+    print 'get_make_news, items: ', news_items
     return news_items
 
 
